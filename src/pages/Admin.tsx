@@ -14,6 +14,11 @@ export default function Admin() {
   const [activeTab, setActiveTab] = useState("orders");
   const [items, setItems] = useState<any[]>([]);
   
+  // Edit item state
+  const [editingItem, setEditingItem] = useState<any>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editSubtitle, setEditSubtitle] = useState("");
+  
   // Add item form state
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItemTitle, setNewItemTitle] = useState("");
@@ -46,14 +51,15 @@ export default function Admin() {
   const fetchData = async (tab: string) => {
     setLoading(true);
     setShowAddForm(false);
+    setEditingItem(null);
     try {
       let data = [];
       if (tab === "orders") data = await sql`SELECT id, email as title, continent as subtitle, items as details, total_price as extra, status FROM orders ORDER BY id DESC`;
       else if (tab === "subscriptions") data = await sql`SELECT id, email as title, continent as subtitle, status FROM subscriptions ORDER BY id DESC`;
-      else if (tab === "b2b") data = await sql`SELECT id, name as title, supplier as subtitle FROM b2b_products ORDER BY id DESC LIMIT 20`;
-      else if (tab === "academy") data = await sql`SELECT id, title, source as subtitle FROM academy_courses ORDER BY id DESC LIMIT 20`;
-      else if (tab === "marketplace") data = await sql`SELECT id, title, creator as subtitle FROM marketplace_items ORDER BY id DESC LIMIT 20`;
-      else if (tab === "investments") data = await sql`SELECT id, project_name as title, founder as subtitle FROM investments ORDER BY id DESC LIMIT 20`;
+      else if (tab === "b2b") data = await sql`SELECT id, name as title, supplier as subtitle FROM b2b_products ORDER BY id DESC LIMIT 50`;
+      else if (tab === "academy") data = await sql`SELECT id, title, source as subtitle FROM academy_courses ORDER BY id DESC LIMIT 50`;
+      else if (tab === "marketplace") data = await sql`SELECT id, title, creator as subtitle FROM marketplace_items ORDER BY id DESC LIMIT 50`;
+      else if (tab === "investments") data = await sql`SELECT id, project_name as title, founder as subtitle FROM investments ORDER BY id DESC LIMIT 50`;
       setItems(data);
     } catch (err) {
       console.error(err);
@@ -63,6 +69,7 @@ export default function Admin() {
   };
 
   const handleDelete = async (id: number) => {
+    if (!confirm("Voulez-vous vraiment supprimer cet élément ?")) return;
     try {
       if (activeTab === "b2b") await sql`DELETE FROM b2b_products WHERE id = ${id}`;
       else if (activeTab === "academy") await sql`DELETE FROM academy_courses WHERE id = ${id}`;
@@ -104,6 +111,31 @@ export default function Admin() {
     } catch(e: any) {
         toast.error("Erreur lors de l'ajout: " + e.message);
     }
+  };
+
+  const startEdit = (item: any) => {
+    setEditingItem(item);
+    setEditTitle(item.title);
+    setEditSubtitle(item.subtitle);
+    setShowAddForm(false);
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
+      e.preventDefault();
+      try {
+          if (activeTab === "b2b") await sql`UPDATE b2b_products SET name = ${editTitle}, supplier = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          else if (activeTab === "academy") await sql`UPDATE academy_courses SET title = ${editTitle}, source = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          else if (activeTab === "marketplace") await sql`UPDATE marketplace_items SET title = ${editTitle}, creator = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          else if (activeTab === "investments") await sql`UPDATE investments SET project_name = ${editTitle}, founder = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          else if (activeTab === "orders") await sql`UPDATE orders SET email = ${editTitle}, continent = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          else if (activeTab === "subscriptions") await sql`UPDATE subscriptions SET email = ${editTitle}, continent = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          
+          toast.success("Mise à jour réussie dans Neon DB !");
+          setEditingItem(null);
+          fetchData(activeTab);
+      } catch (e: any) {
+          toast.error("Erreur lors de la mise à jour: " + e.message);
+      }
   };
 
   if (!isAuthenticated) {
@@ -153,7 +185,7 @@ export default function Admin() {
           <div className="glass-card p-8 rounded-2xl border border-border">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-display font-semibold uppercase flex items-center gap-2">Gestion : {activeTab}</h2>
-                {canAdd && !showAddForm && (
+                {canAdd && !showAddForm && !editingItem && (
                     <Button onClick={() => setShowAddForm(true)} className="bg-primary hover:bg-primary/90 gap-2"><Plus size={16}/> Ajouter un produit</Button>
                 )}
             </div>
@@ -163,12 +195,32 @@ export default function Admin() {
                     <Button variant="ghost" size="icon" type="button" className="absolute top-2 right-2 text-muted-foreground" onClick={() => setShowAddForm(false)}>
                         <X size={16}/>
                     </Button>
-                    <h3 className="font-bold text-lg">Nouveau Produit / Élément</h3>
+                    <h3 className="font-bold text-lg text-primary">Nouveau Produit / Élément</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Input placeholder="Titre / Nom de l'élément" value={newItemTitle} onChange={e => setNewItemTitle(e.target.value)} required />
                         <Input placeholder="Fournisseur / Créateur / Source" value={newItemSubtitle} onChange={e => setNewItemSubtitle(e.target.value)} />
                     </div>
                     <Button type="submit" className="bg-green-500 hover:bg-green-600 self-end px-8 text-white">Sauvegarder dans Neon DB</Button>
+                </form>
+            )}
+
+            {editingItem && (
+                <form onSubmit={handleUpdate} className="bg-primary/10 p-6 rounded-xl border border-primary/40 mb-6 flex flex-col gap-4 relative animate-in fade-in slide-in-from-top-4">
+                    <Button variant="ghost" size="icon" type="button" className="absolute top-2 right-2 text-muted-foreground" onClick={() => setEditingItem(null)}>
+                        <X size={16}/>
+                    </Button>
+                    <h3 className="font-bold text-lg text-gradient-gold">Modifier l'Élément (ID: {editingItem.id})</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <label className="text-xs text-muted-foreground ml-1">Titre Principal</label>
+                            <Input placeholder="Modifier le titre" value={editTitle} onChange={e => setEditTitle(e.target.value)} required />
+                        </div>
+                        <div className="space-y-1">
+                            <label className="text-xs text-muted-foreground ml-1">Sous-titre / Info</label>
+                            <Input placeholder="Modifier les infos" value={editSubtitle} onChange={e => setEditSubtitle(e.target.value)} />
+                        </div>
+                    </div>
+                    <Button type="submit" className="bg-primary hover:bg-primary/90 self-end px-8 text-white">Appliquer les modifications</Button>
                 </form>
             )}
 
@@ -187,6 +239,7 @@ export default function Admin() {
                         {activeTab === "subscriptions" && item.status !== 'Actif' && (
                             <Button size="sm" onClick={() => handleValidateSub(item.id)} className="bg-green-500 hover:bg-green-600 text-white"><Check size={14} /></Button>
                         )}
+                        <Button variant="outline" size="sm" className="text-primary hover:bg-primary/10 border-primary/20" onClick={() => startEdit(item)}><Plus className="rotate-45" size={14} /> Modifier</Button>
                         <Button variant="outline" size="sm" className="text-destructive hover:bg-destructive hover:text-white" onClick={() => handleDelete(item.id)}><Trash size={14} /></Button>
                       </div>
                     </div>
