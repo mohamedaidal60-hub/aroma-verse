@@ -44,7 +44,7 @@ const Academy = () => {
     setChemData(null);
     try {
       const response = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(chemQuery)}/property/MolecularFormula,MolecularWeight,IUPACName,CanonicalSMILES/JSON`);
-      if (!response.ok) throw new Error("Molécule non trouvée dans la base de données gouvernementale NIH PubChem.");
+      if (!response.ok) throw new Error("Introuvable");
       
       const data = await response.json();
       if (data.PropertyTable && data.PropertyTable.Properties && data.PropertyTable.Properties.length > 0) {
@@ -56,7 +56,7 @@ const Academy = () => {
       }
     } catch (err: any) {
       setChemError(err.message);
-      toast.error("Échec de la recherche PubMed");
+      toast.error("Erreur d'analyse moléculaire");
     } finally {
       setChemLoading(false);
     }
@@ -87,8 +87,8 @@ const Academy = () => {
               </div>
               <div className="relative z-10 flex flex-col md:flex-row gap-6">
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold flex items-center gap-2 mb-2"><Beaker className="text-primary"/> Laboratoire PubChem (API Live)</h2>
-                  <p className="text-muted-foreground mb-6 text-sm">Interrogez directement et gratuitement la plus grande base de données de chimie au monde (NIH U.S.) pour analyser vos molécules odorantes (ex: <i>Linalool, Coumarin, Vanillin, Geraniol</i>).</p>
+                  <h2 className="text-2xl font-bold flex items-center gap-2 mb-2"><Beaker className="text-primary"/> AromaVerse Laboratoire Moléculaire</h2>
+                  <p className="text-muted-foreground mb-6 text-sm">Interrogez notre base de données scientifique pour analyser vos molécules odorantes (ex: <i>Linalool, Coumarin, Vanillin, Geraniol</i>).</p>
                   
                   <form onSubmit={handlePubChemSearch} className="flex items-center gap-2 mb-4">
                     <Input placeholder="Nom de la molécule (en anglais)..." value={chemQuery} onChange={e => setChemQuery(e.target.value)} className="bg-secondary/50 border-primary/20 flex-1" />
@@ -97,7 +97,7 @@ const Academy = () => {
                     </Button>
                   </form>
 
-                  {chemError && <div className="text-destructive flex items-center gap-2 text-sm bg-destructive/10 p-3 rounded-lg"><AlertCircle size={16}/> {chemError}</div>}
+                  {chemError && <div className="text-destructive flex items-center gap-2 text-sm bg-destructive/10 p-3 rounded-lg"><AlertCircle size={16}/> Molécule introuvable dans nos bases de données.</div>}
                 </div>
 
                 {chemData && (

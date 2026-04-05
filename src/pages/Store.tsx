@@ -104,18 +104,18 @@ const Store = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-60 pointer-events-none mt-20">
                 <div className="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
                     <StoreIcon size={32} className="mb-4 text-muted-foreground" />
-                    <h3 className="font-bold mb-2">Connecté aux APIs mondiales</h3>
-                    <p className="text-sm text-muted-foreground">Une seule recherche interroge la totalité du catalogue d'Alibaba, TradeIndia, Europages, etc.</p>
+                    <h3 className="font-bold mb-2">Recherche Intelligente</h3>
+                    <p className="text-sm text-muted-foreground">Une seule recherche parcourt intelligemment les plus grands annuaires fournisseurs de l'industrie B2B.</p>
                 </div>
                 <div className="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
                     <Globe size={32} className="mb-4 text-muted-foreground" />
-                    <h3 className="font-bold mb-2">Pas de limites</h3>
-                    <p className="text-sm text-muted-foreground">Des dizaines de millions de produits et fournisseurs d'équipements parfum accessibles instantanément.</p>
+                    <h3 className="font-bold mb-2">L'Index Ultime du Parfum</h3>
+                    <p className="text-sm text-muted-foreground">Un accès direct à des millions de flacons, ingrédients, packaging et machineries pour professionnels.</p>
                 </div>
                 <div className="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
                     <Search size={32} className="mb-4 text-muted-foreground" />
-                    <h3 className="font-bold mb-2">Générez des opportunités</h3>
-                    <p className="text-sm text-muted-foreground">Ouvrez les résultats dans différents onglets pour comparer les devis grossistes du monde entier.</p>
+                    <h3 className="font-bold mb-2">Comparatif Global</h3>
+                    <p className="text-sm text-muted-foreground">Comparez instantanément les meilleures offres des grossistes du monde entier en un seul clic.</p>
                 </div>
             </div>
           )}

@@ -40,19 +40,21 @@ export default function Community() {
               </div>
             </div>
 
-            <div className="glass-card p-8 rounded-2xl border-primary/20 hover:border-primary/50 transition-colors cursor-pointer group bg-primary/5">
-              <div className="w-16 h-16 bg-gradient-gold shadow-gold rounded-full flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform relative">
-                <MapPin size={32} />
-              </div>
-              <h2 className="text-2xl font-bold mb-2">Canal {continent}</h2>
-              <p className="text-muted-foreground mb-6">Un réseau exclusif détecté selon votre position. Idéal pour partager des données sur les fournisseurs locaux, régulations régionales (IFRA) et logistique proche.</p>
-              <div className="bg-secondary p-4 rounded-xl flex items-center justify-between">
-                <div className="flex -space-x-4">
-                  {[5,6,7].map(i => <img key={i} src={`https://source.unsplash.com/100x100/?face,${i}`} className="w-10 h-10 rounded-full border-2 border-background" />)}
+            {(localStorage.getItem("adminAuth") === "true" ? ["Europe", "Afrique", "Asie", "Amérique", "Océanie"] : [continent]).map(cont => (
+              <div key={cont} className="glass-card p-8 rounded-2xl border-primary/20 hover:border-primary/50 transition-colors cursor-pointer group bg-primary/5">
+                <div className="w-16 h-16 bg-gradient-gold shadow-gold rounded-full flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform relative">
+                  <MapPin size={32} />
                 </div>
-                <span className="text-sm font-bold text-primary">Connecter ({continent})</span>
+                <h2 className="text-2xl font-bold mb-2">Canal {cont}</h2>
+                <p className="text-muted-foreground mb-6">Réseau exclusif détecté selon la position. Partagez des données sur les fournisseurs locaux, régulations et logistique proche.</p>
+                <div className="bg-secondary p-4 rounded-xl flex items-center justify-between">
+                  <div className="flex -space-x-4">
+                    {[5,6,7].map(i => <img key={i} src={`https://source.unsplash.com/100x100/?face,${i}`} className="w-10 h-10 rounded-full border-2 border-background" />)}
+                  </div>
+                  <span className="text-sm font-bold text-primary">Connecter ({cont})</span>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </main>

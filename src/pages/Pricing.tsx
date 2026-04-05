@@ -42,7 +42,14 @@ export default function Pricing() {
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-16">
             <h1 className="text-4xl font-display font-bold mb-4">Plans et <span className="text-gradient-gold">Abonnements</span></h1>
-            <p className="text-muted-foreground text-lg mb-2">Les tarifs professionnels s'adaptent équitablement à votre région : <strong className="text-primary">{continent}</strong></p>
+            {localStorage.getItem("adminAuth") === "true" ? (
+                <div className="bg-primary/10 border border-primary text-primary p-4 rounded-xl max-w-2xl mx-auto mb-4">
+                    <strong>Vue Admin:</strong> Les prix sont dynamiques selon l'IP : Afrique (10€), Asie/AmS (20€), Europe/AmN/Océanie (30€).<br/>
+                    Le client voit actuellement l'offre pour : <strong className="text-foreground">{continent}</strong>
+                </div>
+            ) : (
+                <p className="text-muted-foreground text-lg mb-2">Les tarifs professionnels s'adaptent équitablement à votre région : <strong className="text-primary">{continent}</strong></p>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
