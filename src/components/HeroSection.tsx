@@ -28,11 +28,11 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <Button size="lg" className="bg-gradient-gold font-semibold shadow-gold text-base px-8">
+            <Button size="lg" className="bg-gradient-gold font-semibold shadow-gold text-base px-8" onClick={() => window.location.href = "/marketplace"}>
               Explorer la marketplace
               <ArrowRight className="ml-2" size={18} />
             </Button>
-            <Button size="lg" variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10 text-base">
+            <Button size="lg" variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10 text-base" onClick={() => window.location.href = "/studio"}>
               Créer un parfum
             </Button>
           </div>

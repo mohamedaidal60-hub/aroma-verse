@@ -15,11 +15,11 @@ const CTASection = () => {
               Que vous soyez parfumeur, fournisseur, agriculteur ou investisseur — votre place est ici.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" className="bg-gradient-gold font-semibold shadow-gold text-base px-8">
+              <Button size="lg" className="bg-gradient-gold font-semibold shadow-gold text-base px-8" onClick={() => window.location.href = "/auth"}>
                 Créer un compte gratuit
                 <ArrowRight className="ml-2" size={18} />
               </Button>
-              <Button size="lg" variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10 text-base">
+              <Button size="lg" variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10 text-base" onClick={() => window.location.href = "/pricing"}>
                 En savoir plus
               </Button>
             </div>

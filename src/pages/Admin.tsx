@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { sql } from "@/lib/neon";
-import { Shield, Database, Users, Settings, Activity, Trash, Check, UserCheck, ShoppingBag } from "lucide-react";
+import { Shield, Database, Users, Settings, Activity, Trash, Check, UserCheck, ShoppingBag, Plus, X } from "lucide-react";
 
 export default function Admin() {
   const [email, setEmail] = useState("");
@@ -13,6 +13,11 @@ export default function Admin() {
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("orders");
   const [items, setItems] = useState<any[]>([]);
+  
+  // Add item form state
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newItemTitle, setNewItemTitle] = useState("");
+  const [newItemSubtitle, setNewItemSubtitle] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("adminAuth") === "true") {
@@ -40,14 +45,15 @@ export default function Admin() {
 
   const fetchData = async (tab: string) => {
     setLoading(true);
+    setShowAddForm(false);
     try {
       let data = [];
       if (tab === "orders") data = await sql`SELECT id, email as title, continent as subtitle, items as details, total_price as extra, status FROM orders ORDER BY id DESC`;
-      if (tab === "subscriptions") data = await sql`SELECT id, email as title, continent as subtitle, status FROM subscriptions ORDER BY id DESC`;
-      if (tab === "b2b") data = await sql`SELECT id, name as title, supplier as subtitle FROM b2b_products ORDER BY id DESC LIMIT 20`;
-      if (tab === "academy") data = await sql`SELECT id, title, source as subtitle FROM academy_courses ORDER BY id DESC LIMIT 20`;
-      if (tab === "marketplace") data = await sql`SELECT id, title, creator as subtitle FROM marketplace_items ORDER BY id DESC LIMIT 20`;
-      if (tab === "investments") data = await sql`SELECT id, project_name as title, founder as subtitle FROM investments ORDER BY id DESC LIMIT 20`;
+      else if (tab === "subscriptions") data = await sql`SELECT id, email as title, continent as subtitle, status FROM subscriptions ORDER BY id DESC`;
+      else if (tab === "b2b") data = await sql`SELECT id, name as title, supplier as subtitle FROM b2b_products ORDER BY id DESC LIMIT 20`;
+      else if (tab === "academy") data = await sql`SELECT id, title, source as subtitle FROM academy_courses ORDER BY id DESC LIMIT 20`;
+      else if (tab === "marketplace") data = await sql`SELECT id, title, creator as subtitle FROM marketplace_items ORDER BY id DESC LIMIT 20`;
+      else if (tab === "investments") data = await sql`SELECT id, project_name as title, founder as subtitle FROM investments ORDER BY id DESC LIMIT 20`;
       setItems(data);
     } catch (err) {
       console.error(err);
@@ -59,15 +65,15 @@ export default function Admin() {
   const handleDelete = async (id: number) => {
     try {
       if (activeTab === "b2b") await sql`DELETE FROM b2b_products WHERE id = ${id}`;
-      if (activeTab === "academy") await sql`DELETE FROM academy_courses WHERE id = ${id}`;
-      if (activeTab === "marketplace") await sql`DELETE FROM marketplace_items WHERE id = ${id}`;
-      if (activeTab === "investments") await sql`DELETE FROM investments WHERE id = ${id}`;
-      if (activeTab === "orders") await sql`DELETE FROM orders WHERE id = ${id}`;
-      if (activeTab === "subscriptions") await sql`DELETE FROM subscriptions WHERE id = ${id}`;
-      toast.success(`Élément ${id} supprimé de la base de données.`);
-      setItems(items.filter(i => i.id !== id));
+      else if (activeTab === "academy") await sql`DELETE FROM academy_courses WHERE id = ${id}`;
+      else if (activeTab === "marketplace") await sql`DELETE FROM marketplace_items WHERE id = ${id}`;
+      else if (activeTab === "investments") await sql`DELETE FROM investments WHERE id = ${id}`;
+      else if (activeTab === "orders") await sql`DELETE FROM orders WHERE id = ${id}`;
+      else if (activeTab === "subscriptions") await sql`DELETE FROM subscriptions WHERE id = ${id}`;
+      toast.success(`Élément ${id} supprimé.`);
+      fetchData(activeTab);
     } catch (e: any) {
-      toast.error("Delete error: " + e.message);
+      toast.error("Erreur de suppression: " + e.message);
     }
   };
 
@@ -78,6 +84,25 @@ export default function Admin() {
         fetchData(activeTab);
     } catch (e: any) {
         toast.error("Valid error: " + e.message);
+    }
+  };
+
+  const handleAddItem = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newItemTitle) return toast.error("Le titre est requis.");
+    try {
+        if (activeTab === "b2b") await sql`INSERT INTO b2b_products (name, supplier, price_per_unit, unit, category, origin) VALUES (${newItemTitle}, ${newItemSubtitle || 'Générique'}, 0, 'pc', 'Divers', 'Global')`;
+        else if (activeTab === "academy") await sql`INSERT INTO academy_courses (title, source, content, estimated_time) VALUES (${newItemTitle}, ${newItemSubtitle || 'Interne'}, 'Nouveau cours ajouté par l\'administrateur.', '5 min')`;
+        else if (activeTab === "marketplace") await sql`INSERT INTO marketplace_items (title, creator, description, price, category) VALUES (${newItemTitle}, ${newItemSubtitle || 'Admin'}, 'Description non définie.', 0, 'Divers')`;
+        else if (activeTab === "investments") await sql`INSERT INTO investments (project_name, founder, description, goal_amount, current_amount, roi_percentage) VALUES (${newItemTitle}, ${newItemSubtitle || 'N/A'}, 'Nouveau projet.', 100000, 0, 10)`;
+        
+        toast.success("L'élément a été correctement ajouté à votre base de données Neon !");
+        setNewItemTitle("");
+        setNewItemSubtitle("");
+        setShowAddForm(false);
+        fetchData(activeTab);
+    } catch(e: any) {
+        toast.error("Erreur lors de l'ajout: " + e.message);
     }
   };
 
@@ -96,6 +121,8 @@ export default function Admin() {
       </div>
     );
   }
+
+  const canAdd = ["b2b", "academy", "marketplace", "investments"].includes(activeTab);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -124,7 +151,27 @@ export default function Admin() {
           </div>
 
           <div className="glass-card p-8 rounded-2xl border border-border">
-            <h2 className="text-2xl font-display font-semibold uppercase mb-6 flex items-center gap-2">Gestion : {activeTab}</h2>
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-display font-semibold uppercase flex items-center gap-2">Gestion : {activeTab}</h2>
+                {canAdd && !showAddForm && (
+                    <Button onClick={() => setShowAddForm(true)} className="bg-primary hover:bg-primary/90 gap-2"><Plus size={16}/> Ajouter un produit</Button>
+                )}
+            </div>
+
+            {showAddForm && (
+                <form onSubmit={handleAddItem} className="bg-secondary/30 p-6 rounded-xl border border-primary/20 mb-6 flex flex-col gap-4 relative animate-in fade-in slide-in-from-top-4">
+                    <Button variant="ghost" size="icon" type="button" className="absolute top-2 right-2 text-muted-foreground" onClick={() => setShowAddForm(false)}>
+                        <X size={16}/>
+                    </Button>
+                    <h3 className="font-bold text-lg">Nouveau Produit / Élément</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input placeholder="Titre / Nom de l'élément" value={newItemTitle} onChange={e => setNewItemTitle(e.target.value)} required />
+                        <Input placeholder="Fournisseur / Créateur / Source" value={newItemSubtitle} onChange={e => setNewItemSubtitle(e.target.value)} />
+                    </div>
+                    <Button type="submit" className="bg-green-500 hover:bg-green-600 self-end px-8 text-white">Sauvegarder dans Neon DB</Button>
+                </form>
+            )}
+
             {loading ? <p className="text-muted-foreground">Chargement sécurisé depuis Neon DB...</p> : (
               <div className="space-y-4">
                 {items.length === 0 ? <p className="text-muted-foreground">Aucune donnée trouvée.</p> : items.map(item => (
