@@ -91,7 +91,7 @@ const Academy = () => {
                   <p className="text-muted-foreground mb-6 text-sm">Interrogez notre base de données scientifique pour analyser vos molécules odorantes (ex: <i>Linalool, Coumarin, Vanillin, Geraniol</i>).</p>
                   
                   <form onSubmit={handlePubChemSearch} className="flex items-center gap-2 mb-4">
-                    <Input placeholder="Nom de la molécule (en anglais)..." value={chemQuery} onChange={e => setChemQuery(e.target.value)} className="bg-secondary/50 border-primary/20 flex-1" />
+                    <Input placeholder="Nom scientifique de la molécule obligatoirement en anglais (ex: Vanillin, Limonene)..." value={chemQuery} onChange={e => setChemQuery(e.target.value)} className="bg-secondary/50 border-primary/20 flex-1" />
                     <Button type="submit" disabled={chemLoading} className="bg-primary hover:bg-primary/90 text-primary-foreground">
                       {chemLoading ? "Analyse..." : <><Search size={16} className="mr-2" /> Analyser</>}
                     </Button>
