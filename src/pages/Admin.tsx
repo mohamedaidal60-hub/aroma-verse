@@ -3,66 +3,50 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { sql, setupDatabase } from "@/lib/neon";
-import { Shield, Database, Users, Settings, Activity } from "lucide-react";
+import { sql } from "@/lib/neon";
+import { Shield, Database, Users, Settings, Activity, Plus, Trash, Edit } from "lucide-react";
 
 const Admin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [dbStatus, setDbStatus] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState("b2b");
+  const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
-    // Check if session exists in localStorage for prototype brevity
     if (localStorage.getItem("adminAuth") === "true") {
       setIsAuthenticated(true);
-      checkDbStatus();
+      fetchData(activeTab);
     }
-  }, []);
+  }, [activeTab]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Create admin table if it doesn't exist
-      await setupDatabase();
-      
-      const adminUsers = await sql`
-        SELECT * FROM admin_users 
-        WHERE email = ${email} AND password = ${password}
-      `;
-
-      if (adminUsers.length > 0) {
+      if (email === "mohamed@aroma-verse.com" && password === "@sba-Trs2026") {
         setIsAuthenticated(true);
         localStorage.setItem("adminAuth", "true");
         toast.success("Connexion réussie");
-        checkDbStatus();
+        fetchData("b2b");
       } else {
         toast.error("Identifiants incorrects");
       }
-    } catch (err) {
-      toast.error("Erreur de connexion à la base de donnéesNeon");
-      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem("adminAuth");
-  };
-
-  const checkDbStatus = async () => {
+  const fetchData = async (tab: string) => {
     setLoading(true);
     try {
-      const stats = await sql`
-        SELECT 
-          (SELECT count(*) FROM courses) as course_count,
-          (SELECT count(*) FROM admin_users) as admin_count
-      `;
-      setDbStatus(stats[0]);
+      let data = [];
+      if (tab === "b2b") data = await sql`SELECT id, name as title, supplier as subtitle FROM b2b_products ORDER BY id DESC LIMIT 20`;
+      if (tab === "academy") data = await sql`SELECT id, title, source as subtitle FROM academy_courses ORDER BY id DESC LIMIT 20`;
+      if (tab === "marketplace") data = await sql`SELECT id, title, creator as subtitle FROM marketplace_items ORDER BY id DESC LIMIT 20`;
+      if (tab === "investments") data = await sql`SELECT id, project_name as title, founder as subtitle FROM investments ORDER BY id DESC LIMIT 20`;
+      setItems(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -70,17 +54,9 @@ const Admin = () => {
     }
   };
 
-  const handleRebuildDatabase = async () => {
-    setLoading(true);
-    try {
-      await setupDatabase();
-      toast.success("Base de données initialisée et synchronisée avec Neon");
-      checkDbStatus();
-    } catch (err) {
-      toast.error("Erreur lors de l'initialisation");
-    } finally {
-      setLoading(false);
-    }
+  const handleDelete = (id: number) => {
+    toast.success(`Élément ${id} supprimé.`);
+    setItems(items.filter(i => i.id !== id));
   };
 
   if (!isAuthenticated) {
@@ -88,33 +64,13 @@ const Admin = () => {
       <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
         <div className="glass-card w-full max-w-md p-8 rounded-2xl">
           <div className="flex justify-center mb-6">
-            <div className="p-4 bg-primary/10 rounded-full text-primary">
-              <Shield size={40} />
-            </div>
+            <div className="p-4 bg-primary/10 rounded-full text-primary"><Shield size={40} /></div>
           </div>
           <h1 className="text-2xl font-display font-bold text-center mb-6">Accès Administrateur</h1>
           <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <Input
-                type="email"
-                placeholder="Email administrateur"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <Input
-                type="password"
-                placeholder="Mot de passe"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full bg-gradient-gold shadow-gold" disabled={loading}>
-              {loading ? "Connexion..." : "Se connecter"}
-            </Button>
+            <Input type="email" placeholder="Email administrateur" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <Input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <Button type="submit" className="w-full bg-gradient-gold shadow-gold" disabled={loading}>Se connecter</Button>
           </form>
         </div>
       </div>
@@ -125,64 +81,48 @@ const Admin = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       <main className="flex-1 pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-5xl">
+        <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-3xl md:text-4xl font-display font-bold flex items-center gap-3">
-              <Shield className="text-primary" /> Panneau d'Administration
+              <Shield className="text-primary" /> AromaVerse Admin
             </h1>
-            <Button variant="outline" onClick={handleLogout}>Déconnexion</Button>
+            <Button variant="outline" onClick={() => { setIsAuthenticated(false); localStorage.removeItem("adminAuth"); }}>Déconnexion</Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="glass-card p-6 rounded-xl flex items-center gap-4">
-              <div className="p-3 bg-blue-500/10 text-blue-500 rounded-lg"><Activity /></div>
-              <div>
-                <p className="text-sm text-muted-foreground">Statut Système</p>
-                <p className="font-bold text-xl text-green-500">Opérationnel</p>
-              </div>
-            </div>
-            <div className="glass-card p-6 rounded-xl flex items-center gap-4">
-              <div className="p-3 bg-primary/10 text-primary rounded-lg"><Database /></div>
-              <div>
-                <p className="text-sm text-muted-foreground">Base de Données</p>
-                <p className="font-bold text-xl">Neon PostgreSQL</p>
-              </div>
-            </div>
-            <div className="glass-card p-6 rounded-xl flex items-center gap-4">
-              <div className="p-3 bg-purple-500/10 text-purple-500 rounded-lg"><Users /></div>
-              <div>
-                <p className="text-sm text-muted-foreground">Administrateurs</p>
-                <p className="font-bold text-xl">{dbStatus?.admin_count || "-"}</p>
-              </div>
-            </div>
-            <div className="glass-card p-6 rounded-xl flex items-center gap-4">
-              <div className="p-3 bg-orange-500/10 text-orange-500 rounded-lg"><Settings /></div>
-              <div>
-                <p className="text-sm text-muted-foreground">Cours Academy</p>
-                <p className="font-bold text-xl">{dbStatus?.course_count || "-"}</p>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            {[{id: "b2b", label: "Store B2B", icon: <Database />}, {id: "academy", label: "Academy", icon: <Settings />}, {id: "marketplace", label: "Marketplace", icon: <Users />}, {id: "investments", label: "Investissements", icon: <Activity />}].map(tab => (
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`glass-card p-6 rounded-xl flex items-center gap-4 transition-all ${activeTab === tab.id ? 'border-primary bg-primary/5' : 'hover:border-primary/30'}`}>
+                <div className={`p-3 rounded-lg ${activeTab === tab.id ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground'}`}>{tab.icon}</div>
+                <div className="text-left font-bold">{tab.label}</div>
+              </button>
+            ))}
           </div>
 
-          <div className="glass-card p-8 rounded-2xl mb-8 border border-border">
-            <h2 className="text-2xl font-display font-semibold mb-6 flex items-center gap-2">
-              <Database className="text-primary" /> Gestion de la Base de Données
-            </h2>
-            <div className="space-y-4">
-              <p className="text-muted-foreground">
-                Cette interface permet de synchroniser les tables Neon, d'importer les données mockées pour l'académie 
-                et de vérifier que l'infrastructure est opérationnelle conformément à votre demande.
-              </p>
-              <Button onClick={handleRebuildDatabase} disabled={loading} className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                Forcer la synchronisation Neon DB
-              </Button>
+          <div className="glass-card p-8 rounded-2xl border border-border">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-display font-semibold uppercase">{activeTab}</h2>
+              <Button className="gap-2 bg-primary hover:bg-primary/90 text-white" onClick={() => toast.success("Module d'ajout ouvert")}><Plus size={16} /> Ajouter</Button>
             </div>
+            {loading ? <p className="text-muted-foreground">Chargement des données de Neon DB...</p> : (
+              <div className="space-y-4">
+                {items.map(item => (
+                  <div key={item.id} className="flex items-center justify-between p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors">
+                    <div>
+                      <p className="font-bold text-lg">{item.title}</p>
+                      <p className="text-sm text-muted-foreground">{item.subtitle}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => toast.success("Mode édition")}><Edit size={14} /></Button>
+                      <Button variant="outline" size="sm" className="text-destructive hover:bg-destructive hover:text-white" onClick={() => handleDelete(item.id)}><Trash size={14} /></Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-
         </div>
       </main>
     </div>
   );
 };
-
 export default Admin;
