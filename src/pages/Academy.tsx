@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { BookOpen, Database, Clock, ChevronDown, ChevronUp } from "lucide-react";
+import { BookOpen, Database, Clock, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
 import { sql } from "@/lib/neon";
 
 const Academy = () => {
@@ -42,6 +42,27 @@ const Academy = () => {
               </h1>
               <p className="text-muted-foreground mt-2 text-lg">Contenus extraits des meilleures sources (Elsevier, RIFM, Scentree, SGC).</p>
             </div>
+          </div>
+
+          <div className="flex flex-col mb-10 p-6 glass-card rounded-3xl border border-primary/20 bg-primary/5">
+              <h2 className="text-2xl font-display font-bold mb-4 flex items-center gap-2"><Database className="text-primary"/> Portails de Bases de Données</h2>
+              <p className="text-muted-foreground mb-6">Accédez instantanément et intégralement aux vastes bibliothèques scientifiques et réglementaires :</p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                      {name: "The Good Scents Company", url: "http://www.thegoodscentscompany.com/search3.php?q="},
+                      {name: "Scentree", url: "https://www.scentree.com/"},
+                      {name: "Knowde Chemicals", url: "https://www.knowde.com/search?q="},
+                      {name: "Scents and Flavors", url: "https://scentsandflavors.com/"},
+                      {name: "RIFM Database", url: "https://www.rifm.org/"},
+                      {name: "Elsevier Fragrance Safety", url: "https://fragrancematerialsafetyresource.elsevier.com/"}
+                  ].map(source => (
+                      <a key={source.name} href={source.url} target="_blank" rel="noopener noreferrer" className="p-4 bg-background rounded-xl hover:border-primary/50 transition-colors border border-border flex items-center justify-between group">
+                          <span className="font-bold">{source.name}</span>
+                          <ExternalLink size={16} className="text-muted-foreground group-hover:text-primary" />
+                      </a>
+                  ))}
+              </div>
           </div>
 
           {loading ? (

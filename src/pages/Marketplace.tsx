@@ -65,7 +65,16 @@ const Marketplace = () => {
               {items.map((item) => (
                 <div key={item.id} className="glass-card rounded-2xl p-4 group cursor-pointer hover:border-primary/50 transition-colors flex flex-col">
                   <div className="aspect-square bg-secondary rounded-xl mb-4 overflow-hidden relative flex text-primary/10 items-center justify-center">
-                    <ShoppingBag size={80} />
+                    {item.title.toLowerCase().includes("oud") ? (
+                      <img src="https://images.unsplash.com/photo-1616406432452-07bc5938759d?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover" />
+                    ) : item.title.toLowerCase().includes("flacon") ? (
+                      <img src="https://images.unsplash.com/photo-1594035987133-0d7b22554c9c?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover" />
+                    ) : item.title.toLowerCase().includes("musc") ? (
+                      <img src="https://images.unsplash.com/photo-1615397323145-120019fa300e?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover" />
+                    ) : (
+                      <img src={`https://source.unsplash.com/400x400/?perfume,essential-oil,${item.category}`} alt={item.title} className="w-full h-full object-cover fallback-image text-[0px]" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.classList.remove('hidden'); }} />
+                    )}
+                    <ShoppingBag size={80} className="absolute hidden text-primary/10" />
                   </div>
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="font-display font-bold text-lg group-hover:text-primary transition-colors">{item.title}</h3>
