@@ -16,6 +16,9 @@ import NotFound from "./pages/NotFound";
 import Store from "./pages/Store";
 import Academy from "./pages/Academy";
 import Admin from "./pages/Admin";
+import Community from "./pages/Community";
+import Pricing from "./pages/Pricing";
+import { WhatsAppBubble } from "./components/WhatsAppBubble";
 
 const queryClient = new QueryClient();
 
@@ -38,8 +41,11 @@ const App = () => (
               <Route path="/store" element={<Store />} />
               <Route path="/academy" element={<Academy />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/pricing" element={<Pricing />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <WhatsAppBubble />
           </CartProvider>
         </AuthProvider>
       </BrowserRouter>

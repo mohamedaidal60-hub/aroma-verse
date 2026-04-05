@@ -19,6 +19,8 @@ const navItems = [
   { label: "Académie", path: "/academy" },
   { label: "Studio", path: "/studio" },
   { label: "Investir", path: "/investir" },
+  { label: "Communauté", path: "/community" },
+  { label: "Abonnements", path: "/pricing" },
 ];
 
 const Navbar = () => {

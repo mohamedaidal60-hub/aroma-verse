@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { sql } from "@/lib/neon";
-import { Shield, Database, Users, Settings, Activity, Plus, Trash, Edit } from "lucide-react";
+import { Shield, Database, Users, Settings, Activity, Trash, Check, UserCheck, ShoppingBag } from "lucide-react";
 
-const Admin = () => {
+export default function Admin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("b2b");
+  const [activeTab, setActiveTab] = useState("orders");
   const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Admin = () => {
         setIsAuthenticated(true);
         localStorage.setItem("adminAuth", "true");
         toast.success("Connexion réussie");
-        fetchData("b2b");
+        fetchData("orders");
       } else {
         toast.error("Identifiants incorrects");
       }
@@ -42,6 +42,8 @@ const Admin = () => {
     setLoading(true);
     try {
       let data = [];
+      if (tab === "orders") data = await sql`SELECT id, email as title, continent as subtitle, items as details, total_price as extra, status FROM orders ORDER BY id DESC`;
+      if (tab === "subscriptions") data = await sql`SELECT id, email as title, continent as subtitle, status FROM subscriptions ORDER BY id DESC`;
       if (tab === "b2b") data = await sql`SELECT id, name as title, supplier as subtitle FROM b2b_products ORDER BY id DESC LIMIT 20`;
       if (tab === "academy") data = await sql`SELECT id, title, source as subtitle FROM academy_courses ORDER BY id DESC LIMIT 20`;
       if (tab === "marketplace") data = await sql`SELECT id, title, creator as subtitle FROM marketplace_items ORDER BY id DESC LIMIT 20`;
@@ -54,18 +56,36 @@ const Admin = () => {
     }
   };
 
-  const handleDelete = (id: number) => {
-    toast.success(`Élément ${id} supprimé.`);
-    setItems(items.filter(i => i.id !== id));
+  const handleDelete = async (id: number) => {
+    try {
+      if (activeTab === "b2b") await sql`DELETE FROM b2b_products WHERE id = ${id}`;
+      if (activeTab === "academy") await sql`DELETE FROM academy_courses WHERE id = ${id}`;
+      if (activeTab === "marketplace") await sql`DELETE FROM marketplace_items WHERE id = ${id}`;
+      if (activeTab === "investments") await sql`DELETE FROM investments WHERE id = ${id}`;
+      if (activeTab === "orders") await sql`DELETE FROM orders WHERE id = ${id}`;
+      if (activeTab === "subscriptions") await sql`DELETE FROM subscriptions WHERE id = ${id}`;
+      toast.success(`Élément ${id} supprimé de la base de données.`);
+      setItems(items.filter(i => i.id !== id));
+    } catch (e: any) {
+      toast.error("Delete error: " + e.message);
+    }
+  };
+
+  const handleValidateSub = async (id: number) => {
+    try {
+        await sql`UPDATE subscriptions SET status = 'Actif' WHERE id = ${id}`;
+        toast.success("Abonnement validé !");
+        fetchData(activeTab);
+    } catch (e: any) {
+        toast.error("Valid error: " + e.message);
+    }
   };
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
         <div className="glass-card w-full max-w-md p-8 rounded-2xl">
-          <div className="flex justify-center mb-6">
-            <div className="p-4 bg-primary/10 rounded-full text-primary"><Shield size={40} /></div>
-          </div>
+          <div className="flex justify-center mb-6"><div className="p-4 bg-primary/10 rounded-full text-primary"><Shield size={40} /></div></div>
           <h1 className="text-2xl font-display font-bold text-center mb-6">Accès Administrateur</h1>
           <form onSubmit={handleLogin} className="space-y-4">
             <Input type="email" placeholder="Email administrateur" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -83,37 +103,45 @@ const Admin = () => {
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl md:text-4xl font-display font-bold flex items-center gap-3">
-              <Shield className="text-primary" /> AromaVerse Admin
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-display font-bold flex items-center gap-3"><Shield className="text-primary" /> AromaVerse Panel</h1>
             <Button variant="outline" onClick={() => { setIsAuthenticated(false); localStorage.removeItem("adminAuth"); }}>Déconnexion</Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            {[{id: "b2b", label: "Store B2B", icon: <Database />}, {id: "academy", label: "Academy", icon: <Settings />}, {id: "marketplace", label: "Marketplace", icon: <Users />}, {id: "investments", label: "Investissements", icon: <Activity />}].map(tab => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`glass-card p-6 rounded-xl flex items-center gap-4 transition-all ${activeTab === tab.id ? 'border-primary bg-primary/5' : 'hover:border-primary/30'}`}>
-                <div className={`p-3 rounded-lg ${activeTab === tab.id ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground'}`}>{tab.icon}</div>
-                <div className="text-left font-bold">{tab.label}</div>
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
+            {[
+                {id: "orders", label: "Commandes", icon: <ShoppingBag size={18}/>},
+                {id: "subscriptions", label: "Abonnements", icon: <UserCheck size={18}/>},
+                {id: "b2b", label: "Store B2B", icon: <Database size={18}/>}, 
+                {id: "academy", label: "Academy", icon: <Settings size={18}/>}, 
+                {id: "marketplace", label: "Market", icon: <Users size={18}/>}, 
+                {id: "investments", label: "Invests", icon: <Activity size={18}/>}
+            ].map(tab => (
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`glass-card p-4 rounded-xl flex flex-col items-center gap-2 transition-all ${activeTab === tab.id ? 'border-primary bg-primary/5' : 'hover:border-primary/30'}`}>
+                <div className={`${activeTab === tab.id ? 'text-primary' : 'text-muted-foreground'}`}>{tab.icon}</div>
+                <div className="text-sm font-bold text-center">{tab.label}</div>
               </button>
             ))}
           </div>
 
           <div className="glass-card p-8 rounded-2xl border border-border">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-display font-semibold uppercase">{activeTab}</h2>
-              <Button className="gap-2 bg-primary hover:bg-primary/90 text-white" onClick={() => toast.success("Module d'ajout ouvert")}><Plus size={16} /> Ajouter</Button>
-            </div>
-            {loading ? <p className="text-muted-foreground">Chargement des données de Neon DB...</p> : (
+            <h2 className="text-2xl font-display font-semibold uppercase mb-6 flex items-center gap-2">Gestion : {activeTab}</h2>
+            {loading ? <p className="text-muted-foreground">Chargement sécurisé depuis Neon DB...</p> : (
               <div className="space-y-4">
-                {items.map(item => (
-                  <div key={item.id} className="flex items-center justify-between p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors">
-                    <div>
-                      <p className="font-bold text-lg">{item.title}</p>
-                      <p className="text-sm text-muted-foreground">{item.subtitle}</p>
+                {items.length === 0 ? <p className="text-muted-foreground">Aucune donnée trouvée.</p> : items.map(item => (
+                  <div key={item.id} className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors gap-4">
+                    <div className="flex-1">
+                      <p className="font-bold text-lg">{item.title} <span className="text-xs ml-2 bg-background px-2 py-1 rounded-full text-primary">{item.subtitle}</span></p>
+                      {item.details && <p className="text-sm text-muted-foreground mt-1 break-all">📦 {item.details}</p>}
                     </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" onClick={() => toast.success("Mode édition")}><Edit size={14} /></Button>
-                      <Button variant="outline" size="sm" className="text-destructive hover:bg-destructive hover:text-white" onClick={() => handleDelete(item.id)}><Trash size={14} /></Button>
+                    <div className="flex items-center gap-4">
+                      {item.extra && <p className="font-bold text-gradient-gold">{item.extra} €</p>}
+                      {item.status && <span className={`text-xs px-2 py-1 rounded-md font-bold ${item.status === 'Actif' ? 'bg-green-500/20 text-green-500' : 'bg-primary/20 text-primary'}`}>{item.status}</span>}
+                      <div className="flex gap-2">
+                        {activeTab === "subscriptions" && item.status !== 'Actif' && (
+                            <Button size="sm" onClick={() => handleValidateSub(item.id)} className="bg-green-500 hover:bg-green-600 text-white"><Check size={14} /></Button>
+                        )}
+                        <Button variant="outline" size="sm" className="text-destructive hover:bg-destructive hover:text-white" onClick={() => handleDelete(item.id)}><Trash size={14} /></Button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -124,5 +152,4 @@ const Admin = () => {
       </main>
     </div>
   );
-};
-export default Admin;
+}
