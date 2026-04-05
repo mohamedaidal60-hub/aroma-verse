@@ -66,13 +66,13 @@ const Marketplace = () => {
                 <div key={item.id} className="glass-card rounded-2xl p-4 group cursor-pointer hover:border-primary/50 transition-colors flex flex-col">
                   <div className="aspect-square bg-secondary rounded-xl mb-4 overflow-hidden relative flex text-primary/10 items-center justify-center">
                     {item.title.toLowerCase().includes("oud") ? (
-                      <img src="https://images.unsplash.com/photo-1595425970377-c9703bc48b2d?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover" />
+                      <img src="https://images.unsplash.com/photo-1615397323145-120019fa300e?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover" />
                     ) : item.title.toLowerCase().includes("flacon") || item.title.toLowerCase().includes("design") ? (
                       <img src="https://images.unsplash.com/photo-1594035987133-0d7b22554c9c?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover" />
                     ) : item.title.toLowerCase().includes("musc") ? (
                       <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover" />
                     ) : (
-                      <img src="https://images.unsplash.com/photo-1585314028602-411bd16ea42a?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover fallback-image" />
+                      <img src="https://images.unsplash.com/photo-1628149455322-1d54e4ae6d4c?auto=format&fit=crop&w=400&q=80" alt={item.title} className="w-full h-full object-cover fallback-image" />
                     )}
                     <ShoppingBag size={80} className="absolute hidden text-primary/10" />
                   </div>
