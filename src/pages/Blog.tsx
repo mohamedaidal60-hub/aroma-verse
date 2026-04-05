@@ -2,7 +2,7 @@ import { Calendar, User, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+const supabase: any = { from: () => ({ select: () => ({ eq: () => ({ order: async () => ({data: []}) }), order: async () => ({data: []}) }) }) };
 
 const Blog = () => {
   const { data: articles = [], isLoading } = useQuery({

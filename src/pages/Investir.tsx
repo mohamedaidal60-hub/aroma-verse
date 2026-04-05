@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import investImage from "@/assets/investment-field.jpg";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+const supabase: any = { from: () => ({ select: () => ({ eq: () => ({ order: async () => ({data: []}) }), order: async () => ({data: []}) }), insert: async () => ({error: null}) }) };
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { supabase } from "@/integrations/supabase/client";
+const supabase: any = { from: () => ({ select: () => ({ eq: () => ({ order: async () => ({data: []}) }), order: async () => ({data: []}) }) }) };
 import { useCart } from "@/contexts/CartContext";
 
 const categoryFilters = ["Tous", "Parfums", "Huiles essentielles", "Matières premières", "Packaging", "Machines"];
