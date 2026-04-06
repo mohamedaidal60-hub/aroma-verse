@@ -1,30 +1,65 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Gift, Sparkles, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const CTASection = () => {
+  const navigate = useNavigate();
+
   return (
-    <section className="py-24">
-      <div className="container mx-auto px-4">
-        <div className="relative rounded-2xl overflow-hidden bg-gradient-card border border-border p-12 md:p-20 text-center">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10" />
-          <div className="relative z-10">
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              Rejoignez l'univers <span className="text-gradient-gold">AromaVerse</span>
+    <section className="py-32 relative font-body overflow-hidden">
+      <div className="container mx-auto px-4 max-w-6xl">
+        
+        <div className="relative rounded-[64px] overflow-hidden border-2 border-gold/30 bg-black/40 p-12 md:p-24 text-center shadow-2xl group">
+          
+          {/* Animated background effects */}
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-gold/50 to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-gradient-to-br from-gold/10 via-transparent to-gold/10 pointer-events-none" />
+          <div className="absolute -top-32 -right-32 w-96 h-96 bg-gold/5 blur-[100px] rounded-full pointer-events-none group-hover:bg-gold/15 transition-all duration-1000" />
+          <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-gold/5 blur-[100px] rounded-full pointer-events-none group-hover:bg-gold/15 transition-all duration-1000" />
+
+          <div className="relative z-10 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-gold/40 bg-gold/10 mb-10 backdrop-blur-md animate-bounce-slow">
+              <Gift size={18} className="text-gold" />
+              <span className="text-[10px] font-black text-gold uppercase tracking-[0.2em]">Offre de Lancement : 4 Mois Offerts</span>
+            </div>
+
+            <h2 className="text-5xl md:text-7xl font-display font-black mb-6 text-white tracking-tight">
+              Rejoignez <span className="text-gradient-gold">Perfume Nexus</span>
             </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-              Que vous soyez parfumeur, fournisseur, agriculteur ou investisseur — votre place est ici.
+            
+            <p className="text-[10px] text-muted-foreground uppercase font-black tracking-[0.3em] mb-8">انضم إلى مجتمع نكسوس الاحترافي</p>
+            
+            <p className="text-xl text-muted-foreground leading-relaxed mb-12 max-w-2xl mx-auto">
+              Que vous soyez parfumeur master, fournisseur d'essences, agriculteur d'exception ou investisseur visionnaire — votre place est au cœur du **Perfume Nexus**.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" className="bg-gradient-gold font-semibold shadow-gold text-base px-8" onClick={() => window.location.href = "/auth"}>
-                Créer un compte gratuit
-                <ArrowRight className="ml-2" size={18} />
+
+            <div className="flex flex-wrap justify-center gap-6">
+              <Button 
+                size="lg" 
+                className="bg-gold hover:bg-gold/80 text-black font-black text-sm uppercase tracking-widest h-16 px-12 rounded-[24px] shadow-gold transition-all hover:scale-105 active:scale-95 group"
+                onClick={() => navigate("/auth")}
+              >
+                Créer mon compte VIP
+                <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" size={20} />
               </Button>
-              <Button size="lg" variant="outline" className="border-primary/30 text-foreground hover:bg-primary/10 text-base" onClick={() => window.location.href = "/pricing"}>
-                En savoir plus
+              
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white/20 text-white hover:bg-white/5 h-16 px-12 rounded-[24px] font-bold text-sm tracking-widest"
+                onClick={() => navigate("/pricing")}
+              >
+                CONSULTER LES PLANS
               </Button>
+            </div>
+
+            <div className="mt-16 flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700">
+               <div className="flex items-center gap-2"><ShieldCheck size={18} /> <span className="text-[11px] font-black text-white">Sécurité Bancaire</span></div>
+               <div className="flex items-center gap-2"><Sparkles size={18} /> <span className="text-[11px] font-black text-white">Support 24/7 Experts</span></div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

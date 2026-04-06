@@ -70,5 +70,44 @@ export const api = {
         return [];
       }
     }
+  },
+  user: {
+    getDashboardStats: async (userId) => {
+      try {
+        const stats = await sql`
+          SELECT 
+            (SELECT COUNT(*) FROM orders WHERE user_id = ${userId}) as order_count,
+            (SELECT COUNT(*) FROM lab_formulas WHERE user_id = ${userId}) as formula_count,
+            (SELECT COUNT(*) FROM user_courses WHERE user_id = ${userId}) as course_count,
+            (SELECT COALESCE(SUM(amount), 0) FROM user_investments WHERE user_id = ${userId}) as total_invested
+        `;
+        return stats[0];
+      } catch (err) {
+        return { order_count: 0, formula_count: 0, course_count: 0, total_invested: 0 };
+      }
+    },
+    getOrders: async (userId) => {
+      try {
+        return await sql`SELECT * FROM orders WHERE user_id = ${userId} ORDER BY created_at DESC`;
+      } catch (err) {
+        return [];
+      }
+    },
+    getFormulas: async (userId) => {
+      try {
+        return await sql`SELECT * FROM lab_formulas WHERE user_id = ${userId} ORDER BY created_at DESC`;
+      } catch (err) {
+        return [];
+      }
+    }
+  },
+  blog: {
+    listPosts: async () => {
+      try {
+        return await sql`SELECT * FROM blog_posts WHERE is_published = true ORDER BY created_at DESC`;
+      } catch (err) {
+        return [];
+      }
+    }
   }
 };
