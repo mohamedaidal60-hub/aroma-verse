@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Calendar, User, Share2, Bookmark, Clock, Star, Share } from "lucide-react";
+import { ArrowLeft, Share2, Bookmark, Clock, Star } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
+import { useLang } from "@/contexts/LanguageContext";
 
 const BlogPost = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const { t } = useLang();
   const [post, setPost] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
       try {
-        // Fetch posts and find the one matching slug (or title/id)
-        // For now we simulate finding by ID or slug in title
         const all = await api.blog.listPosts();
         const found = all.find((p: any) => p.id.toString() === slug || p.title.toLowerCase().includes(slug?.toLowerCase() || ''));
         if (found) setPost(found);
@@ -32,13 +32,13 @@ const BlogPost = () => {
 
   if (loading) return (
     <div className="min-h-screen bg-background">
-      <Navbar /><div className="pt-40 text-center animate-pulse text-gold font-bold">CHARGEMENT DU RAPPORT NEXUS...</div><Footer />
+      <Navbar /><div className="pt-40 text-center animate-pulse text-gold font-bold">{t("common.loading")}</div><Footer />
     </div>
   );
 
   if (!post) return (
     <div className="min-h-screen bg-background">
-      <Navbar /><div className="pt-40 text-center">Article introuvable.</div><Footer />
+      <Navbar /><div className="pt-40 text-center">{t("common.no_data")}</div><Footer />
     </div>
   );
 
@@ -59,7 +59,7 @@ const BlogPost = () => {
                    className="mb-8 text-gold hover:text-white font-bold h-12 rounded-xl group px-0"
                    onClick={() => navigate('/blog')}
                  >
-                   <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-2 transition-transform" /> Retour aux Insights
+                   <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-2 transition-transform" /> {t("common.back")}
                  </Button>
 
                  <div className="flex gap-4 mb-6">
@@ -91,22 +91,20 @@ const BlogPost = () => {
         {/* Article Body */}
         <div className="container mx-auto px-4 max-w-4xl">
            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-              
               {/* Content */}
               <div className="lg:col-span-12 space-y-8 prose prose-invert prose-gold max-w-none">
-                 <p className="text-2xl text-muted-foreground font-arabic leading-relaxed italic mb-12 border-l-4 border-gold pl-8">
-                   تحليلات جزيئية متقدمة للصناعة العطرية الحديثة بمعايير نكسوس العلمية العالمية.
+                 <p className="text-2xl text-muted-foreground leading-relaxed italic mb-12 border-l-4 border-gold pl-8">
+                   Analyses moléculaires avancées pour l'industrie de la parfumerie moderne selon les standards scientifiques mondiaux Nexus.
                  </p>
                  
                  <div className="text-xl text-white/80 leading-[1.8] font-light space-y-8">
-                    {/* Simulated blog content using the database content field */}
                     {post.content ? (
                       post.content.split('\n\n').map((para: string, i: number) => (
                         <p key={i}>{para}</p>
                       ))
                     ) : (
                       <>
-                        <p>L’industrie de la parfumerie connaît une mutation sans précédent, portée par les avancées majeures en chimie biocatalytique et l’intégration de l’intelligence artificielle dans le processus de formulation. Chez **AromaVerse**, nous avons intégré ces paradigmes dès la conception du système **Nexus**.</p>
+                        <p>L'industrie de la parfumerie connaît une mutation sans précédent, portée par les avancées majeures en chimie biocatalytique et l'intégration de l'intelligence artificielle dans le processus de formulation. Chez Perfume Nexus, nous avons intégré ces paradigmes dès la conception du système Nexus.</p>
                         
                         <div className="glass-card rounded-[40px] p-10 border border-gold/20 my-16 bg-gradient-to-br from-gold/5 to-transparent">
                            <h3 className="text-2xl font-display font-bold text-gold mb-6 flex items-center gap-3"><Star size={24}/> Chiffres Clés Industrie 2024</h3>
@@ -118,7 +116,7 @@ const BlogPost = () => {
                            </ul>
                         </div>
 
-                        <p>La traçabilité à 100% devient la norme. Grâce à notre module **Investir**, nous permettons une visibilité totale de la chaîne d'approvisionnement, du champ de Roses de Damas en Bulgarie jusqu'au laboratoire de distillation en France.</p>
+                        <p>La traçabilité à 100% devient la norme. Grâce à notre module Investir, nous permettons une visibilité totale de la chaîne d'approvisionnement, du champ de Roses de Damas en Bulgarie jusqu'au laboratoire de distillation en France.</p>
                         
                         <p>Ces "Insights Nexus" sont réservés aux membres professionnels qui cherchent non seulement à formuler des parfums, mais à comprendre l'équilibre économique et scientifique qui régit notre industrie.</p>
                       </>

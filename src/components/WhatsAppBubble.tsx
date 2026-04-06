@@ -1,15 +1,20 @@
+import { MessageSquare } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
+
 export const WhatsAppBubble = () => {
+    const { t, dir } = useLang();
+    
     return (
       <a 
         href="https://wa.me/213675332211" 
         target="_blank" 
         rel="noopener noreferrer" 
-        className="fixed bottom-6 left-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:scale-110 hover:shadow-[0_0_30px_rgba(37,211,102,0.6)] transition-all flex items-center justify-center group"
+        className={`fixed bottom-8 ${dir === "rtl" ? "right-8" : "left-8"} z-50 bg-[#25D366] text-white p-5 rounded-[24px] shadow-[0_20px_40px_rgba(37,211,102,0.4)] hover:scale-110 hover:shadow-[0_30px_60px_rgba(37,211,102,0.6)] transition-all flex items-center justify-center group active:scale-90`}
       >
-        <span className="absolute bg-background text-foreground text-xs font-bold px-3 py-1 rounded-lg -top-10 opacity-0 group-hover:opacity-100 transition-opacity border border-border shadow-md whitespace-nowrap">
-          Service Client AromaVerse
+        <span className={`absolute bg-white/10 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl -top-12 opacity-0 group-hover:opacity-100 transition-all border border-white/20 shadow-2xl whitespace-nowrap ${dir === "rtl" ? "right-0" : "left-0"}`}>
+          {t("footer.support_nexus")}
         </span>
-        <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <MessageSquare size={32} fill="currentColor" stroke="none" />
       </a>
     );
   };

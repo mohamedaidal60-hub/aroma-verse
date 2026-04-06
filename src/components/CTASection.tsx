@@ -1,9 +1,11 @@
 import { ArrowRight, Gift, Sparkles, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useLang } from "@/contexts/LanguageContext";
 
 const CTASection = () => {
   const navigate = useNavigate();
+  const { t } = useLang();
 
   return (
     <section className="py-32 relative font-body overflow-hidden">
@@ -20,17 +22,15 @@ const CTASection = () => {
           <div className="relative z-10 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-gold/40 bg-gold/10 mb-10 backdrop-blur-md animate-bounce-slow">
               <Gift size={18} className="text-gold" />
-              <span className="text-[10px] font-black text-gold uppercase tracking-[0.2em]">Offre de Lancement : 4 Mois Offerts</span>
+              <span className="text-[10px] font-black text-gold uppercase tracking-[0.2em]">{t("auth.trial")}</span>
             </div>
 
             <h2 className="text-5xl md:text-7xl font-display font-black mb-6 text-white tracking-tight">
-              Rejoignez <span className="text-gradient-gold">Perfume Nexus</span>
+              {t("auth.title")}
             </h2>
             
-            <p className="text-[10px] text-muted-foreground uppercase font-black tracking-[0.3em] mb-8">انضم إلى مجتمع نكسوس الاحترافي</p>
-            
             <p className="text-xl text-muted-foreground leading-relaxed mb-12 max-w-2xl mx-auto">
-              Que vous soyez parfumeur master, fournisseur d'essences, agriculteur d'exception ou investisseur visionnaire — votre place est au cœur du **Perfume Nexus**.
+              {t("features.desc")}
             </p>
 
             <div className="flex flex-wrap justify-center gap-6">
@@ -39,7 +39,7 @@ const CTASection = () => {
                 className="bg-gold hover:bg-gold/80 text-black font-black text-sm uppercase tracking-widest h-16 px-12 rounded-[24px] shadow-gold transition-all hover:scale-105 active:scale-95 group"
                 onClick={() => navigate("/auth")}
               >
-                Créer mon compte VIP
+                {t("auth.submit.register")}
                 <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" size={20} />
               </Button>
               
@@ -49,7 +49,7 @@ const CTASection = () => {
                 className="border-white/20 text-white hover:bg-white/5 h-16 px-12 rounded-[24px] font-bold text-sm tracking-widest"
                 onClick={() => navigate("/pricing")}
               >
-                CONSULTER LES PLANS
+                {t("nav.pricing")}
               </Button>
             </div>
 

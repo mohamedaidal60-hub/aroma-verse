@@ -1,66 +1,78 @@
 import { Link } from "react-router-dom";
-import { Globe, ShieldCheck, Mail, Phone, MapPin, Instagram, Twitter, Linkedin } from "lucide-react";
+import { Globe, ShieldCheck, Phone, Instagram, Twitter, Linkedin, MessageSquare } from "lucide-react";
 import { Logo } from "./Logo";
+import { useLang } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t, dir } = useLang();
+
   return (
-    <footer className="border-t border-white/5 py-20 bg-black/20 font-body">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+    <footer className="border-t border-white/5 py-24 bg-black/40 font-body relative overflow-hidden">
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20">
           
           {/* Brand Column */}
-          <div className="space-y-6">
-            <Link to="/" className="inline-block scale-110 origin-left">
+          <div className="space-y-8">
+            <Link to="/" className="inline-block hover:opacity-80 transition-opacity">
               <Logo />
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Le premier écosystème décentralisé dédié à l'industrie mondiale du parfum. Sourcing, éducation et investissement durable.
+            <p className={`text-sm text-muted-foreground leading-relaxed max-w-xs ${dir === "rtl" ? "font-arabic" : ""}`}>
+              {t("footer.tagline")}
             </p>
-            <p className="text-xs text-gold font-arabic" dir="rtl">نظام بيئي عالمي متكامل لصناعة العطور الاحترافية</p>
             <div className="flex gap-4 pt-4">
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all"><Instagram size={18} /></a>
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all"><Twitter size={18} /></a>
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all"><Linkedin size={18} /></a>
+              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all border border-white/5"><Instagram size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all border border-white/5"><Twitter size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all border border-white/5"><Linkedin size={20} /></a>
             </div>
           </div>
 
           {/* Ecosystem Column */}
           <div>
-            <h4 className="font-display font-bold text-lg mb-8 text-white">Écosystème Nexus</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li><Link to="/marketplace" className="hover:text-gold transition-all flex items-center gap-2">Marketplace Sourcing</Link></li>
-              <li><Link to="/studio" className="hover:text-gold transition-all flex items-center gap-2">Nexus Lab Studio</Link></li>
-              <li><Link to="/academy" className="hover:text-gold transition-all flex items-center gap-2">Academy & Certifications</Link></li>
-              <li><Link to="/investir" className="hover:text-gold transition-all flex items-center gap-2">Portefeuille Invest</Link></li>
-              <li><Link to="/community" className="hover:text-gold transition-all flex items-center gap-2">Communauté Hub</Link></li>
-              <li><Link to="/store" className="hover:text-gold transition-all flex items-center gap-2">Moteur B2B Global</Link></li>
+            <h4 className="font-display font-black text-xl mb-10 text-white uppercase tracking-tighter">{t("nav.home")}</h4>
+            <ul className="space-y-5 text-sm font-bold text-muted-foreground">
+              <li><Link to="/marketplace" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.marketplace")}</Link></li>
+              <li><Link to="/studio" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.studio")}</Link></li>
+              <li><Link to="/academy" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.academy")}</Link></li>
+              <li><Link to="/investir" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.invest")}</Link></li>
+              <li><Link to="/community" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.community")}</Link></li>
             </ul>
           </div>
 
-          {/* Resources Column */}
+          {/* Support Column - WhatsApp Only */}
           <div>
-            <h4 className="font-display font-bold text-lg mb-8 text-white">Soutien & Info</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li className="flex items-center gap-3"><Mail size={14} className="text-gold" /> support@perfumenexus.com</li>
-              <li className="flex items-center gap-3"><Phone size={14} className="text-gold" /> +33 7 67 09 91 15</li>
-              <li className="flex items-center gap-3"><MapPin size={14} className="text-gold" /> 88 Avenue des Parfums, Grasse</li>
-              <li className="pt-4"><Link to="/pricing" className="text-gold font-bold hover:underline">Voir les abonnements Pro</Link></li>
-              <li><span className="flex items-center gap-2"><ShieldCheck size={14} className="text-green-500" /> Paiements Sécurisés</span></li>
-            </ul>
+            <h4 className="font-display font-black text-xl mb-10 text-white uppercase tracking-tighter">{t("footer.support_nexus")}</h4>
+            <div className="glass-card p-6 rounded-3xl border border-green-500/20 bg-green-500/5 hover:bg-green-500/10 transition-colors">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-black shadow-lg">
+                  <Phone size={20} />
+                </div>
+                <div>
+                   <p className="text-xs font-black text-green-500 uppercase tracking-widest">{t("footer.whatsapp_support")}</p>
+                   <p className="text-lg font-black text-white">+213 6 75 33 22 11</p>
+                </div>
+              </div>
+              <a 
+                href="https://wa.me/213675332211" 
+                target="_blank" 
+                className="inline-flex items-center gap-2 text-xs font-black text-gold hover:underline uppercase tracking-widest"
+              >
+                Ouvrir Chat de Support <MessageSquare size={14} />
+              </a>
+            </div>
           </div>
 
-          {/* Legal Column */}
+          {/* Global Column */}
           <div>
-            <h4 className="font-display font-bold text-lg mb-8 text-white">Juridique</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li><Link to="/auth" className="hover:text-gold transition-all">S'inscrire (4 mois gratuits)</Link></li>
-              <li><a href="#" className="hover:text-gold transition-all">CGU & Conditions</a></li>
-              <li><a href="#" className="hover:text-gold transition-all">Politique de Confidentialité</a></li>
-              <li><a href="#" className="hover:text-gold transition-all">Régulation B2B Export</a></li>
+            <h4 className="font-display font-black text-xl mb-10 text-white uppercase tracking-tighter">Global</h4>
+            <ul className="space-y-5 text-sm font-bold text-muted-foreground">
+              <li><Link to="/pricing" className="text-gold font-black hover:scale-105 inline-block transition-transform">{t("nav.pricing")}</Link></li>
+              <li><span className="flex items-center gap-3 text-green-500/80"><ShieldCheck size={18} /> Protocoles Certifiés</span></li>
               <li className="pt-6">
-                 <div className="flex items-center gap-2 px-3 py-2 bg-white/5 rounded-xl border border-white/5">
-                    <Globe size={14} className="text-gold" />
-                    <span className="text-[10px] font-bold text-white uppercase tracking-widest">Nexus Global Network</span>
+                 <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-2xl border border-white/5">
+                    <Globe size={18} className="text-gold" />
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest leading-none">Nexus Global Network v3.0</span>
                  </div>
               </li>
             </ul>
@@ -68,14 +80,14 @@ const Footer = () => {
 
         </div>
 
-        <div className="border-t border-white/5 mt-20 pt-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-[0.3em]">
-            © 2026 PERFUME NEXUS. ALL RIGHTS RESERVED.
+        <div className="border-t border-white/5 mt-24 pt-12 flex flex-col md:flex-row items-center justify-between gap-8">
+          <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.4em]">
+            {t("footer.copyright")}
           </p>
-          <div className="flex gap-8 text-[10px] font-black text-muted-foreground uppercase tracking-widest">
-             <span className="hover:text-gold cursor-pointer transition-colors">Cookies</span>
-             <span className="hover:text-gold cursor-pointer transition-colors">Sitemap</span>
-             <span className="hover:text-gold cursor-pointer transition-colors">Press Kit</span>
+          <div className="flex gap-10 text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">
+             <span className="hover:text-gold cursor-pointer transition-colors">Confidentialité</span>
+             <span className="hover:text-gold cursor-pointer transition-colors">Termes</span>
+             <span className="hover:text-gold cursor-pointer transition-colors">Presse</span>
           </div>
         </div>
       </div>

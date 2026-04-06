@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { Calendar, User, ArrowRight, Bookmark, Share2, Eye, Star, Search, Clock, Tag } from "lucide-react";
+import { Calendar, ArrowRight, Bookmark, Share2, Eye, Star, Search, Clock } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
+import { useLang } from "@/contexts/LanguageContext";
 
 const Blog = () => {
+  const { t, lang } = useLang();
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,12 +44,12 @@ const Blog = () => {
               <h1 className="text-4xl md:text-7xl font-display font-bold mb-4">
                 Nexus <span className="text-gold">Insights</span>
               </h1>
-              <p className="text-xl text-muted-foreground font-arabic leading-relaxed">أبحاث علمية، تحليلات جزيئية، وآخر أخبار صناعة العطور العالمية</p>
+              <p className="text-xl text-muted-foreground leading-relaxed">{t("blog.desc")}</p>
             </div>
             
             <div className="relative w-full md:w-80">
                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/50 w-4 h-4" />
-               <Input placeholder="Rechercher un article..." className="pl-12 h-14 bg-white/5 border-white/5 rounded-2xl text-white placeholder:text-muted-foreground/30 focus-visible:ring-gold/40" />
+               <Input placeholder={t("marketplace.search")} className="pl-12 h-14 bg-white/5 border-white/5 rounded-2xl text-white placeholder:text-muted-foreground/30 focus-visible:ring-gold/40" />
             </div>
           </div>
 
@@ -128,7 +130,7 @@ const Blog = () => {
 
           {/* Load More / Pagination */}
           <div className="flex justify-center mt-20">
-             <Button variant="outline" className="border-gold/30 text-gold hover:bg-gold hover:text-black font-bold h-14 px-12 rounded-[24px] text-lg">
+             <Button variant="outline" className="border-gold/30 text-gold hover:bg-gold hover:text-black font-bold h-14 px-12 rounded-[24px] text-lg" onClick={() => toast.info("Fin de la liste")}>
                 Explorer tous les articles
              </Button>
           </div>

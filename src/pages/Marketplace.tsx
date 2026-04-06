@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Search, Filter, ShoppingBag, Star, Beaker, Info } from "lucide-react";
+import { Search, Filter, ShoppingBag, Star, Beaker } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
-
-const categoryFilters = ["Tous", "Matières Premières", "Molécules de Synthèse", "Packaging", "Académique"];
+import { useLang } from "@/contexts/LanguageContext";
 
 const Marketplace = () => {
+  const { t } = useLang();
   const [activeFilter, setActiveFilter] = useState("Tous");
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState<Record<string, string>>({});
+
+  const categoryFilters = ["Tous", "Matières Premières", "Molécules de Synthèse", "Packaging", "Académique"];
 
   useEffect(() => {
     async function loadItems() {
@@ -53,13 +55,13 @@ const Marketplace = () => {
           
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-8">
             <div>
-              <h1 className="text-4xl md:text-6xl font-display font-bold mb-2">Marketplace <span className="text-gold">Nexus</span></h1>
-              <p className="text-muted-foreground text-lg font-arabic">سوق العطور المتكامل: مواد خام، جزيئات، وتعبئة</p>
+              <h1 className="text-4xl md:text-6xl font-display font-bold mb-2">{t("nav.marketplace")} <span className="text-gold">Nexus</span></h1>
+              <p className="text-muted-foreground text-lg">{t("features.desc")}</p>
             </div>
             <div className="flex items-center gap-3 w-full md:w-auto">
               <div className="relative flex-1 md:w-80">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input placeholder="Rechercher un ingrédient ou CAS..." className="pl-12 h-12 bg-secondary/50 border-white/5 rounded-xl" />
+                <Input placeholder={t("marketplace.search")} className="pl-12 h-12 bg-secondary/50 border-white/5 rounded-xl" />
               </div>
               <Button variant="outline" className="h-12 w-12 p-0 border-white/10 rounded-xl"><Filter className="w-5 h-5" /></Button>
             </div>
@@ -79,7 +81,7 @@ const Marketplace = () => {
           </div>
 
           {loading ? (
-            <div className="py-20 text-center text-muted-foreground animate-pulse font-arabic">جاري تحميل المنتجات...</div>
+            <div className="py-20 text-center text-muted-foreground animate-pulse font-body">{t("common.loading")}</div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {items.map((item) => (
@@ -102,7 +104,7 @@ const Marketplace = () => {
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <Button className="w-full bg-white text-black font-bold h-10 rounded-xl text-xs">Aperçu rapide</Button>
+                       <Button className="w-full bg-white text-black font-bold h-10 rounded-xl text-xs">{t("common.see_all")}</Button>
                     </div>
                   </div>
 

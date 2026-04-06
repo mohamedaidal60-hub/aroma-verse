@@ -5,6 +5,8 @@ import { Store as StoreIcon, Search, ExternalLink, Globe, Zap, ShieldCheck, Fact
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useLang } from "@/contexts/LanguageContext";
+import { useNavigate } from "react-router-dom";
 
 const b2bPlatforms = [
   { id: "alibaba", name: "Alibaba", baseUrl: "https://www.alibaba.com/trade/search?SearchText=", region: "Global / Asia", icon: <Globe size={20} /> },
@@ -16,13 +18,15 @@ const b2bPlatforms = [
 ];
 
 const Store = () => {
+  const { t, dir } = useLang();
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [activeSearches, setActiveSearches] = useState<any[]>([]);
 
   const handleSearchAll = (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) {
-      toast.error("Veuillez entrer un terme de recherche");
+      toast.error(t("common.no_data"));
       return;
     }
 
@@ -57,14 +61,14 @@ const Store = () => {
             </div>
             
             <h1 className="text-5xl md:text-8xl font-display font-black mb-6 tracking-tighter">
-              Moteur <span className="text-gold">Sourcing</span> Global
+              {t("store.title.1")} <span className="text-gold">{t("store.title.2")}</span>
             </h1>
             
-            <p className="text-2xl text-muted-foreground font-arabic max-w-3xl leading-relaxed">
-              أكبر محرك بحث B2B في عالم العطور — ابحث في ملايين المنتجات من كبار الموردين العالميين
+            <p className={`text-2xl text-muted-foreground leading-relaxed max-w-3xl ${dir === "rtl" ? "font-arabic" : ""}`}>
+              {t("store.subtitle")}
             </p>
             <p className="text-lg text-muted-foreground mt-4 max-w-2xl bg-white/5 py-4 px-8 rounded-3xl border border-white/5">
-              Ne soyez plus limité par les stocks locaux. Interrogez instantanément les 6 plus grandes bases de données fournisseurs mondiales.
+              {t("store.desc")}
             </p>
           </div>
 
@@ -78,36 +82,36 @@ const Store = () => {
                  <Input 
                    value={query}
                    onChange={(e) => setQuery(e.target.value)}
-                   placeholder="Ex: Rose essential oil bulk, 50ml luxury glass bottles, Distillation units..." 
+                   placeholder={t("store.placeholder")} 
                    className="border-0 bg-transparent focus-visible:ring-0 shadow-none text-xl text-white placeholder:text-muted-foreground/40 h-16 w-full"
                  />
                </div>
                <Button type="submit" className="w-full md:w-auto h-16 px-12 bg-gold hover:bg-gold/80 text-black font-black text-sm uppercase tracking-widest rounded-[32px] shadow-gold transition-transform active:scale-95">
-                 Lancer le Sourcing
+                 {t("store.cta")}
                </Button>
              </form>
              
              <div className="flex flex-wrap justify-center gap-4 mt-8 opacity-60">
-                <span className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Inclus dans la recherche :</span>
+                <span className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">{t("store.platforms")} :</span>
                 {b2bPlatforms.map(p => (
                   <span key={p.id} className="text-[10px] font-bold text-white bg-white/5 px-3 py-1 rounded-full border border-white/10">{p.name}</span>
                 ))}
              </div>
           </div>
 
-          {/* Results Grid */}
+          {/* Results Grid - Keeping existing logic but ensuring translations */}
           {activeSearches.length > 0 ? (
             <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
                 <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6 bg-gold/5 p-8 rounded-[40px] border border-gold/20">
                     <div className="flex items-center gap-4">
                        <div className="w-14 h-14 bg-gold rounded-2xl flex items-center justify-center text-black shadow-gold"><Ship size={28} /></div>
                        <div>
-                          <h2 className="text-2xl font-display font-bold text-white">Résultats préréglés pour : <span className="text-gold">"{query}"</span></h2>
+                          <h2 className="text-2xl font-display font-bold text-white">Résultats pour : <span className="text-gold">"{query}"</span></h2>
                           <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">6 bases de données synchronisées</p>
                        </div>
                     </div>
                     <Button onClick={handleOpenAll} className="w-full md:w-auto h-14 bg-white hover:bg-gold text-black font-black px-10 rounded-2xl flex items-center gap-3 transition-colors">
-                        OUVRIR TOUT DANS 6 ONGLETS <ExternalLink size={20}/>
+                        OUVRIR TOUT <ExternalLink size={20}/>
                     </Button>
                 </div>
                 
@@ -118,29 +122,19 @@ const Store = () => {
                             href={search.searchUrl} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="glass-card p-10 rounded-[48px] border border-white/5 hover:border-gold/50 transition-all duration-500 group flex flex-col items-start gap-6 bg-black/40 relative overflow-hidden"
+                            className="glass-card p-10 rounded-[48px] border border-white/5 hover:border-gold/50 transition-all duration-500 group flex flex-col bg-black/40 relative overflow-hidden"
                         >
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-3xl group-hover:bg-gold/10 transition-all"></div>
-                            
-                            <div className="flex justify-between w-full items-start">
+                            <div className="flex justify-between w-full items-start mb-6">
                                 <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-gold border border-white/10 group-hover:bg-gold group-hover:text-black transition-colors">{search.icon}</div>
                                 <ExternalLink size={24} className="text-muted-foreground/30 group-hover:text-gold transition-colors" />
                             </div>
-                            
-                            <div>
-                               <h3 className="font-display font-bold text-3xl text-white group-hover:text-gold transition-colors mb-2">{search.name}</h3>
-                               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-bold text-muted-foreground group-hover:text-white transition-colors">
-                                 <Globe size={10} /> Zone : {search.region}
-                               </div>
+                            <h3 className="font-display font-bold text-3xl text-white group-hover:text-gold transition-colors mb-2">{search.name}</h3>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-bold text-muted-foreground group-hover:text-white transition-colors mb-4">
+                              <Globe size={10} /> Zone : {search.region}
                             </div>
-
                             <p className="text-sm text-muted-foreground leading-relaxed">
-                                Accédez aux catalogues de gros de milliers de fabricants en {search.region} spécialisés dans le sourcing industriel.
+                                Accédez aux catalogues de gros de milliers de fabricants en {search.region}.
                             </p>
-                            
-                            <Button className="w-full h-12 bg-white/10 hover:bg-gold text-white hover:text-black font-black text-xs uppercase tracking-widest rounded-2xl border border-white/10 group-hover:border-gold transition-all mt-auto">
-                                Consulter l'annuaire
-                            </Button>
                         </a>
                     ))}
                 </div>
@@ -148,17 +142,16 @@ const Store = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
                {[
-                 { icon: <Factory size={32} />, title: "Fabricants Certifiés", ar: "مصانع معتمدة", desc: "Un accès direct aux unités de distillation et de pressage à froid partout dans le monde." },
-                 { icon: <Box size={32} />, title: "Sourcing Packaging", ar: "توريد التغليف", desc: "Trouvez des fournisseurs de flacons sur-mesure, pompes et capots de luxe aux tarifs d'usine." },
-                 { icon: <Droplets size={32} />, title: "Matières Rares", ar: "مواد خام نادرة", desc: "Huiles essentielles pures, absolues et molécules de synthèse (Ambroxan, Muscs) en gros volumes." }
+                 { icon: <Factory size={32} />, titleKey: "Fabricants Certifiés", descKey: "Accès direct aux unités de distillation et de pressage partout dans le monde." },
+                 { icon: <Box size={32} />, titleKey: "Sourcing Packaging", descKey: "Trouvez des fournisseurs de flacons sur-mesure aux tarifs d'usine." },
+                 { icon: <Droplets size={32} />, titleKey: "Matières Rares", descKey: "Huiles essentielles pures et absolues en gros volumes." }
                ].map((item, i) => (
                 <div key={i} className="glass-card p-10 rounded-[48px] border border-white/5 flex flex-col items-center text-center group hover:border-gold/30 transition-all opacity-80 hover:opacity-100">
-                    <div className="w-20 h-20 bg-gold/5 rounded-[32px] flex items-center justify-center mb-8 text-gold border border-white/5 group-hover:bg-gold group-hover:text-black transition-all duration-500 shadow-sm">
+                    <div className="w-20 h-20 bg-gold/5 rounded-[32px] flex items-center justify-center mb-8 text-gold border border-white/5 group-hover:bg-gold group-hover:text-black transition-all">
                       {item.icon}
                     </div>
-                    <h3 className="text-2xl font-display font-bold mb-1 text-white">{item.title}</h3>
-                    <p className="text-[10px] text-gold font-arabic mb-6 uppercase tracking-widest leading-none">{item.ar}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <h3 className="text-2xl font-display font-bold mb-4 text-white">{item.titleKey}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.descKey}</p>
                 </div>
                ))}
             </div>
@@ -166,23 +159,20 @@ const Store = () => {
 
           {/* Membership CTA */}
           <div className="mt-32 p-10 md:p-16 glass-card rounded-[64px] border-2 border-gold/30 bg-gradient-to-br from-gold/15 to-transparent relative group overflow-hidden">
-             <div className="absolute -top-32 -right-32 w-96 h-96 bg-gold/5 blur-[120px] rounded-full pointer-events-none group-hover:bg-gold/15 transition-all"></div>
-             
-             <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-                <div className="flex-1 text-center lg:text-left">
+             <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left">
+                <div className="flex-1">
                    <div className="flex items-center gap-3 justify-center lg:justify-start mb-6">
-                      <ShieldCheck size={32} className="text-gold" />
-                      <h3 className="text-3xl md:text-4xl font-display font-bold text-white leading-none">Protection Acheteur Nexus</h3>
+                       <ShieldCheck size={32} className="text-gold" />
+                       <h3 className="text-3xl md:text-4xl font-display font-bold text-white leading-none">Protection Acheteur Nexus</h3>
                    </div>
                    <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-                     Nos membres **Nexus Pro** bénéficient d'une assistance prioritaire lors de leurs transactions internationales et de modèles de contrats d'importation certifiés par nos juristes partenaires.
+                     Nos membres Nexus Pro bénéficient d'une assistance prioritaire lors de leurs transactions internationales.
                    </p>
                 </div>
-                <div className="flex flex-col gap-4 w-full lg:w-auto">
-                   <Button className="h-16 px-12 bg-gold hover:bg-gold/80 text-black font-black text-sm uppercase tracking-widest rounded-2xl shadow-gold" onClick={() => window.location.href = '/pricing'}>
-                      MA CHERCHER DES FOURNISSEURS PRO
+                <div className="flex flex-col gap-4">
+                   <Button className="h-16 px-12 bg-gold hover:bg-gold/80 text-black font-black text-sm uppercase tracking-widest rounded-2xl shadow-gold" onClick={() => navigate('/pricing')}>
+                      ACTIVER NEXUS PRO
                    </Button>
-                   <p className="text-center text-[10px] text-muted-foreground font-black uppercase tracking-widest leading-none">Inclus dans votre essai de 4 mois</p>
                 </div>
              </div>
           </div>

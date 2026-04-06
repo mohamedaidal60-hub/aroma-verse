@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLang } from "@/contexts/LanguageContext";
 import CartSheet from "@/components/CartSheet";
 import { Logo } from "@/components/Logo";
 import {
@@ -12,22 +13,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const navItems = [
-  { label: "Accueil", path: "/" },
-  { label: "Marketplace", path: "/marketplace" },
-  { label: "Boutique B2B", path: "/store" },
-  { label: "Académie", path: "/academy" },
-  { label: "Studio", path: "/studio" },
-  { label: "Investir", path: "/investir" },
-  { label: "Communauté", path: "/community" },
-  { label: "Abonnements", path: "/pricing" },
-];
-
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, profile, signOut } = useAuth();
+  const { t, lang, setLang, dir } = useLang();
+
+  const navItems = [
+    { labelKey: "nav.marketplace", path: "/marketplace" },
+    { labelKey: "nav.store", path: "/store" },
+    { labelKey: "nav.academy", path: "/academy" },
+    { labelKey: "nav.studio", path: "/studio" },
+    { labelKey: "nav.invest", path: "/investir" },
+    { labelKey: "nav.community", path: "/community" },
+    { labelKey: "nav.pricing", path: "/pricing" },
+  ];
 
   const handleSignOut = async () => {
     await signOut();
@@ -35,13 +36,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-card" dir="ltr">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <Link to="/" className="flex items-center gap-2">
           <Logo />
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -50,13 +51,24 @@ const Navbar = () => {
                 location.pathname === item.path ? "text-primary" : "text-muted-foreground"
               }`}
             >
-              {item.label}
+              {t(item.labelKey)}
             </Link>
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
+          {/* Language Toggle */}
+          <button
+            onClick={() => setLang(lang === "fr" ? "ar" : "fr")}
+            className="flex items-center gap-1.5 text-xs font-black text-gold border border-gold/30 px-3 py-1.5 rounded-full hover:bg-gold hover:text-black transition-all"
+            title="Changer la langue"
+          >
+            <Globe size={12} />
+            {lang === "fr" ? "عربي" : "Français"}
+          </button>
+
           <CartSheet />
+
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -67,30 +79,36 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="bg-card border-border">
                 <DropdownMenuItem onClick={() => navigate("/dashboard")} className="cursor-pointer">
-                  Mon espace
+                  {t("nav.dashboard")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate("/admin")} className="cursor-pointer font-bold text-primary">
-                  Administration
+                  {t("nav.admin")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive">
                   <LogOut size={14} className="mr-2" />
-                  Déconnexion
+                  {t("nav.logout")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <div className="flex gap-2">
               <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" onClick={() => navigate("/auth")}>
-                Connexion
+                {t("nav.login")}
               </Button>
               <Button size="sm" className="bg-gradient-gold font-semibold" onClick={() => navigate("/auth")}>
-                Commencer
+                Nexus Pass
               </Button>
             </div>
           )}
         </div>
 
         <div className="flex md:hidden items-center gap-3">
+          <button
+            onClick={() => setLang(lang === "fr" ? "ar" : "fr")}
+            className="text-xs font-black text-gold border border-gold/30 px-2 py-1 rounded-full"
+          >
+            {lang === "fr" ? "ع" : "Fr"}
+          </button>
           <CartSheet />
           <button className="text-foreground" onClick={() => setOpen(!open)}>
             {open ? <X size={24} /> : <Menu size={24} />}
@@ -107,18 +125,26 @@ const Navbar = () => {
               onClick={() => setOpen(false)}
               className="block py-3 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
-              {item.label}
+              {t(item.labelKey)}
             </Link>
           ))}
           {user ? (
             <div className="pt-2 border-t border-border mt-2">
-              <button onClick={() => { navigate("/dashboard"); setOpen(false); }} className="block py-3 text-sm font-medium text-muted-foreground hover:text-primary">Mon espace</button>
-              <button onClick={() => { handleSignOut(); setOpen(false); }} className="block py-3 text-sm font-medium text-destructive">Déconnexion</button>
+              <button onClick={() => { navigate("/dashboard"); setOpen(false); }} className="block py-3 text-sm font-medium text-muted-foreground hover:text-primary">
+                {t("nav.dashboard")}
+              </button>
+              <button onClick={() => { handleSignOut(); setOpen(false); }} className="block py-3 text-sm font-medium text-destructive">
+                {t("nav.logout")}
+              </button>
             </div>
           ) : (
             <div className="flex gap-3 mt-3">
-              <Button variant="ghost" size="sm" className="text-muted-foreground" onClick={() => { navigate("/auth"); setOpen(false); }}>Connexion</Button>
-              <Button size="sm" className="bg-gradient-gold font-semibold" onClick={() => { navigate("/auth"); setOpen(false); }}>Commencer</Button>
+              <Button variant="ghost" size="sm" className="text-muted-foreground" onClick={() => { navigate("/auth"); setOpen(false); }}>
+                {t("nav.login")}
+              </Button>
+              <Button size="sm" className="bg-gradient-gold font-semibold" onClick={() => { navigate("/auth"); setOpen(false); }}>
+                Nexus Pass
+              </Button>
             </div>
           )}
         </div>

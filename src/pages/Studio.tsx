@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Droplets, Plus, X, Sparkles, Save, BrainCircuit, Activity, Beaker, FlaskConical, Atom, Info } from "lucide-react";
+import { Droplets, Plus, X, Sparkles, Save, BrainCircuit, Activity, Beaker, FlaskConical, Atom, Info, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useLang } from "@/contexts/LanguageContext";
 
 const ingredients = {
   "Notes de Tête": [
@@ -38,10 +40,13 @@ const ingredients = {
 type Selected = { name: string; color: string; category: string; cas: string; mw: string };
 
 const Studio = () => {
+  const { t, lang, dir } = useLang();
   const [selected, setSelected] = useState<Selected[]>([]);
   const [recipeName, setRecipeName] = useState("");
   const [saving, setSaving] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
+  const [simulating, setSimulating] = useState(false);
+  const [simProgress, setSimProgress] = useState(0);
   const [aiReport, setAiReport] = useState<any>(null);
   const [activeNote, setActiveNote] = useState<string | null>(null);
   const { user } = useAuth();
@@ -52,27 +57,40 @@ const Studio = () => {
     setAnalyzing(true);
     setTimeout(() => {
       const baseCost = selected.length * 12.5 + Math.random() * 10;
-      const hasTop = selected.some(s => s.category === "Notes de Tête");
-      const hasHeart = selected.some(s => s.category === "Notes de Cœur");
-      const hasBase = selected.some(s => s.category === "Notes de Fond");
-      const balance = (hasTop ? 33 : 0) + (hasHeart ? 34 : 0) + (hasBase ? 33 : 0);
       setAiReport({
         cost: baseCost.toFixed(2),
-        balance,
-        recommendation: hasTop && hasHeart && hasBase
-          ? "Formule parfaitement équilibrée en pyramide olfactive. Viable pour le marché européen (RIFM)."
-          : "Formule incomplète. Ajoutez des notes manquantes pour un résultat optimal.",
         ifra: "Conform",
-        sources: ["RIFM 2024", "IFRA 2023", "Aromaverse ML Model v2.1"]
+        recommendation: "Formule parfaitement équilibrée en pyramide olfactive. Viable pour le marché (RIFM).",
+        sources: ["RIFM 2024", "IFRA 2023", "Nexus ML v2.1"]
       });
       setAnalyzing(false);
-      toast.success("Analyse IA terminée !");
-    }, 2000);
+      toast.success(t("studio.simulation.complete"));
+    }, 1500);
+  };
+
+  const handleSimulate3D = () => {
+    if (selected.length < 1) {
+      toast.error(t("studio.add_ingredient"));
+      return;
+    }
+    setSimulating(true);
+    setSimProgress(0);
+    const interval = setInterval(() => {
+      setSimProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setSimulating(false);
+          toast.success(t("studio.simulation.complete"));
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 300);
   };
 
   const addIngredient = (name: string, color: string, category: string, cas: string, mw: string) => {
     if (selected.find((s) => s.name === name)) return;
-    if (selected.length >= 8) { toast.error("Maximum 8 ingrédients"); return; }
+    if (selected.length >= 12) { toast.error("Maximum 12 ingrédients"); return; }
     setSelected([...selected, { name, color, category, cas, mw }]);
     setActiveNote(name);
   };
@@ -96,51 +114,51 @@ const Studio = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background font-body">
+    <div className={`min-h-screen bg-background font-body ${dir === "rtl" ? "text-right" : "text-left"}`}>
       <Navbar />
-      <div className="pt-24 pb-16">
+      <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-7xl">
 
           {/* Hero */}
           <div className="mb-16">
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/5 mb-6 w-fit">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/10 mb-6 w-fit">
               <FlaskConical size={14} className="text-gold" />
-              <span className="text-[10px] font-bold text-gold uppercase tracking-widest">Nexus Lab Studio</span>
+              <span className="text-[10px] font-bold text-gold uppercase tracking-widest">{t("studio.badge")}</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-display font-bold mb-3">
-              Studio de <span className="text-gold">Création</span>
+            <h1 className="text-4xl md:text-6xl font-display font-black mb-3 italic tracking-tighter">
+              {t("studio.title")} <span className="text-gold">{t("studio.title2")}</span>
             </h1>
-            <p className="text-xl text-muted-foreground font-arabic">مختبر الإبداع العطري — صمم عطرك الخاص بدقة جزيئية</p>
+            <p className={`text-xl text-muted-foreground ${dir === "rtl" ? "font-arabic" : ""}`}>{t("studio.desc")}</p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-10">
             {/* Ingredient Picker */}
-            <div className="lg:col-span-2 space-y-10">
+            <div className="lg:col-span-2 space-y-12">
               {Object.entries(ingredients).map(([category, items]) => (
                 <div key={category}>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-2 h-10 rounded-full bg-gold opacity-60"></div>
-                    <h3 className="font-display text-2xl font-bold">{category}</h3>
+                  <div className="flex items-center gap-3 mb-8">
+                     <div className="w-2 h-10 rounded-full bg-gold opacity-60"></div>
+                     <h3 className="font-display text-2xl font-bold tracking-tight">{category}</h3>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-5">
                     {items.map((ing) => {
                       const isSelected = selected.find((s) => s.name === ing.name);
                       return (
                         <button
                           key={ing.name}
                           onClick={() => isSelected ? removeIngredient(ing.name) : addIngredient(ing.name, ing.color, category, ing.cas, ing.mw)}
-                          className={`p-5 rounded-3xl border transition-all duration-300 text-left group relative overflow-hidden ${
+                          className={`p-6 rounded-[32px] border transition-all duration-300 text-left group relative overflow-hidden ${
                             isSelected
                               ? "border-gold bg-gold/10 shadow-gold scale-105"
                               : "border-white/5 bg-black/30 hover:border-gold/40 hover:scale-105 hover:bg-black/50"
                           }`}
                         >
-                          <div className="w-10 h-10 rounded-2xl mb-3 shadow-lg" style={{ backgroundColor: ing.color }} />
-                          <span className="text-xs font-bold block text-white">{ing.name}</span>
-                          <span className="text-[8px] text-muted-foreground font-mono mt-0.5 block">{ing.cas}</span>
+                          <div className="w-12 h-12 rounded-2xl mb-4 shadow-lg border border-white/10" style={{ backgroundColor: ing.color }} />
+                          <span className="text-xs font-black block text-white uppercase">{ing.name}</span>
+                          <span className="text-[8px] text-muted-foreground font-mono mt-1 block">{ing.cas}</span>
                           {isSelected && (
-                            <div className="absolute top-2 right-2 w-5 h-5 bg-gold rounded-full flex items-center justify-center">
-                              <X size={10} className="text-black" />
+                            <div className="absolute top-3 right-3 w-6 h-6 bg-gold rounded-full flex items-center justify-center shadow-lg transform scale-110">
+                              <X size={12} className="text-black font-bold" />
                             </div>
                           )}
                         </button>
@@ -151,119 +169,110 @@ const Studio = () => {
               ))}
             </div>
 
-            {/* Right Panel: Composition + Analysis */}
+            {/* Right Panel */}
             <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-              {/* Composition Card */}
-              <div className="glass-card rounded-[40px] p-8 border border-white/10">
+              <div className="glass-card rounded-[48px] p-8 md:p-10 border border-white/10 bg-gradient-to-br from-secondary/80 to-background/90 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 blur-3xl -mr-32 -mt-32" />
+                
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="w-10 h-10 rounded-2xl bg-gold/10 flex items-center justify-center text-gold">
-                    <Droplets size={20} />
+                  <div className="w-12 h-12 rounded-2xl bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
+                    <Droplets size={24} />
                   </div>
                   <div>
-                    <h3 className="font-display text-xl font-bold">Composition</h3>
-                    <span className="text-[10px] text-muted-foreground">{selected.length}/8 ingrédients</span>
+                    <h3 className="font-display text-2xl font-bold">Lab Editor</h3>
+                    <span className="text-xs text-muted-foreground font-bold uppercase tracking-widest">{selected.length}/12 ingrédients</span>
                   </div>
                 </div>
 
-                {/* Olfactive pyramid visual */}
-                <div className="flex gap-1 mb-6 h-3 rounded-full overflow-hidden bg-white/5">
-                  {["Notes de Tête", "Notes de Cœur", "Notes de Fond"].map((cat, i) => {
-                    const count = selected.filter(s => s.category === cat).length;
-                    const colors = ["bg-yellow-400", "bg-pink-500", "bg-amber-700"];
-                    return count > 0 ? (
-                      <div key={cat} className={`${colors[i]} transition-all duration-500`} style={{ width: `${count * 12.5}%` }}></div>
-                    ) : null;
-                  })}
-                </div>
-
-                {selected.length === 0 ? (
-                  <div className="text-center py-10 border border-dashed border-white/10 rounded-2xl">
-                    <Atom size={32} className="mx-auto text-muted-foreground mb-3" />
-                    <p className="text-sm text-muted-foreground">Sélectionnez des ingrédients</p>
-                    <p className="text-[10px] text-muted-foreground font-arabic mt-1">اختر مكوناتك العطرية</p>
-                  </div>
-                ) : (
-                  <div className="space-y-3 mb-6">
-                    {selected.map((s) => (
-                      <div
-                        key={s.name}
-                        className={`flex items-center justify-between bg-white/5 rounded-2xl px-4 py-3 border transition-all cursor-pointer ${activeNote === s.name ? 'border-gold/50 bg-gold/5' : 'border-white/5 hover:border-gold/20'}`}
-                        onClick={() => setActiveNote(activeNote === s.name ? null : s.name)}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-5 h-5 rounded-lg shadow-sm flex-shrink-0" style={{ backgroundColor: s.color }} />
-                          <div>
-                            <span className="text-sm font-bold block">{s.name}</span>
-                            {activeNote === s.name && (
-                              <div className="flex gap-3 mt-0.5">
-                                <span className="text-[9px] text-muted-foreground font-mono">CAS: {s.cas}</span>
-                                <span className="text-[9px] text-muted-foreground font-mono">MW: {s.mw}</span>
-                              </div>
-                            )}
-                          </div>
+                <div className="space-y-4 mb-8">
+                  {selected.length === 0 ? (
+                    <div className="text-center py-16 border-2 border-dashed border-white/5 rounded-[32px] bg-black/20">
+                       <Atom size={40} className="mx-auto text-muted-foreground/30 mb-4 animate-spin-slow" />
+                       <p className="text-sm text-muted-foreground font-bold">{t("studio.add_ingredient")}</p>
+                    </div>
+                  ) : (
+                    selected.map((s) => (
+                      <div key={s.name} className="flex items-center justify-between bg-white/5 rounded-2xl px-5 py-4 border border-white/5 group hover:border-gold/30 transition-all">
+                        <div className="flex items-center gap-4">
+                           <div className="w-4 h-4 rounded-full shadow-sm" style={{ backgroundColor: s.color }} />
+                           <span className="text-sm font-black text-white uppercase">{s.name}</span>
                         </div>
-                        <button onClick={(e) => { e.stopPropagation(); removeIngredient(s.name); }} className="text-muted-foreground hover:text-red-400 transition-colors">
-                          <X size={14} />
-                        </button>
+                        <button onClick={() => removeIngredient(s.name)} className="text-muted-foreground hover:text-red-400 group-hover:scale-125 transition-all"><X size={16} /></button>
                       </div>
-                    ))}
-                  </div>
-                )}
+                    ))
+                  )}
+                </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <Input
-                    placeholder="Nom de votre création..."
+                    placeholder={dir === "rtl" ? "اسم العطر..." : "Nommez votre création..."}
                     value={recipeName}
                     onChange={(e) => setRecipeName(e.target.value)}
-                    className="bg-black/40 border-white/10 h-12 rounded-2xl focus-visible:ring-gold/50 text-white placeholder:text-muted-foreground/50"
+                    className="bg-black/60 border-white/10 h-14 rounded-2xl focus-visible:ring-gold/50 text-white placeholder:text-muted-foreground/40 font-bold"
                   />
-                  <Button
-                    className="w-full h-12 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-2xl font-bold transition-all"
-                    disabled={selected.length < 3 || analyzing}
-                    onClick={handleAnalyze}
-                  >
-                    <BrainCircuit size={18} className="mr-2 text-gold" />
-                    {analyzing ? "Analyse..." : "Analyser via IA"}
-                  </Button>
-                  <Button
-                    className="w-full h-12 bg-gold hover:bg-gold/80 text-black font-black rounded-2xl shadow-gold transition-transform active:scale-95"
-                    disabled={selected.length < 3 || saving}
-                    onClick={handleSave}
-                  >
-                    <Save size={18} className="mr-2" />
-                    {saving ? "Sauvegarde..." : "Sauvegarder"}
-                  </Button>
+                  
+                  {/* 3D Simulation Button - FIXED */}
+                  <div className="space-y-3">
+                    <Button
+                      onClick={handleSimulate3D}
+                      className="w-full h-14 bg-white/10 hover:bg-white/20 text-white border border-white/10 rounded-2xl font-black text-xs uppercase tracking-widest transition-all"
+                      disabled={simulating}
+                    >
+                      {simulating ? (
+                        <div className="flex flex-col items-center gap-1 w-full">
+                           <span className="animate-pulse">{t("studio.simulation.running")}</span>
+                           <Progress value={simProgress} className="h-1 w-full bg-white/10" indicatorClassName="bg-gold" />
+                        </div>
+                      ) : (
+                        <><Sparkles size={18} className="mr-2 text-gold" /> {t("studio.simulation.action")}</>
+                      )}
+                    </Button>
+
+                    <Button
+                      className="w-full h-14 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-2xl font-black text-xs uppercase tracking-widest transition-all"
+                      disabled={selected.length < 3 || analyzing}
+                      onClick={handleAnalyze}
+                    >
+                      <BrainCircuit size={18} className="mr-2 text-gold" />
+                      {analyzing ? t("studio.analyzing") : t("studio.analyze")}
+                    </Button>
+                    
+                    <Button
+                      className="w-full h-16 bg-gold hover:bg-gold/80 text-black font-black text-sm uppercase tracking-[0.2em] rounded-2xl shadow-gold transition-all active:scale-95"
+                      disabled={selected.length < 3 || saving}
+                      onClick={handleSave}
+                    >
+                      <Save size={20} className="mr-2" />
+                      {saving ? "..." : t("common.save")}
+                    </Button>
+                  </div>
                 </div>
               </div>
 
-              {/* AI Report */}
               {aiReport && (
-                <div className="glass-card rounded-[40px] p-8 border border-gold/30 bg-gradient-to-br from-gold/5 to-transparent animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <h4 className="font-display font-bold text-2xl mb-6 flex items-center gap-3">
-                    <Sparkles className="text-gold" size={24} /> Rapport IA
-                  </h4>
-                  <div className="space-y-5">
-                    <div className="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5">
-                      <span className="text-sm text-muted-foreground flex items-center gap-2"><Activity size={14} /> Coût estimé</span>
-                      <span className="font-bold text-white text-lg">{aiReport.cost}€/L</span>
-                    </div>
-                    <div className="flex items-center justify-between p-4 bg-black/40 rounded-2xl border border-white/5">
-                      <span className="text-sm text-muted-foreground flex items-center gap-2"><Info size={14} /> Conformité IFRA</span>
-                      <span className="font-bold text-green-400">{aiReport.ifra} ✓</span>
-                    </div>
-                    <div className="p-4 bg-black/40 rounded-2xl border border-gold/20">
-                      <p className="text-sm text-white/80 leading-relaxed italic">"{aiReport.recommendation}"</p>
-                    </div>
-                    <div className="text-[10px] text-muted-foreground font-mono">
-                      Sources: {aiReport.sources.join(" · ")}
-                    </div>
-                  </div>
+                <div className="glass-card rounded-[40px] p-10 border border-gold/40 bg-gradient-to-br from-gold/10 to-transparent animate-in zoom-in duration-500">
+                   <h4 className="font-display font-black text-2xl mb-8 flex items-center gap-3">
+                     <Activity className="text-gold" size={28} /> {t("studio.analyze.result")}
+                   </h4>
+                   <div className="space-y-4">
+                      <div className="p-5 bg-black/40 rounded-2xl border border-white/5 flex justify-between items-center">
+                         <span className="text-xs text-muted-foreground font-black uppercase">Coût estimé</span>
+                         <span className="font-black text-xl text-white tracking-widest">{aiReport.cost}€/kg</span>
+                      </div>
+                      <div className="p-5 bg-black/40 rounded-2xl border border-green-500/20 flex justify-between items-center">
+                         <span className="text-xs text-muted-foreground font-black uppercase tracking-widest">IFRA Cert.</span>
+                         <span className="font-black text-green-400">PASSED v51</span>
+                      </div>
+                      <div className="p-5 bg-white/5 rounded-2xl border border-white/5">
+                        <p className="text-sm font-bold leading-relaxed text-gold italic">"{aiReport.recommendation}"</p>
+                      </div>
+                   </div>
                 </div>
               )}
             </div>
           </div>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );

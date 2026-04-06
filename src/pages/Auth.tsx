@@ -6,10 +6,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
-import { Gift, Star, ArrowRight, Eye, EyeOff, Shield, Sparkles } from "lucide-react";
+import { Gift, Star, ArrowRight, Eye, EyeOff, Shield } from "lucide-react";
 import { api } from "@/lib/api";
+import { useLang } from "@/contexts/LanguageContext";
 
 const Auth = () => {
+  const { t, lang } = useLang();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,13 +73,10 @@ const Auth = () => {
                 </div>
                 <div>
                   <h2 className="font-display font-bold text-xl text-white mb-1">
-                    🎁 4 Mois <span className="text-gold">GRATUITS</span>
+                    🎁 {t("auth.trial")}
                   </h2>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Accès complet à toutes les fonctionnalités Nexus Pro : Lab moléculaire, Marketplace B2B, Investissements, et la communauté mondiale.
-                  </p>
-                  <p className="text-xs text-muted-foreground font-arabic mt-2 text-right">
-                    4 أشهر مجانية شاملة — جميع مميزات Nexus Pro
                   </p>
                   <div className="flex flex-wrap gap-2 mt-4">
                     {["PubChem Lab", "Marketplace B2B", "Investissement", "Communauté"].map(feature => (
@@ -100,10 +99,10 @@ const Auth = () => {
                   <Shield size={32} className="text-gold" />
                 </div>
                 <h1 className="text-3xl font-display font-bold text-white mb-2">
-                  {isLogin ? "Connexion" : "Créer un compte"}
+                  {isLogin ? t("auth.submit.login") : t("auth.submit.register")}
                 </h1>
-                <p className="text-muted-foreground text-sm font-arabic">
-                  {isLogin ? "أهلاً بعودتك إلى Perfume Nexus" : "انضم إلى مجتمع العطور الاحترافي"}
+                <p className="text-muted-foreground text-sm">
+                  {isLogin ? "Accédez à votre espace professionnel" : t("auth.trial")}
                 </p>
               </div>
 
@@ -164,7 +163,7 @@ const Auth = () => {
                     <span className="animate-pulse">Chargement...</span>
                   ) : (
                     <>
-                      {isLogin ? "Se connecter" : "Créer mon compte gratuit"}
+                      {isLogin ? t("auth.submit.login") : t("auth.submit.register")}
                       <ArrowRight size={18} />
                     </>
                   )}

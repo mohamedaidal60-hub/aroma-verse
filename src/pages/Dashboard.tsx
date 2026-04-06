@@ -9,9 +9,11 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Navigate, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
+import { useLang } from "@/contexts/LanguageContext";
 
 const Dashboard = () => {
   const { user, profile, loading } = useAuth();
+  const { t, lang } = useLang();
   const navigate = useNavigate();
   const [stats, setStats] = useState<any>({ order_count: 0, formula_count: 0, course_count: 0, total_invested: 0 });
   const [orders, setOrders] = useState<any[]>([]);
@@ -58,9 +60,9 @@ const Dashboard = () => {
                 <span className="text-[10px] font-bold text-gold uppercase tracking-widest leading-none">Nexus Member Portal</span>
               </div>
               <h1 className="text-4xl md:text-6xl font-display font-bold">
-                Bonjour, <span className="text-gold text-gradient-gold">{profile?.full_name || user.email?.split('@')[0]}</span>
+                {t("dashboard.welcome")}, <span className="text-gold text-gradient-gold">{profile?.full_name || user.email?.split('@')[0]}</span>
               </h1>
-              <p className="text-xl text-muted-foreground font-arabic mt-2">أهلاً بك في منصتك الشخصية للعطور</p>
+              <p className="text-xl text-muted-foreground mt-2">{t("dashboard.activity")}</p>
             </div>
             
             <div className="flex items-center gap-4 bg-white/5 p-4 rounded-3xl border border-white/5">
@@ -68,11 +70,11 @@ const Dashboard = () => {
                   <ShieldCheck size={24} />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase font-bold tracking-widest">Statut Membre</p>
-                  <p className="text-white font-black">{(profile as any)?.current_plan === 'pro' ? 'Abonnement PRO' : 'Nexus Trial (4 mois)'}</p>
+                  <p className="text-xs text-muted-foreground uppercase font-bold tracking-widest">{t("dashboard.plan")}</p>
+                  <p className="text-white font-black">{(profile as any)?.current_plan === 'pro' ? t("dashboard.plan.pro") : t("dashboard.plan.trial")}</p>
                 </div>
                 <Button variant="ghost" className="h-10 px-4 rounded-xl text-gold hover:bg-gold/10 ml-4 font-bold" onClick={() => navigate('/pricing')}>
-                  Détails
+                  {t("nav.pricing")}
                 </Button>
             </div>
           </div>
@@ -80,12 +82,12 @@ const Dashboard = () => {
           {/* Key Metrics */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
              {[
-               { icon: ShoppingBag, label: "Commandes Nexus", value: stats.order_count, sub: "Suivi marketplace", color: "bg-blue-500/10 text-blue-500" },
-               { icon: TrendingUp, label: "Investissements", value: `${stats.total_invested}€`, sub: "Valeur actuelle", color: "bg-green-500/10 text-green-500" },
-               { icon: Palette, label: "Lab Formulas", value: stats.formula_count, sub: "Créations sauvegardées", color: "bg-gold/10 text-gold" },
-               { icon: BrainCircuit, label: "Academy Progress", value: stats.course_count, sub: "Cours en cours", color: "bg-purple-500/10 text-purple-500" },
+               { icon: ShoppingBag, label: t("dashboard.orders"), value: stats.order_count, sub: "Suivi marketplace", color: "bg-blue-500/10 text-blue-500" },
+               { icon: TrendingUp, label: t("dashboard.invested"), value: `${stats.total_invested}€`, sub: "Valeur actuelle", color: "bg-green-500/10 text-green-500" },
+               { icon: Palette, label: t("dashboard.formulas"), value: stats.formula_count, sub: "Créations sauvegardées", color: "bg-gold/10 text-gold" },
+               { icon: BrainCircuit, label: t("dashboard.courses"), value: stats.course_count, sub: "Cours en cours", color: "bg-purple-500/10 text-purple-500" },
              ].map((stat, i) => (
-               <div key={i} className="glass-card p-6 rounded-[32px] border border-white/5 relative group hover:border-gold/30 transition-all">
+                <div key={i} className="glass-card p-6 rounded-[32px] border border-white/5 relative group hover:border-gold/30 transition-all">
                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-4 ${stat.color} transition-transform group-hover:scale-110`}>
                     <stat.icon size={22} />
                   </div>
@@ -107,16 +109,16 @@ const Dashboard = () => {
                <section>
                   <div className="flex items-center justify-between mb-8">
                     <h2 className="text-2xl font-bold flex items-center gap-3">
-                      <ShoppingBag className="text-gold" /> Commandes Récentes
+                      <ShoppingBag className="text-gold" /> {t("dashboard.orders")}
                     </h2>
-                    <Button variant="ghost" className="text-muted-foreground font-bold" onClick={() => navigate('/marketplace')}>Voir tout</Button>
+                    <Button variant="ghost" className="text-muted-foreground font-bold" onClick={() => navigate('/marketplace')}>{t("common.see_all")}</Button>
                   </div>
 
                   {orders.length === 0 ? (
                     <div className="glass-card p-10 rounded-[32px] border-dashed border-white/10 text-center">
                        <ShoppingBag size={40} className="mx-auto text-muted-foreground/20 mb-4" />
-                       <p className="text-muted-foreground mb-6">Vous n'avez pas encore passé de commande sur Nexus Marketplace.</p>
-                       <Button className="bg-gold text-black font-bold h-12 rounded-2xl px-8" onClick={() => navigate('/marketplace')}>Accéder au Catalogue</Button>
+                       <p className="text-muted-foreground mb-6">{t("common.no_data")}</p>
+                       <Button className="bg-gold text-black font-bold h-12 rounded-2xl px-8" onClick={() => navigate('/marketplace')}>{t("hero.cta.catalogue")}</Button>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -148,17 +150,17 @@ const Dashboard = () => {
                <section>
                   <div className="flex items-center justify-between mb-8">
                     <h2 className="text-2xl font-bold flex items-center gap-3">
-                      <Palette className="text-gold" /> Mes Formules Lab
+                      <Palette className="text-gold" /> {t("dashboard.formulas")}
                     </h2>
-                    <Button variant="ghost" className="text-muted-foreground font-bold" onClick={() => navigate('/studio')}>Nouveau projet</Button>
+                    <Button variant="ghost" className="text-muted-foreground font-bold" onClick={() => navigate('/studio')}>{t("community.new_post")}</Button>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                      {formulas.length === 0 ? (
                        <div className="glass-card p-10 rounded-[32px] border-dashed border-white/10 text-center md:col-span-2">
                           <Palette size={40} className="mx-auto text-muted-foreground/20 mb-4" />
-                          <p className="text-muted-foreground mb-6">Créez votre première essence au Studio.</p>
-                          <Button className="bg-gold text-black font-bold h-12 rounded-2xl px-8" onClick={() => navigate('/studio')}>Accéder au Lab</Button>
+                          <p className="text-muted-foreground mb-6">{t("common.no_data")}</p>
+                          <Button className="bg-gold text-black font-bold h-12 rounded-2xl px-8" onClick={() => navigate('/studio')}>{t("nav.studio")}</Button>
                        </div>
                      ) : (
                        formulas.map(formula => (
@@ -205,7 +207,7 @@ const Dashboard = () => {
                       <Globe size={24} />
                     </div>
                     <div>
-                       <h4 className="font-black text-xs uppercase tracking-widest text-muted-foreground">Communauté Nexus</h4>
+                       <h4 className="font-black text-xs uppercase tracking-widest text-muted-foreground">{t("footer.ecosystem")}</h4>
                        <p className="font-bold text-white">Classement des Nez</p>
                     </div>
                  </div>
