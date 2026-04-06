@@ -1,14 +1,15 @@
 import { neon } from '@neondatabase/serverless';
 
-// Warning: In production, secret connection strings should not be placed in the frontend.
-// This is done for rapid prototyping and demonstration purposes as requested.
 const DATABASE_URL = "postgresql://neondb_owner:npg_mOD0Ykjcp2VE@ep-falling-mountain-anm7xje6-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require";
+const sql = neon(DATABASE_URL);
 
-export const sql = neon(DATABASE_URL);
+async function run() {
+  console.log("Setting up schema and seeding...");
 
-export async function setupDatabase() {
   try {
-    // 1. Admin Users
+    // CREATE TABLES
+    await sql`CREATE EXTENSION IF NOT EXISTS "pgcrypto"`;
+
     await sql`
       CREATE TABLE IF NOT EXISTS admin_users (
         id SERIAL PRIMARY KEY,
@@ -18,7 +19,6 @@ export async function setupDatabase() {
       );
     `;
 
-    // 2. Main Users Table
     await sql`
       CREATE TABLE IF NOT EXISTS users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -36,7 +36,6 @@ export async function setupDatabase() {
       );
     `;
 
-    // 3. Products
     await sql`
       CREATE TABLE IF NOT EXISTS products (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -55,7 +54,6 @@ export async function setupDatabase() {
       );
     `;
 
-    // 4. Courses
     await sql`
       CREATE TABLE IF NOT EXISTS courses (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -69,20 +67,6 @@ export async function setupDatabase() {
       );
     `;
 
-    // 5. Lab Formulas
-    await sql`
-      CREATE TABLE IF NOT EXISTS lab_formulas (
-        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        user_id UUID REFERENCES users(id),
-        title VARCHAR(255) NOT NULL,
-        formula_data JSONB NOT NULL,
-        is_public BOOLEAN DEFAULT false,
-        likes INTEGER DEFAULT 0,
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    // 6. Investments
     await sql`
       CREATE TABLE IF NOT EXISTS investment_projects (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -100,44 +84,47 @@ export async function setupDatabase() {
       );
     `;
 
-    // 7. Blog
-    await sql`
-      CREATE TABLE IF NOT EXISTS blog_articles (
-        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        title VARCHAR(255) NOT NULL,
-        slug VARCHAR(255) UNIQUE NOT NULL,
-        content TEXT NOT NULL,
-        author VARCHAR(255),
-        tags JSONB DEFAULT '[]',
-        likes INTEGER DEFAULT 0,
-        comments JSONB DEFAULT '[]',
-        image_url TEXT,
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
+    // SEED DATA
+    const products = [
+      {
+        title: "Ambroxan",
+        slug: "ambroxan",
+        category: "Matières Premières",
+        price: 2.50,
+        rating: 4.9,
+        reviews_count: 2847,
+        technical_props: {
+          molecular_weight: "290.48 g/mol",
+          boiling_point: "320°C",
+          stability: "High (>400h)",
+          cas: "6790-58-5"
+        },
+        inventory_data: {
+          stock: 500,
+          variants: [
+            { size: "1g", price: 2.50 },
+            { size: "5g", price: 9.00 },
+            { size: "25g", price: 23.75 },
+            { size: "100g", price: 75.00 }
+          ]
+        }
+      }
+    ];
 
-    // 8. Suppliers
-    await sql`
-      CREATE TABLE IF NOT EXISTS suppliers (
-        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        name VARCHAR(255) NOT NULL,
-        location VARCHAR(255),
-        is_certified BOOLEAN DEFAULT false,
-        products_offered JSONB DEFAULT '[]',
-        contact_info JSONB DEFAULT '{}',
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    // Ensure default admin exists
-    const adminExists = await sql`SELECT * FROM admin_users WHERE email = 'mohamed@aroma-verse.com'`;
-    if (adminExists.length === 0) {
-      await sql`INSERT INTO admin_users (email, password) VALUES ('mohamed@aroma-verse.com', '@sba-Trs2026')`;
+    for (const p of products) {
+      await sql`
+        INSERT INTO products (title, slug, category, price, rating, reviews_count, technical_props, inventory_data)
+        VALUES (${p.title}, ${p.slug}, ${p.category}, ${p.price}, ${p.rating}, ${p.reviews_count}, ${p.technical_props}, ${p.inventory_data})
+        ON CONFLICT (slug) DO UPDATE SET 
+          technical_props = EXCLUDED.technical_props,
+          inventory_data = EXCLUDED.inventory_data
+      `;
     }
 
-    return { success: true };
+    console.log("Database schema created and data seeded successfully.");
   } catch (err) {
-    console.error("Neon DB Setup error:", err);
-    return { success: false, error: err };
+    console.error("Error during setup/seeding:", err);
   }
 }
+
+run();

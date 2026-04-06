@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -54,43 +55,36 @@ export default function Admin() {
     setEditingItem(null);
     try {
       let data = [];
-      if (tab === "orders") data = await sql`SELECT id, email as title, continent as subtitle, items as details, total_price as extra, status FROM orders ORDER BY id DESC`;
-      else if (tab === "subscriptions") data = await sql`SELECT id, email as title, continent as subtitle, status FROM subscriptions ORDER BY id DESC`;
-      else if (tab === "b2b") data = await sql`SELECT id, name as title, supplier as subtitle FROM b2b_products ORDER BY id DESC LIMIT 50`;
-      else if (tab === "academy") data = await sql`SELECT id, title, source as subtitle FROM academy_courses ORDER BY id DESC LIMIT 50`;
-      else if (tab === "marketplace") data = await sql`SELECT id, title, creator as subtitle FROM marketplace_items ORDER BY id DESC LIMIT 50`;
-      else if (tab === "investments") data = await sql`SELECT id, project_name as title, founder as subtitle FROM investments ORDER BY id DESC LIMIT 50`;
+      if (tab === "users") {
+        data = await sql`SELECT id, name as title, email as subtitle, role as details, current_plan as extra, created_at FROM users ORDER BY created_at DESC`;
+      } else if (tab === "products") {
+        data = await sql`SELECT id, title, category as subtitle, price::text as extra, description as details FROM products ORDER BY created_at DESC`;
+      } else if (tab === "academy") {
+        data = await sql`SELECT id, title, level::text as subtitle, description as details FROM courses ORDER BY level ASC`;
+      } else if (tab === "investments") {
+        data = await sql`SELECT id, title, location as subtitle, roi_range as extra, progress::text as details FROM investment_projects ORDER BY created_at DESC`;
+      }
       setItems(data);
     } catch (err) {
       console.error(err);
+      toast.error("Erreur de chargement: " + err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: any) => {
     if (!confirm("Voulez-vous vraiment supprimer cet élément ?")) return;
     try {
-      if (activeTab === "b2b") await sql`DELETE FROM b2b_products WHERE id = ${id}`;
-      else if (activeTab === "academy") await sql`DELETE FROM academy_courses WHERE id = ${id}`;
-      else if (activeTab === "marketplace") await sql`DELETE FROM marketplace_items WHERE id = ${id}`;
-      else if (activeTab === "investments") await sql`DELETE FROM investments WHERE id = ${id}`;
-      else if (activeTab === "orders") await sql`DELETE FROM orders WHERE id = ${id}`;
-      else if (activeTab === "subscriptions") await sql`DELETE FROM subscriptions WHERE id = ${id}`;
-      toast.success(`Élément ${id} supprimé.`);
+      if (activeTab === "users") await sql`DELETE FROM users WHERE id = ${id}`;
+      else if (activeTab === "products") await sql`DELETE FROM products WHERE id = ${id}`;
+      else if (activeTab === "academy") await sql`DELETE FROM courses WHERE id = ${id}`;
+      else if (activeTab === "investments") await sql`DELETE FROM investment_projects WHERE id = ${id}`;
+      
+      toast.success(`Élément supprimé.`);
       fetchData(activeTab);
     } catch (e: any) {
       toast.error("Erreur de suppression: " + e.message);
-    }
-  };
-
-  const handleValidateSub = async (id: number) => {
-    try {
-        await sql`UPDATE subscriptions SET status = 'Actif' WHERE id = ${id}`;
-        toast.success("Abonnement validé !");
-        fetchData(activeTab);
-    } catch (e: any) {
-        toast.error("Valid error: " + e.message);
     }
   };
 
@@ -98,12 +92,16 @@ export default function Admin() {
     e.preventDefault();
     if (!newItemTitle) return toast.error("Le titre est requis.");
     try {
-        if (activeTab === "b2b") await sql`INSERT INTO b2b_products (name, supplier, price_per_unit, unit, category, origin) VALUES (${newItemTitle}, ${newItemSubtitle || 'Générique'}, 0, 'pc', 'Divers', 'Global')`;
-        else if (activeTab === "academy") await sql`INSERT INTO academy_courses (title, source, content, estimated_time) VALUES (${newItemTitle}, ${newItemSubtitle || 'Interne'}, 'Nouveau cours ajouté par l\'administrateur.', '5 min')`;
-        else if (activeTab === "marketplace") await sql`INSERT INTO marketplace_items (title, creator, description, price, category) VALUES (${newItemTitle}, ${newItemSubtitle || 'Admin'}, 'Description non définie.', 0, 'Divers')`;
-        else if (activeTab === "investments") await sql`INSERT INTO investments (project_name, founder, description, goal_amount, current_amount, roi_percentage) VALUES (${newItemTitle}, ${newItemSubtitle || 'N/A'}, 'Nouveau projet.', 100000, 0, 10)`;
+        if (activeTab === "products") {
+          const slug = newItemTitle.toLowerCase().replace(/ /g, '-');
+          await sql`INSERT INTO products (title, slug, category, price) VALUES (${newItemTitle}, ${slug}, ${newItemSubtitle || 'Matières Premières'}, 0)`;
+        } else if (activeTab === "academy") {
+          await sql`INSERT INTO courses (title, level, description) VALUES (${newItemTitle}, 0, ${newItemSubtitle})`;
+        } else if (activeTab === "investments") {
+          await sql`INSERT INTO investment_projects (title, location, roi_range) VALUES (${newItemTitle}, ${newItemSubtitle}, '10-15%')`;
+        }
         
-        toast.success("L'élément a été correctement ajouté à votre base de données Neon !");
+        toast.success("Élément ajouté à la base de données !");
         setNewItemTitle("");
         setNewItemSubtitle("");
         setShowAddForm(false);
@@ -123,18 +121,16 @@ export default function Admin() {
   const handleUpdate = async (e: React.FormEvent) => {
       e.preventDefault();
       try {
-          if (activeTab === "b2b") await sql`UPDATE b2b_products SET name = ${editTitle}, supplier = ${editSubtitle} WHERE id = ${editingItem.id}`;
-          else if (activeTab === "academy") await sql`UPDATE academy_courses SET title = ${editTitle}, source = ${editSubtitle} WHERE id = ${editingItem.id}`;
-          else if (activeTab === "marketplace") await sql`UPDATE marketplace_items SET title = ${editTitle}, creator = ${editSubtitle} WHERE id = ${editingItem.id}`;
-          else if (activeTab === "investments") await sql`UPDATE investments SET project_name = ${editTitle}, founder = ${editSubtitle} WHERE id = ${editingItem.id}`;
-          else if (activeTab === "orders") await sql`UPDATE orders SET email = ${editTitle}, continent = ${editSubtitle} WHERE id = ${editingItem.id}`;
-          else if (activeTab === "subscriptions") await sql`UPDATE subscriptions SET email = ${editTitle}, continent = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          if (activeTab === "products") await sql`UPDATE products SET title = ${editTitle}, category = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          else if (activeTab === "academy") await sql`UPDATE courses SET title = ${editTitle}, level = ${parseInt(editSubtitle) || 0} WHERE id = ${editingItem.id}`;
+          else if (activeTab === "investments") await sql`UPDATE investment_projects SET title = ${editTitle}, location = ${editSubtitle} WHERE id = ${editingItem.id}`;
+          else if (activeTab === "users") await sql`UPDATE users SET name = ${editTitle}, role = ${editSubtitle} WHERE id = ${editingItem.id}`;
           
-          toast.success("Mise à jour réussie dans Neon DB !");
+          toast.success("Mise à jour réussie !");
           setEditingItem(null);
           fetchData(activeTab);
       } catch (e: any) {
-          toast.error("Erreur lors de la mise à jour: " + e.message);
+          toast.error("Erreur de mise à jour: " + e.message);
       }
   };
 
@@ -154,93 +150,90 @@ export default function Admin() {
     );
   }
 
-  const canAdd = ["b2b", "academy", "marketplace", "investments"].includes(activeTab);
+  const canAdd = ["products", "academy", "investments"].includes(activeTab);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col font-body">
       <Navbar />
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl md:text-4xl font-display font-bold flex items-center gap-3"><Shield className="text-primary" /> AromaVerse Panel</h1>
-            <Button variant="outline" onClick={() => { setIsAuthenticated(false); localStorage.removeItem("adminAuth"); }}>Déconnexion</Button>
+            <h1 className="text-3xl md:text-4xl font-display font-bold flex items-center gap-3"><Shield className="text-gold" /> Nexus Admin</h1>
+            <Button variant="outline" className="border-white/10" onClick={() => { setIsAuthenticated(false); localStorage.removeItem("adminAuth"); }}>Déconnexion</Button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-                {id: "orders", label: "Commandes", icon: <ShoppingBag size={18}/>},
-                {id: "subscriptions", label: "Abonnements", icon: <UserCheck size={18}/>},
-                {id: "b2b", label: "Store B2B", icon: <Database size={18}/>}, 
+                {id: "users", label: "Utilisateurs", icon: <Users size={18}/>},
+                {id: "products", label: "Catalogue", icon: <ShoppingBag size={18}/>}, 
                 {id: "academy", label: "Academy", icon: <Settings size={18}/>}, 
-                {id: "marketplace", label: "Market", icon: <Users size={18}/>}, 
                 {id: "investments", label: "Invests", icon: <Activity size={18}/>}
             ].map(tab => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`glass-card p-4 rounded-xl flex flex-col items-center gap-2 transition-all ${activeTab === tab.id ? 'border-primary bg-primary/5' : 'hover:border-primary/30'}`}>
-                <div className={`${activeTab === tab.id ? 'text-primary' : 'text-muted-foreground'}`}>{tab.icon}</div>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`glass-card p-4 rounded-2xl flex flex-col items-center gap-2 transition-all ${activeTab === tab.id ? 'border-gold bg-gold/5' : 'hover:border-gold/30'}`}>
+                <div className={`${activeTab === tab.id ? 'text-gold' : 'text-muted-foreground'}`}>{tab.icon}</div>
                 <div className="text-sm font-bold text-center">{tab.label}</div>
               </button>
             ))}
           </div>
 
-          <div className="glass-card p-8 rounded-2xl border border-border">
+          <div className="glass-card p-8 rounded-[32px] border border-white/10">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-display font-semibold uppercase flex items-center gap-2">Gestion : {activeTab}</h2>
                 {canAdd && !showAddForm && !editingItem && (
-                    <Button onClick={() => setShowAddForm(true)} className="bg-primary hover:bg-primary/90 gap-2"><Plus size={16}/> Ajouter un produit</Button>
+                    <Button onClick={() => setShowAddForm(true)} className="bg-gold hover:bg-gold/80 text-black font-bold gap-2"><Plus size={16}/> Ajouter</Button>
                 )}
             </div>
 
             {showAddForm && (
-                <form onSubmit={handleAddItem} className="bg-secondary/30 p-6 rounded-xl border border-primary/20 mb-6 flex flex-col gap-4 relative animate-in fade-in slide-in-from-top-4">
+                <form onSubmit={handleAddItem} className="bg-white/5 p-6 rounded-2xl border border-gold/20 mb-6 flex flex-col gap-4 relative animate-in fade-in slide-in-from-top-4">
                     <Button variant="ghost" size="icon" type="button" className="absolute top-2 right-2 text-muted-foreground" onClick={() => setShowAddForm(false)}>
                         <X size={16}/>
                     </Button>
-                    <h3 className="font-bold text-lg text-primary">Nouveau Produit / Élément</h3>
+                    <h3 className="font-bold text-lg text-gold">Nouveau Élément</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Input placeholder="Titre / Nom de l'élément" value={newItemTitle} onChange={e => setNewItemTitle(e.target.value)} required />
-                        <Input placeholder="Fournisseur / Créateur / Source" value={newItemSubtitle} onChange={e => setNewItemSubtitle(e.target.value)} />
+                        <Input placeholder="Titre / Nom" value={newItemTitle} onChange={e => setNewItemTitle(e.target.value)} required className="bg-black/40 h-12" />
+                        <Input placeholder="Infos / Catégorie" value={newItemSubtitle} onChange={e => setNewItemSubtitle(e.target.value)} className="bg-black/40 h-12" />
                     </div>
-                    <Button type="submit" className="bg-green-500 hover:bg-green-600 self-end px-8 text-white">Sauvegarder dans Neon DB</Button>
+                    <Button type="submit" className="bg-gold text-black font-bold self-end px-8 rounded-xl h-12">Sauvegarder</Button>
                 </form>
             )}
 
             {editingItem && (
-                <form onSubmit={handleUpdate} className="bg-primary/10 p-6 rounded-xl border border-primary/40 mb-6 flex flex-col gap-4 relative animate-in fade-in slide-in-from-top-4">
+                <form onSubmit={handleUpdate} className="bg-white/5 p-6 rounded-2xl border border-gold/20 mb-6 flex flex-col gap-4 relative animate-in fade-in slide-in-from-top-4">
                     <Button variant="ghost" size="icon" type="button" className="absolute top-2 right-2 text-muted-foreground" onClick={() => setEditingItem(null)}>
                         <X size={16}/>
                     </Button>
-                    <h3 className="font-bold text-lg text-gradient-gold">Modifier l'Élément (ID: {editingItem.id})</h3>
+                    <h3 className="font-bold text-lg text-gold">Modifier Élément (ID: {editingItem.id.substring(0, 8)}...)</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-1">
                             <label className="text-xs text-muted-foreground ml-1">Titre Principal</label>
-                            <Input placeholder="Modifier le titre" value={editTitle} onChange={e => setEditTitle(e.target.value)} required />
+                            <Input placeholder="Modifier le titre" value={editTitle} onChange={e => setEditTitle(e.target.value)} required className="bg-black/40 h-12" />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-xs text-muted-foreground ml-1">Sous-titre / Info</label>
-                            <Input placeholder="Modifier les infos" value={editSubtitle} onChange={e => setEditSubtitle(e.target.value)} />
+                            <label className="text-xs text-muted-foreground ml-1">Infos / Détails</label>
+                            <Input placeholder="Modifier les infos" value={editSubtitle} onChange={e => setEditSubtitle(e.target.value)} className="bg-black/40 h-12" />
                         </div>
                     </div>
-                    <Button type="submit" className="bg-primary hover:bg-primary/90 self-end px-8 text-white">Appliquer les modifications</Button>
+                    <Button type="submit" className="bg-gold text-black font-bold self-end px-8 rounded-xl h-12">Appliquer</Button>
                 </form>
             )}
 
-            {loading ? <p className="text-muted-foreground">Chargement sécurisé depuis Neon DB...</p> : (
+            {loading ? <p className="text-muted-foreground animate-pulse">Chargement Neon DB...</p> : (
               <div className="space-y-4">
                 {items.length === 0 ? <p className="text-muted-foreground">Aucune donnée trouvée.</p> : items.map(item => (
-                  <div key={item.id} className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors gap-4">
+                  <div key={item.id} className="flex flex-col md:flex-row md:items-center justify-between p-5 bg-white/5 rounded-2xl hover:bg-white/10 transition-colors gap-4 border border-white/5">
                     <div className="flex-1">
-                      <p className="font-bold text-lg">{item.title} <span className="text-xs ml-2 bg-background px-2 py-1 rounded-full text-primary">{item.subtitle}</span></p>
-                      {item.details && <p className="text-sm text-muted-foreground mt-1 break-all">📦 {item.details}</p>}
+                      <p className="font-bold text-lg">{item.title}</p>
+                      <div className="flex gap-4 mt-1">
+                         <span className="text-[10px] bg-black/40 px-2 py-0.5 rounded-full text-gold uppercase font-bold tracking-widest">{item.subtitle}</span>
+                         {item.details && <span className="text-[10px] text-muted-foreground">Info: {item.details}</span>}
+                      </div>
                     </div>
                     <div className="flex items-center gap-4">
-                      {item.extra && <p className="font-bold text-gradient-gold">{item.extra} €</p>}
-                      {item.status && <span className={`text-xs px-2 py-1 rounded-md font-bold ${item.status === 'Actif' ? 'bg-green-500/20 text-green-500' : 'bg-primary/20 text-primary'}`}>{item.status}</span>}
+                      {item.extra && <p className="font-bold text-white text-lg">{item.extra}</p>}
                       <div className="flex gap-2">
-                        {activeTab === "subscriptions" && item.status !== 'Actif' && (
-                            <Button size="sm" onClick={() => handleValidateSub(item.id)} className="bg-green-500 hover:bg-green-600 text-white"><Check size={14} /></Button>
-                        )}
-                        <Button variant="outline" size="sm" className="text-primary hover:bg-primary/10 border-primary/20" onClick={() => startEdit(item)}><Plus className="rotate-45" size={14} /> Modifier</Button>
-                        <Button variant="outline" size="sm" className="text-destructive hover:bg-destructive hover:text-white" onClick={() => handleDelete(item.id)}><Trash size={14} /></Button>
+                        <Button variant="outline" size="sm" className="h-9 px-4 rounded-lg border-white/10 hover:bg-white/10" onClick={() => startEdit(item)}>Modifier</Button>
+                        <Button variant="outline" size="sm" className="h-9 w-9 p-0 rounded-lg border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white" onClick={() => handleDelete(item.id)}><Trash size={14} /></Button>
                       </div>
                     </div>
                   </div>
@@ -250,6 +243,7 @@ export default function Admin() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Users, Globe2, MapPin, MessageSquare, Heart, Trophy, Plus, ArrowLeft } from "lucide-react";
+import { Users, Globe2, MapPin, MessageSquare, Heart, Trophy, Plus, ArrowLeft, UserPlus, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function Community() {
   const [continent, setContinent] = useState("Loading...");
@@ -18,132 +19,156 @@ export default function Community() {
   }, []);
 
   const dummyPosts = [
-    { id: 1, author: "Jean D.", avatar: 30, text: "Je cherche un fournisseur fiable pour l'absolue de rose de mai.", likes: 45, comments: 12 },
-    { id: 2, author: "Sarah M.", avatar: 35, text: "Mon dernier prototype Oud & Vanille vient de passer les tests de macération ! Résultat bluffant.", likes: 120, comments: 34 },
-    { id: 3, author: "AromaCorp", avatar: 25, text: "Attention à la nouvelle régulation IFRA concernant les muscs polycycliques. Mettez à jour vos formules.", likes: 89, comments: 5 },
-    { id: 4, author: "Alex R.", avatar: 40, text: "Qui a une bonne alternative synthétique au santal albun ?", likes: 12, comments: 8 },
+    { id: 1, author: "Jean D.", avatar: 30, text: "Je cherche un fournisseur fiable pour l'absolue de rose de mai.", likes: 45, comments: 12, followed: false },
+    { id: 2, author: "Sarah M.", avatar: 35, text: "Mon dernier prototype Oud & Vanille vient de passer les tests de macération ! Résultat bluffant. استكشاف جديد للعود", likes: 120, comments: 34, followed: true },
+    { id: 3, author: "AromaCorp", avatar: 25, text: "Attention à la nouvelle régulation IFRA concernant les muscs polycycliques. Mettez à jour vos formules.", likes: 89, comments: 5, followed: false },
+    { id: 4, author: "Alex R.", avatar: 40, text: "Qui a une bonne alternative synthétique au santal albun ?", likes: 12, comments: 8, followed: false },
   ];
 
   const topCreators = [
-    { name: "Sarah M.", points: 1540 },
-    { name: "Léonard F.", points: 1320 },
-    { name: "AromaCorp", points: 980 },
-    { name: "Jean D.", points: 850 },
-    { name: "Nez_Anonyme", points: 640 },
+    { name: "Sarah M.", points: 1540, avatar: 35 },
+    { name: "Léonard F.", points: 1320, avatar: 36 },
+    { name: "AromaCorp", points: 980, avatar: 25 },
+    { name: "Jean D.", points: 850, avatar: 30 },
+    { name: "Nez_Anonyme", points: 640, avatar: 28 },
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col font-body">
       <Navbar />
       <main className="flex-1 pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-4 max-w-7xl">
           
           {!activeChannel ? (
             <>
             <div className="text-center mb-16">
-                <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Communauté <span className="text-gradient-gold">AromaVerse</span></h1>
-                <p className="text-muted-foreground text-lg">Choisissez un canal pour échanger des formules, fournisseurs et participer aux votes mensuels.</p>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/5 mb-6">
+                  <Star size={14} className="text-gold" fill="currentColor" />
+                  <span className="text-[10px] font-bold text-gold uppercase tracking-widest leading-none">Nexus Social Hub</span>
+                </div>
+                <h1 className="text-4xl md:text-6xl font-display font-bold mb-4">Communauté <span className="text-gold">Nexus</span></h1>
+                <p className="text-xl text-muted-foreground font-arabic">اكتشف، تواصل، وشارك تجاربك avec la communauté mondiale</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div onClick={() => setActiveChannel("Globale")} className="glass-card p-8 rounded-2xl border-primary/20 hover:border-primary/50 transition-colors cursor-pointer group">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-                    <Globe2 size={32} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                <div onClick={() => setActiveChannel("Globale")} className="glass-card p-10 rounded-[40px] border border-white/5 hover:border-gold/40 transition-all cursor-pointer group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-3xl group-hover:bg-gold/10 transition-colors"></div>
+                  <div className="w-20 h-20 bg-gold/10 rounded-3xl flex items-center justify-center text-gold mb-8 group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                    <Globe2 size={40} />
                   </div>
-                  <h2 className="text-2xl font-bold mb-2">Communauté Globale</h2>
-                  <p className="text-muted-foreground mb-6">Le HUB mondial (85 000+ membres). Pour les grands débats, les formules internationales et l'industrie globale.</p>
-                  <div className="bg-secondary p-4 rounded-xl flex items-center justify-between">
-                    <div className="flex -space-x-4">
-                      {[1,2,3,4].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 20}`} className="w-10 h-10 rounded-full border-2 border-background" alt="avatar" />)}
+                  <h2 className="text-3xl font-bold mb-3 font-display">Global Nexus</h2>
+                  <p className="text-muted-foreground mb-8 text-sm leading-relaxed">Hub international (85K+ membres). Partagez vos formules, vos découvertes et vos projets.</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex -space-x-3">
+                      {[1,2,3,4,5].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 20}`} className="w-12 h-12 rounded-2xl border-4 border-background" alt="avatar" />)}
                     </div>
-                    <span className="text-sm font-bold text-primary">Accéder au Flux</span>
+                    <span className="text-sm font-bold text-gold flex items-center gap-2">Entrer <Plus size={16}/></span>
                   </div>
                 </div>
 
-                {(localStorage.getItem("adminAuth") === "true" ? ["Europe", "Afrique", "Asie", "Amérique", "Océanie"] : [continent]).map((cont, idx) => (
-                  <div key={cont} onClick={() => setActiveChannel(cont)} className="glass-card p-8 rounded-2xl border-primary/20 hover:border-primary/50 transition-colors cursor-pointer group bg-primary/5">
-                    <div className="w-16 h-16 bg-gradient-gold shadow-gold rounded-full flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform relative">
-                      <MapPin size={32} />
-                    </div>
-                    <h2 className="text-2xl font-bold mb-2">Canal {cont}</h2>
-                    <p className="text-muted-foreground mb-6">Flux continental. Partagez des informations ultra-locales sur les fournisseurs, réglementations et matières premières de la région.</p>
-                    <div className="bg-secondary p-4 rounded-xl flex items-center justify-between">
-                      <div className="flex -space-x-4">
-                        {[5,6,7].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + idx * 3}`} className="w-10 h-10 rounded-full border-2 border-background" alt="avatar" />)}
-                      </div>
-                      <span className="text-sm font-bold text-primary">Accéder au Flux</span>
-                    </div>
+                <div onClick={() => setActiveChannel(continent)} className="glass-card p-10 rounded-[40px] border border-white/5 hover:border-gold/40 transition-all cursor-pointer group bg-gradient-to-br from-gold/5 to-transparent relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 blur-3xl"></div>
+                  <div className="w-20 h-20 bg-gold rounded-3xl flex items-center justify-center text-black mb-8 group-hover:scale-110 group-hover:-rotate-3 transition-transform shadow-gold">
+                    <MapPin size={40} />
                   </div>
-                ))}
+                  <h2 className="text-3xl font-bold mb-3 font-display text-white">Zone : {continent}</h2>
+                  <p className="text-muted-foreground mb-8 text-sm leading-relaxed">Focus régional. Discutez des fournisseurs locaux et de la logistique.</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex -space-x-3">
+                      {[1,2,3,4,5].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 30}`} className="w-12 h-12 rounded-2xl border-4 border-background" alt="avatar" />)}
+                    </div>
+                    <span className="text-sm font-bold text-gold flex items-center gap-2">Rejoindre <Plus size={16}/></span>
+                  </div>
+                </div>
             </div>
             </>
           ) : (
-            <div className="animate-in fade-in slide-in-from-bottom-4">
-               <Button variant="ghost" onClick={() => setActiveChannel(null)} className="mb-6 gap-2 text-muted-foreground hover:text-foreground">
+            <div className="animate-in fade-in slide-in-from-bottom-6 duration-700">
+               <button onClick={() => setActiveChannel(null)} className="mb-10 flex items-center gap-2 text-muted-foreground hover:text-gold transition-colors font-bold uppercase text-xs tracking-tighter">
                    <ArrowLeft size={16}/> Retour aux Canaux
-               </Button>
+               </button>
                
-               <div className="flex items-center gap-4 mb-8">
-                   <div className="p-4 rounded-xl bg-primary/10 text-primary">
-                       {activeChannel === "Globale" ? <Globe2 size={32}/> : <MapPin size={32}/>}
+               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                   <div className="flex items-center gap-6">
+                       <div className="w-20 h-20 rounded-[28px] bg-gold/10 flex items-center justify-center text-gold border border-gold/20">
+                           {activeChannel === "Globale" ? <Globe2 size={40}/> : <MapPin size={40}/>}
+                       </div>
+                       <div>
+                           <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-2">{activeChannel} Community</h1>
+                           <p className="text-lg text-muted-foreground font-arabic">تواصل، تعلّم، شارك وتفرّد بمكانتك بين المبدعين</p>
+                       </div>
                    </div>
-                   <div>
-                       <h1 className="text-3xl font-display font-bold">Flux : {activeChannel}</h1>
-                       <p className="text-muted-foreground">Discussions, entraide et votes des créateurs en temps réel.</p>
-                   </div>
+                   <Button className="h-12 px-8 bg-gold hover:bg-gold/80 text-black font-bold rounded-2xl shadow-gold" onClick={() => toast.success("Publication disponible prochainement")}>
+                      Publier Maintenant <Plus size={18} className="ml-2" />
+                   </Button>
                </div>
 
-               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                   {/* FEED */}
-                   <div className="lg:col-span-2 flex flex-col gap-6">
-                       <div className="glass-card p-4 rounded-2xl flex items-center gap-4">
-                           <img src="https://i.pravatar.cc/100?img=11" className="w-12 h-12 rounded-full" alt="Mon profil" />
-                           <input type="text" placeholder="Partagez une formule, demandez de l'aide..." className="flex-1 bg-transparent border-0 focus:ring-0 text-foreground" />
-                           <Button className="bg-primary/20 text-primary hover:bg-primary/30 rounded-full gap-2"><Plus size={16}/> Publier</Button>
+               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                   <div className="lg:col-span-8 flex flex-col gap-8">
+                       <div className="glass-card p-6 rounded-3xl flex items-center gap-5 border border-white/5">
+                           <div className="w-12 h-12 rounded-2xl bg-secondary overflow-hidden">
+                              <img src="https://i.pravatar.cc/100?img=11" className="w-full h-full object-cover" alt="Mon profil" />
+                           </div>
+                           <input type="text" placeholder="Une nouvelle formule ?" className="flex-1 bg-transparent border-0 focus:ring-0 text-white placeholder:text-muted-foreground/50 h-10" />
                        </div>
 
                        {dummyPosts.map(post => (
-                           <div key={post.id} className="glass-card p-6 rounded-2xl border-border">
-                               <div className="flex items-center gap-3 mb-4">
-                                   <img src={`https://i.pravatar.cc/100?img=${post.avatar}`} className="w-10 h-10 rounded-full" alt={post.author} />
-                                   <div>
-                                       <h4 className="font-bold">{post.author}</h4>
-                                       <span className="text-xs text-muted-foreground">Il y a 2 heures</span>
+                           <div key={post.id} className="glass-card p-8 rounded-[40px] border border-white/5 hover:border-white/10 transition-all flex flex-col">
+                               <div className="flex items-center justify-between mb-8">
+                                   <div className="flex items-center gap-4">
+                                       <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-gold/20">
+                                         <img src={`https://i.pravatar.cc/100?img=${post.avatar}`} className="w-full h-full object-cover" alt={post.author} />
+                                       </div>
+                                       <div>
+                                           <h4 className="font-bold text-lg text-white">{post.author}</h4>
+                                           <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Membre Vérifié • 2h</span>
+                                       </div>
                                    </div>
+                                   <Button variant="ghost" className={`rounded-xl px-4 h-10 hover:bg-gold/10 hover:text-gold gap-2 ${post.followed ? 'text-gold' : 'text-muted-foreground'}`}>
+                                       {post.followed ? <Users size={16} /> : <UserPlus size={16} />}
+                                       <span className="text-xs font-bold leading-none">{post.followed ? 'Suivi' : 'Suivre'}</span>
+                                   </Button>
                                </div>
-                               <p className="text-foreground/90 mb-6">{post.text}</p>
-                               <div className="flex items-center gap-6 pt-4 border-t border-border">
-                                   <button className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                                       <Heart size={18}/> {post.likes}
+                               <p className="text-lg text-white/90 leading-relaxed mb-10 font-medium">{post.text}</p>
+                               
+                               <div className="flex items-center gap-8 pt-8 border-t border-white/5">
+                                   <button className="flex items-center gap-2.5 text-muted-foreground hover:text-gold transition-colors font-bold text-sm">
+                                       <Heart size={20} className={post.likes > 100 ? 'text-red-500 fill-red-500' : ''} /> {post.likes}
                                    </button>
-                                   <button className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                                       <MessageSquare size={18}/> {post.comments} commentaires
+                                   <button className="flex items-center gap-2.5 text-muted-foreground hover:text-gold transition-colors font-bold text-sm">
+                                       <MessageSquare size={20}/> {post.comments}
+                                   </button>
+                                   <button className="ml-auto px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-bold transition-all" onClick={() => toast.success("Vote enregistré !")}>
+                                       Vote mensuel
                                    </button>
                                </div>
                            </div>
                        ))}
                    </div>
 
-                   {/* LEADERBOARD */}
-                   <div className="flex flex-col gap-6">
-                       <div className="glass-card p-6 rounded-2xl border-primary/20 bg-primary/5">
-                           <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-2">
-                               <Trophy className="text-gradient-gold" /> Top Créateurs
+                   <div className="lg:col-span-4 flex flex-col gap-8">
+                       <div className="glass-card p-10 rounded-[48px] border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent relative overflow-hidden group">
+                           <h3 className="font-display font-bold text-2xl mb-2 flex items-center gap-3">
+                               <Trophy className="text-gold" size={28} /> Top Créateurs
                            </h3>
-                           <p className="text-sm text-muted-foreground mb-6">Vote mensuel. Les 10 meilleurs accumulant des "Likes" gagnent des accès Pro.</p>
+                           <p className="text-xs text-muted-foreground mb-10 leading-relaxed">Les 10 meilleurs membres recevront le badge "Nexus Pro".</p>
                            
                            <div className="space-y-4">
                                {topCreators.map((creator, index) => (
-                                   <div key={creator.name} className="flex items-center justify-between p-3 bg-background rounded-xl border border-border">
-                                       <div className="flex items-center gap-3">
-                                           <span className={`font-bold w-6 text-center ${index === 0 ? 'text-gradient-gold' : 'text-muted-foreground'}`}>#{index + 1}</span>
-                                           <span className="font-medium">{creator.name}</span>
+                                   <div key={creator.name} className="flex items-center justify-between p-4 bg-black/40 rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
+                                       <div className="flex items-center gap-4">
+                                           <img src={`https://i.pravatar.cc/100?img=${creator.avatar}`} className="w-12 h-12 rounded-xl object-cover" alt={creator.name}/>
+                                           <span className="font-bold block text-sm">{creator.name}</span>
                                        </div>
-                                       <span className="text-sm font-bold text-primary bg-primary/10 px-2 py-1 rounded-md">{creator.points} pts</span>
+                                       <div className="text-right">
+                                          <span className="text-xs font-black text-gold">{creator.points} pts</span>
+                                       </div>
                                    </div>
                                ))}
                            </div>
-                           <Button className="w-full mt-6 bg-gradient-gold shadow-gold text-white font-bold">Voir tous les classements</Button>
+                           <Button className="w-full mt-10 h-14 bg-white hover:bg-white/90 text-black font-black uppercase tracking-widest rounded-2xl group-hover:scale-105 transition-transform">
+                             Ranking Complet
+                           </Button>
                        </div>
                    </div>
                </div>
