@@ -61,9 +61,9 @@ const Marketplace = () => {
             <div className="flex items-center gap-3 w-full md:w-auto">
               <div className="relative flex-1 md:w-80">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input placeholder={t("marketplace.search")} className="pl-12 h-12 bg-secondary/50 border-white/5 rounded-xl" />
+                <Input placeholder={t("marketplace.search")} className="pl-12 h-12 bg-white/40 border-emerald-900/10 rounded-xl text-foreground" />
               </div>
-              <Button variant="outline" className="h-12 w-12 p-0 border-white/10 rounded-xl"><Filter className="w-5 h-5" /></Button>
+              <Button variant="outline" className="h-12 w-12 p-0 border-emerald-900/10 rounded-xl text-foreground hover:bg-emerald-50"><Filter className="w-5 h-5" /></Button>
             </div>
           </div>
 
@@ -72,7 +72,7 @@ const Marketplace = () => {
               <Button 
                 key={filter} 
                 variant={activeFilter === filter ? "default" : "secondary"} 
-                className={`rounded-full px-6 h-10 whitespace-nowrap transition-all ${activeFilter === filter ? "bg-gold text-black font-bold scale-105" : "bg-white/5 hover:bg-white/10 text-muted-foreground"}`}
+                className={`rounded-full px-6 h-10 whitespace-nowrap transition-all ${activeFilter === filter ? "bg-gold text-white font-bold scale-105" : "bg-emerald-900/5 hover:bg-emerald-900/10 text-foreground/60"}`}
                 onClick={() => setActiveFilter(filter)}
               >
                 {filter}
@@ -88,7 +88,7 @@ const Marketplace = () => {
                 <div key={item.id} className="glass-card rounded-[32px] p-6 group hover:border-gold/30 transition-all flex flex-col relative overflow-hidden">
                   
                   {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] text-gold font-bold uppercase tracking-widest">
+                  <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-emerald-900/10 backdrop-blur-md border border-emerald-900/5 text-[10px] text-emerald-800 font-bold uppercase tracking-widest">
                     {item.category}
                   </div>
 
@@ -103,8 +103,8 @@ const Marketplace = () => {
                                item.slug === 'iso-e-super' ? "grayscale(0.5) brightness(1.1)" : "none"
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <Button className="w-full bg-white text-black font-bold h-10 rounded-xl text-xs">{t("common.see_all")}</Button>
+                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                       <Button className="w-full bg-emerald-900 text-white font-bold h-10 rounded-xl text-xs">{t("common.see_all")}</Button>
                     </div>
                   </div>
 
@@ -121,14 +121,14 @@ const Marketplace = () => {
                   </div>
 
                   {/* Technical Summary */}
-                  <div className="bg-black/40 p-4 rounded-xl border border-white/5 mb-6 space-y-2">
+                  <div className="bg-emerald-900/5 p-4 rounded-xl border border-emerald-900/5 mb-6 space-y-2">
                      <div className="flex justify-between items-center text-[10px]">
-                        <span className="text-muted-foreground flex items-center gap-1"><Beaker size={10} /> Poids Moléculaire</span>
-                        <span className="font-mono text-white/80">{item.technical_props?.molecular_weight || 'N/A'}</span>
+                        <span className="text-foreground/60 flex items-center gap-1"><Beaker size={10} /> Poids Moléculaire</span>
+                        <span className="font-mono text-foreground/80 font-bold">{item.technical_props?.molecular_weight || 'N/A'}</span>
                      </div>
                      <div className="flex justify-between items-center text-[10px]">
-                        <span className="text-muted-foreground flex items-center gap-1"><Star size={10} /> Stabilité</span>
-                        <span className="text-green-500 font-bold">{item.technical_props?.stability || 'High'}</span>
+                        <span className="text-foreground/60 flex items-center gap-1"><Star size={10} /> Stabilité</span>
+                        <span className="text-emerald-600 font-bold">{item.technical_props?.stability || 'High'}</span>
                      </div>
                   </div>
 
@@ -149,7 +149,7 @@ const Marketplace = () => {
                   <div className="mt-auto flex items-center justify-between pt-4 border-t border-white/5">
                     <div>
                       <p className="text-[10px] text-muted-foreground mb-0.5">À partir de</p>
-                      <p className="font-bold text-2xl text-white">
+                      <p className="font-bold text-2xl text-foreground">
                         ${getPriceForSize(item, selectedSize[item.id])}
                       </p>
                     </div>

@@ -11,11 +11,11 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden font-body">
       {/* Background with Ambient light */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-background/80 z-10" />
+        <div className="absolute inset-0 bg-background/40 z-10" />
         <img 
           src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1920&q=80" 
           alt="Nexus Parfumerie" 
-          className="w-full h-full object-cover grayscale opacity-50"
+          className="w-full h-full object-cover opacity-30 grayscale hover:grayscale-0 transition-all duration-1000"
         />
         <div className="absolute top-1/4 -right-1/4 w-1/2 h-1/2 bg-gold/10 blur-[120px] rounded-full animate-pulse" />
         <div className="absolute bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-gold/5 blur-[120px] rounded-full" />
@@ -35,7 +35,7 @@ const HeroSection = () => {
               {t("hero.title")}
             </h1>
             
-            <p className="text-2xl md:text-3xl text-white/90 font-medium mb-4 leading-tight animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
+            <p className="text-2xl md:text-3xl text-foreground font-medium mb-4 leading-tight animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
               {t("hero.subtitle")}
             </p>
             
@@ -54,7 +54,7 @@ const HeroSection = () => {
               <Button 
                 variant="outline" 
                 onClick={() => navigate('/marketplace')}
-                className="h-16 px-10 border-white/20 hover:bg-white/5 text-white font-bold text-sm uppercase tracking-widest rounded-2xl transition-all"
+                className="h-16 px-10 border-emerald-900/10 hover:bg-emerald-100 text-emerald-900 font-bold text-sm uppercase tracking-widest rounded-2xl transition-all"
               >
                 {t("hero.cta.catalogue")} <ArrowRight size={18} className={dir === "rtl" ? "mr-2 rotate-180" : "ml-2"} />
               </Button>
@@ -74,7 +74,7 @@ const HeroSection = () => {
                 </div>
                 <div className="text-right">
                   <p className="text-[10px] font-black tracking-widest text-gold uppercase mb-1">{t("hero.pass.offer")}</p>
-                  <p className="text-4xl font-black text-white">{t("hero.pass.price")}</p>
+                  <p className="text-4xl font-black text-foreground">{t("hero.pass.price")}</p>
                 </div>
               </div>
 
@@ -90,7 +90,7 @@ const HeroSection = () => {
                     <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center text-gold">
                       <item.icon size={20} />
                     </div>
-                    <span className="font-bold text-white/80">{item.text}</span>
+                    <span className="font-bold text-foreground/80">{item.text}</span>
                   </div>
                 ))}
               </div>

@@ -7,7 +7,7 @@ const Footer = () => {
   const { t, dir } = useLang();
 
   return (
-    <footer className="border-t border-white/5 py-24 bg-black/40 font-body relative overflow-hidden">
+    <footer className="border-t border-emerald-900/10 py-24 bg-emerald-900/5 font-body relative overflow-hidden">
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 blur-[120px] rounded-full pointer-events-none" />
       
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
@@ -30,7 +30,7 @@ const Footer = () => {
 
           {/* Ecosystem Column */}
           <div>
-            <h4 className="font-display font-black text-xl mb-10 text-white uppercase tracking-tighter">{t("nav.home")}</h4>
+            <h4 className="font-display font-black text-xl mb-10 text-foreground uppercase tracking-tighter">{t("nav.home")}</h4>
             <ul className="space-y-5 text-sm font-bold text-muted-foreground">
               <li><Link to="/marketplace" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.marketplace")}</Link></li>
               <li><Link to="/studio" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.studio")}</Link></li>
@@ -42,7 +42,7 @@ const Footer = () => {
 
           {/* Support Column - WhatsApp Only */}
           <div>
-            <h4 className="font-display font-black text-xl mb-10 text-white uppercase tracking-tighter">{t("footer.support_nexus")}</h4>
+            <h4 className="font-display font-black text-xl mb-10 text-foreground uppercase tracking-tighter">{t("footer.support_nexus")}</h4>
             <div className="glass-card p-6 rounded-3xl border border-green-500/20 bg-green-500/5 hover:bg-green-500/10 transition-colors">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-black shadow-lg">
@@ -50,7 +50,7 @@ const Footer = () => {
                 </div>
                 <div>
                    <p className="text-xs font-black text-green-500 uppercase tracking-widest">{t("footer.whatsapp_support")}</p>
-                   <p className="text-lg font-black text-white">+213 6 75 33 22 11</p>
+                   <p className="text-lg font-black text-foreground">+213 6 75 33 22 11</p>
                 </div>
               </div>
               <a 
@@ -65,14 +65,14 @@ const Footer = () => {
 
           {/* Global Column */}
           <div>
-            <h4 className="font-display font-black text-xl mb-10 text-white uppercase tracking-tighter">Global</h4>
+            <h4 className="font-display font-black text-xl mb-10 text-foreground uppercase tracking-tighter">Global</h4>
             <ul className="space-y-5 text-sm font-bold text-muted-foreground">
               <li><Link to="/pricing" className="text-gold font-black hover:scale-105 inline-block transition-transform">{t("nav.pricing")}</Link></li>
               <li><span className="flex items-center gap-3 text-green-500/80"><ShieldCheck size={18} /> Protocoles Certifiés</span></li>
               <li className="pt-6">
                  <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-2xl border border-white/5">
                     <Globe size={18} className="text-gold" />
-                    <span className="text-[10px] font-black text-white uppercase tracking-widest leading-none">Nexus Global Network v3.0</span>
+                    <span className="text-[10px] font-black text-foreground uppercase tracking-widest leading-none">Nexus Global Network v3.0</span>
                  </div>
               </li>
             </ul>
