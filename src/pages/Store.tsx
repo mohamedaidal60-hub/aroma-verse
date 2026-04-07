@@ -1,181 +1,220 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Store as StoreIcon, Search, ExternalLink, Globe, Zap, ShieldCheck, Factory, Box, Droplets, Ship } from "lucide-react";
+import { Search, ExternalLink, Globe, Zap, ShieldCheck, Factory, Box, Droplets, Ship, Building, Handshake, BrainCircuit, Shield, FileSignature, Check, Video, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
 import { useLang } from "@/contexts/LanguageContext";
 import { useNavigate } from "react-router-dom";
-
-const b2bPlatforms = [
-  { id: "alibaba", name: "Alibaba", baseUrl: "https://www.alibaba.com/trade/search?SearchText=", region: "Global / Asia", icon: <Globe size={20} /> },
-  { id: "tradeindia", name: "TradeIndia", baseUrl: "https://www.tradeindia.com/search.html?keyword=", region: "Inde / Asia", icon: <Globe size={20} /> },
-  { id: "europages", name: "Europages", baseUrl: "https://www.europages.com/search/?q=", region: "Europe", icon: <Globe size={20} /> },
-  { id: "go4world", name: "Go4WorldBusiness", baseUrl: "https://www.go4worldbusiness.com/find?sq=", region: "Global", icon: <Globe size={20} /> },
-  { id: "kompass", name: "Kompass", baseUrl: "https://www.kompass.com/searchCompanies?text=", region: "Europe / Global", icon: <Globe size={20} /> },
-  { id: "thomasnet", name: "ThomasNet", baseUrl: "https://www.thomasnet.com/search.html?cov=NA&what=", region: "North America", icon: <Globe size={20} /> }
-];
 
 const Store = () => {
   const { t, dir } = useLang();
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
-  const [activeSearches, setActiveSearches] = useState<any[]>([]);
 
-  const handleSearchAll = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim()) {
-      toast.error(t("common.no_data"));
-      return;
-    }
+  // Animating stats
+  const [stats, setStats] = useState({ companies: 0, deals: 0, countries: 0 });
 
-    const searches = b2bPlatforms.map(platform => ({
-        ...platform,
-        searchUrl: `${platform.baseUrl}${encodeURIComponent(query)}`
-    }));
-    setActiveSearches(searches);
-    toast.success("Moteur global synchronisé !");
-  };
-
-  const handleOpenAll = () => {
-    if (activeSearches.length === 0) return;
-    toast.info("Ouverture des 6 moteurs de recherche...");
-    activeSearches.forEach(search => {
-        window.open(search.searchUrl, "_blank");
-    });
-  };
+  useEffect(() => {
+    // Simulate loading stats with a small animation
+    const timer = setTimeout(() => {
+      setStats({ companies: 845, deals: 1240, countries: 34 });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-body overflow-x-hidden">
+    <div className="min-h-screen font-body overflow-x-hidden bg-[#0A110D]">
+      {/* Background Gradient Vert Naturel (Soothing Natural Green) */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#061810] via-[#092619] to-[#0A1A12]"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-[#144A2F]/20 to-transparent blur-[120px] rounded-full"></div>
+      </div>
+
       <Navbar />
       
-      <main className="flex-1 pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-7xl relative">
+      <main className="flex-1 pt-24 pb-16 relative z-10">
+        
+        {/* Top Security Banner */}
+        <div className="bg-black/40 backdrop-blur-md text-white text-center py-2 text-xs md:text-sm border-y border-[#10B981]/20 shadow-lg">
+          <div className="container mx-auto flex items-center justify-center gap-2">
+            <ShieldCheck className="text-[#10B981] w-4 h-4" /> 
+            <span className="opacity-90 tracking-wide text-emerald-50">Cryptage Militaire AES-256 | SSL/TLS | Protection des Données B2B</span>
+          </div>
+        </div>
+
+        <div className="container mx-auto px-4 max-w-7xl pt-16">
           
           {/* Hero Section */}
-          <div className="flex flex-col items-center justify-center mb-20 text-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/5 mb-8">
-              <Zap size={14} className="text-gold" fill="currentColor" />
-              <span className="text-[10px] font-bold text-gold uppercase tracking-[0.2em]">Nexus B2B Supply Chain</span>
+          <div className="flex flex-col items-center justify-center mb-24 text-center">
+            <div className="inline-flex items-center gap-2 bg-[#10B981]/10 backdrop-blur-sm rounded-full px-5 py-2 mb-8 border border-[#10B981]/30">
+              <BrainCircuit className="text-gold w-4 h-4" />
+              <span className="text-xs font-bold text-gold uppercase tracking-[0.1em]">Intelligence Artificielle de Sourcing</span>
             </div>
             
-            <h1 className="text-5xl md:text-8xl font-display font-black mb-6 tracking-tighter">
-              {t("store.title.1")} <span className="text-gold">{t("store.title.2")}</span>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-black mb-6 tracking-tighter text-white leading-[1.1]">
+               NEXUS <br className="hidden md:block"/>
+               <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#10B981] via-gold to-[#F59E0B]">
+                 Supply Chain
+               </span>
             </h1>
             
-            <p className={`text-2xl text-muted-foreground leading-relaxed max-w-3xl ${dir === "rtl" ? "font-arabic" : ""}`}>
-              {t("store.subtitle")}
+            <p className="text-xl md:text-2xl text-emerald-100/70 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
+               Connectez votre entreprise aux meilleurs fournisseurs et acheteurs mondiaux via notre plateforme B2B intelligente et sécurisée. Transaction garantie, frais réduits.
             </p>
-            <p className="text-lg text-muted-foreground mt-4 max-w-2xl bg-white/5 py-4 px-8 rounded-3xl border border-white/5">
-              {t("store.desc")}
-            </p>
+            
+            <div className="flex justify-center gap-4 flex-col sm:flex-row w-full sm:w-auto">
+                <Button 
+                    onClick={() => navigate("/auth")}
+                    className="h-14 px-8 bg-gradient-gold hover:opacity-90 text-black font-black text-sm uppercase tracking-widest rounded-full shadow-gold shadow-lg flex items-center gap-3 transition-transform hover:scale-105"
+                >
+                    <Zap className="fill-black" size={18} />
+                    Inscrire ma société
+                </Button>
+                <Button 
+                    variant="outline"
+                    className="h-14 px-8 border-emerald-500/30 text-emerald-50 hover:bg-emerald-500/10 hover:text-white font-bold text-sm uppercase tracking-widest rounded-full transition-colors"
+                >
+                    <Video size={18} className="mr-2" /> Voir la Démo
+                </Button>
+            </div>
           </div>
 
-          {/* Search Form */}
-          <div className="mb-24 relative max-w-4xl mx-auto">
-             <div className="absolute inset-0 bg-gold/20 blur-[100px] opacity-20 pointer-events-none"></div>
-             
-             <form onSubmit={handleSearchAll} className="relative glass-card p-2 md:p-3 rounded-[32px] md:rounded-[48px] border-2 border-gold/40 shadow-2xl shadow-gold/10 flex flex-col md:flex-row items-center gap-2 transition-all focus-within:border-gold">
-               <div className="flex items-center flex-1 w-full px-6">
-                 <Search className="text-gold w-6 h-6 mr-4 flex-shrink-0" />
-                 <Input 
-                   value={query}
-                   onChange={(e) => setQuery(e.target.value)}
-                   placeholder={t("store.placeholder")} 
-                   className="border-0 bg-transparent focus-visible:ring-0 shadow-none text-xl text-white placeholder:text-muted-foreground/40 h-16 w-full"
-                 />
-               </div>
-               <Button type="submit" className="w-full md:w-auto h-16 px-12 bg-gold hover:bg-gold/80 text-black font-black text-sm uppercase tracking-widest rounded-[32px] shadow-gold transition-transform active:scale-95">
-                 {t("store.cta")}
-               </Button>
-             </form>
-             
-             <div className="flex flex-wrap justify-center gap-4 mt-8 opacity-60">
-                <span className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">{t("store.platforms")} :</span>
-                {b2bPlatforms.map(p => (
-                  <span key={p.id} className="text-[10px] font-bold text-white bg-white/5 px-3 py-1 rounded-full border border-white/10">{p.name}</span>
-                ))}
+          {/* Stats Section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32 relative z-20">
+              <div className="glass-card bg-[#05110B]/60 p-8 rounded-[32px] text-center border border-emerald-900/50 hover:border-emerald-500/50 transition-all hover:-translate-y-2 duration-300">
+                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-6 text-emerald-400">
+                      <Building size={32} />
+                  </div>
+                  <div className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-gold">
+                      {stats.companies}+
+                  </div>
+                  <p className="text-emerald-100/60 font-bold uppercase tracking-widest text-sm">Sociétés Vérifiées</p>
+              </div>
+
+              <div className="glass-card bg-[#05110B]/60 p-8 rounded-[32px] text-center border border-emerald-900/50 hover:border-emerald-500/50 transition-all hover:-translate-y-2 duration-300 delay-100">
+                  <div className="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center mx-auto mb-6 text-gold">
+                      <Handshake size={32} />
+                  </div>
+                  <div className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-gold to-amber-500">
+                      {stats.deals}+
+                  </div>
+                  <p className="text-emerald-100/60 font-bold uppercase tracking-widest text-sm">Contrats Sécurisés</p>
+              </div>
+
+              <div className="glass-card bg-[#05110B]/60 p-8 rounded-[32px] text-center border border-emerald-900/50 hover:border-emerald-500/50 transition-all hover:-translate-y-2 duration-300 delay-200">
+                  <div className="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center mx-auto mb-6 text-blue-400">
+                      <Globe size={32} />
+                  </div>
+                  <div className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                      {stats.countries}
+                  </div>
+                  <p className="text-emerald-100/60 font-bold uppercase tracking-widest text-sm">Pays Couverts</p>
+              </div>
+          </div>
+
+          {/* Features */}
+          <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">Le Choix Stratégique de l'Industrie</h2>
+              <p className="text-emerald-100/60 text-lg max-w-2xl mx-auto">Une infrastructure B2B complète pour sourcer, négocier et contractualiser en toute sérénité.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+             <div className="group bg-gradient-card p-10 rounded-[40px] border border-white/5 hover:border-gold/30 transition-all text-center">
+                 <div className="w-20 h-20 bg-[#10B981]/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#10B981]/20 transition-colors">
+                     <BrainCircuit className="text-[#10B981] w-10 h-10" />
+                 </div>
+                 <h3 className="text-2xl font-bold mb-4 text-white">Matching Hyper-Précis (IA)</h3>
+                 <p className="text-muted-foreground leading-relaxed">
+                     Nos algorithmes propriétaires vous suggèrent les 3 meilleurs partenaires certifiés en moins de 24h, selon vos cahiers des charges.
+                 </p>
+             </div>
+
+             <div className="group bg-gradient-card p-10 rounded-[40px] border border-white/5 hover:border-gold/30 transition-all text-center">
+                 <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold/20 transition-colors">
+                     <Shield className="text-gold w-10 h-10" />
+                 </div>
+                 <h3 className="text-2xl font-bold mb-4 text-white">Chambres Fortes Digitales</h3>
+                 <p className="text-muted-foreground leading-relaxed">
+                     Négociation en salons privés avec chiffrement de bout en bout (AES-256). Vos données industrielles restent strictement confidentielles.
+                 </p>
+             </div>
+
+             <div className="group bg-gradient-card p-10 rounded-[40px] border border-white/5 hover:border-gold/30 transition-all text-center">
+                 <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-500/20 transition-colors">
+                     <FileSignature className="text-blue-400 w-10 h-10" />
+                 </div>
+                 <h3 className="text-2xl font-bold mb-4 text-white">E-Contrats Légaux</h3>
+                 <p className="text-muted-foreground leading-relaxed">
+                     Signature de LOI et contrats finaux intégrée à la plateforme avec validité juridique internationale, sans sortir de votre espace.
+                 </p>
              </div>
           </div>
 
-          {/* Results Grid - Keeping existing logic but ensuring translations */}
-          {activeSearches.length > 0 ? (
-            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-                <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6 bg-gold/5 p-8 rounded-[40px] border border-gold/20">
-                    <div className="flex items-center gap-4">
-                       <div className="w-14 h-14 bg-gold rounded-2xl flex items-center justify-center text-black shadow-gold"><Ship size={28} /></div>
-                       <div>
-                          <h2 className="text-2xl font-display font-bold text-white">Résultats pour : <span className="text-gold">"{query}"</span></h2>
-                          <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">6 bases de données synchronisées</p>
-                       </div>
-                    </div>
-                    <Button onClick={handleOpenAll} className="w-full md:w-auto h-14 bg-white hover:bg-gold text-black font-black px-10 rounded-2xl flex items-center gap-3 transition-colors">
-                        OUVRIR TOUT <ExternalLink size={20}/>
-                    </Button>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {activeSearches.map(search => (
-                        <a 
-                            key={search.id} 
-                            href={search.searchUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="glass-card p-10 rounded-[48px] border border-white/5 hover:border-gold/50 transition-all duration-500 group flex flex-col bg-black/40 relative overflow-hidden"
-                        >
-                            <div className="flex justify-between w-full items-start mb-6">
-                                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-gold border border-white/10 group-hover:bg-gold group-hover:text-black transition-colors">{search.icon}</div>
-                                <ExternalLink size={24} className="text-muted-foreground/30 group-hover:text-gold transition-colors" />
-                            </div>
-                            <h3 className="font-display font-bold text-3xl text-white group-hover:text-gold transition-colors mb-2">{search.name}</h3>
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-bold text-muted-foreground group-hover:text-white transition-colors mb-4">
-                              <Globe size={10} /> Zone : {search.region}
-                            </div>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
-                                Accédez aux catalogues de gros de milliers de fabricants en {search.region}.
-                            </p>
-                        </a>
-                    ))}
-                </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-               {[
-                 { icon: <Factory size={32} />, titleKey: "Fabricants Certifiés", descKey: "Accès direct aux unités de distillation et de pressage partout dans le monde." },
-                 { icon: <Box size={32} />, titleKey: "Sourcing Packaging", descKey: "Trouvez des fournisseurs de flacons sur-mesure aux tarifs d'usine." },
-                 { icon: <Droplets size={32} />, titleKey: "Matières Rares", descKey: "Huiles essentielles pures et absolues en gros volumes." }
-               ].map((item, i) => (
-                <div key={i} className="glass-card p-10 rounded-[48px] border border-white/5 flex flex-col items-center text-center group hover:border-gold/30 transition-all opacity-80 hover:opacity-100">
-                    <div className="w-20 h-20 bg-gold/5 rounded-[32px] flex items-center justify-center mb-8 text-gold border border-white/5 group-hover:bg-gold group-hover:text-black transition-all">
-                      {item.icon}
-                    </div>
-                    <h3 className="text-2xl font-display font-bold mb-4 text-white">{item.titleKey}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.descKey}</p>
-                </div>
-               ))}
-            </div>
-          )}
+          {/* Pricing */}
+          <div className="text-center mb-16 relative">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-gold/10 blur-[100px] rounded-full pointer-events-none"></div>
+             <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 relative">Partenariat Sur-Mesure</h2>
+             <p className="text-emerald-100/60 text-lg max-w-2xl mx-auto relative">De la découverte au déploiement multinational, un modèle transparent.</p>
+          </div>
 
-          {/* Membership CTA */}
-          <div className="mt-32 p-10 md:p-16 glass-card rounded-[64px] border-2 border-gold/30 bg-gradient-to-br from-gold/15 to-transparent relative group overflow-hidden">
-             <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left">
-                <div className="flex-1">
-                   <div className="flex items-center gap-3 justify-center lg:justify-start mb-6">
-                       <ShieldCheck size={32} className="text-gold" />
-                       <h3 className="text-3xl md:text-4xl font-display font-bold text-white leading-none">Protection Acheteur Nexus</h3>
-                   </div>
-                   <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-                     Nos membres Nexus Pro bénéficient d'une assistance prioritaire lors de leurs transactions internationales.
-                   </p>
-                </div>
-                <div className="flex flex-col gap-4">
-                   <Button className="h-16 px-12 bg-gold hover:bg-gold/80 text-black font-black text-sm uppercase tracking-widest rounded-2xl shadow-gold" onClick={() => navigate('/pricing')}>
-                      ACTIVER NEXUS PRO
-                   </Button>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 max-w-6xl mx-auto items-stretch">
+             {/* Plan 1 */}
+             <div className="bg-[#0A1A12]/80 p-8 md:p-10 rounded-[40px] border border-emerald-900/40 flex flex-col mt-4">
+                 <div className="mb-8">
+                     <h3 className="text-2xl font-bold text-white mb-2">Découverte</h3>
+                     <p className="text-emerald-100/50 text-sm">Pour tester le marché</p>
+                 </div>
+                 <div className="text-4xl font-black text-white mb-8">
+                     Gratuit
+                 </div>
+                 <ul className="space-y-4 mb-10 flex-1">
+                     <li className="flex gap-3 text-sm text-emerald-100/70"><Check className="text-emerald-500 w-5 h-5 flex-shrink-0"/>1 publication d'offre/demande</li>
+                     <li className="flex gap-3 text-sm text-emerald-100/70"><Check className="text-emerald-500 w-5 h-5 flex-shrink-0"/>Accès au registre public</li>
+                     <li className="flex gap-3 text-sm text-emerald-100/70 opacity-40"><span className="w-5 flex justify-center text-red-400">×</span>Pas de salon virtuel privé</li>
+                 </ul>
+                 <Button variant="outline" className="w-full h-12 rounded-2xl border-emerald-500/30 hover:bg-emerald-500/10">Créer un profil</Button>
+             </div>
+
+             {/* Plan 2 */}
+             <div className="bg-gradient-card p-10 rounded-[40px] border-2 border-gold flex flex-col relative transform md:-translate-y-4 shadow-[0_20px_50px_rgba(212,175,55,0.15)] z-10">
+                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold text-black text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-gold">
+                    Le Standard B2B
+                 </div>
+                 <div className="mb-8 mt-2">
+                     <h3 className="text-2xl font-bold text-white mb-2">Nexus Pro</h3>
+                     <p className="text-emerald-100/50 text-sm">Pour les acteurs établis</p>
+                 </div>
+                 <div className="flex items-baseline gap-2 mb-8">
+                     <span className="text-5xl font-black text-gold">Sur Devis</span>
+                 </div>
+                 <ul className="space-y-4 mb-10 flex-1">
+                     <li className="flex gap-3 text-sm text-emerald-100/90"><Check className="text-gold w-5 h-5 flex-shrink-0"/>Publications illimitées</li>
+                     <li className="flex gap-3 text-sm text-emerald-100/90"><Check className="text-gold w-5 h-5 flex-shrink-0"/>Salons virtuels & Visioconférence</li>
+                     <li className="flex gap-3 text-sm text-emerald-100/90"><Check className="text-gold w-5 h-5 flex-shrink-0"/>Badge "Fournisseur Vérifié"</li>
+                     <li className="flex gap-3 text-sm text-emerald-100/90"><Check className="text-gold w-5 h-5 flex-shrink-0"/>Support prioritaire 24/7</li>
+                 </ul>
+                 <Button className="w-full h-14 rounded-2xl bg-gradient-gold text-black font-black uppercase tracking-widest hover:scale-105 transition-transform">
+                     Contacter l'équipe
+                 </Button>
+             </div>
+
+             {/* Plan 3 */}
+             <div className="bg-[#0A1A12]/80 p-8 md:p-10 rounded-[40px] border border-emerald-900/40 flex flex-col mt-4">
+                 <div className="mb-8">
+                     <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
+                     <p className="text-emerald-100/50 text-sm">Volume massif & Intégration</p>
+                 </div>
+                 <div className="text-4xl font-black text-white mb-8">
+                     Custom
+                 </div>
+                 <ul className="space-y-4 mb-10 flex-1">
+                     <li className="flex gap-3 text-sm text-emerald-100/70"><Check className="text-emerald-500 w-5 h-5 flex-shrink-0"/>API intégration ERP/CRM</li>
+                     <li className="flex gap-3 text-sm text-emerald-100/70"><Check className="text-emerald-500 w-5 h-5 flex-shrink-0"/>Key Account Manager dédié</li>
+                     <li className="flex gap-3 text-sm text-emerald-100/70"><Check className="text-emerald-500 w-5 h-5 flex-shrink-0"/>Conditions tarifaires sur-mesure</li>
+                 </ul>
+                 <Button variant="outline" className="w-full h-12 rounded-2xl border-emerald-500/30 hover:bg-emerald-500/10">Organiser un appel</Button>
              </div>
           </div>
+
         </div>
       </main>
       
