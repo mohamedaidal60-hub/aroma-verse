@@ -1,53 +1,69 @@
-import { useLang } from "@/contexts/LanguageContext";
+import React, { useEffect, useState } from "react";
 
-export const Logo = ({ className = "" }: { className?: string }) => {
-  const { dir } = useLang();
-  
+interface LogoProps {
+  className?: string;
+  showText?: boolean;
+}
+
+const Logo: React.FC<LogoProps> = ({ className = "", showText = true }) => {
+  const [src, setSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = "/logo-official.png";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      
+      // Analyse pixel par pixel
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        
+        // Calcul de la saturation de la couleur
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const saturation = max === 0 ? 0 : (max - min) / max;
+        
+        // Si le pixel est peu saturé (gris du damier ou blanc) et assez clair
+        if (saturation < 0.20 || (r > 210 && g > 210 && b > 210)) {
+          data[i + 3] = 0; // On efface le damier
+        } else if (saturation < 0.35) {
+           // Transition douce (anti-aliasing) sur les contours du damier
+           data[i + 3] = Math.floor(255 * ((saturation - 0.20) / 0.15));
+        }
+      }
+      
+      ctx.putImageData(imageData, 0, 0);
+      setSrc(canvas.toDataURL());
+    };
+  }, []);
+
   return (
-    <div className={`flex items-center gap-4 group transition-all duration-500 hover:opacity-90 ${className} ${dir === "rtl" ? "flex-row-reverse" : "flex-row"}`}>
-      {/* Icon: The Nexus Infinity / Abstract Geometric Form */}
-      <div className="relative w-12 h-14 flex items-center justify-center">
-         {/* Metallic Gold Geometric Infinity Shape (SVG) */}
-         <svg viewBox="0 0 50 50" className="w-11 h-11 drop-shadow-gold transition-all duration-700 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]">
-            <path 
-               d="M14.5 15C8.5 15 4 19.5 4 25C4 30.5 8.5 35 14.5 35C22 35 28 15 35.5 15C41.5 15 46 19.5 46 25C46 30.5 41.5 35 35.5 35C28 35 22 15 14.5 15Z" 
-               fill="none"
-               stroke="url(#goldGradient)"
-               strokeWidth="4"
-               strokeLinecap="round"
-               strokeLinejoin="round"
-               className="opacity-90"
-            />
-            {/* Elegant inner star/diamond */}
-            <path d="M25 18L27 23L32 25L27 27L25 32L23 27L18 25L23 23Z" fill="url(#goldGradient)" />
-            
-            <defs>
-              <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{ stopColor: '#F59E0B', stopOpacity: 1 }} />
-                <stop offset="50%" style={{ stopColor: '#FEF3C7', stopOpacity: 1 }} />
-                <stop offset="100%" style={{ stopColor: '#D97706', stopOpacity: 1 }} />
-              </linearGradient>
-            </defs>
-         </svg>
-         
-         {/* Inner glowing effect */}
-         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-6 h-6 rounded-full border border-gold/10 group-hover:border-gold/40 transition-all opacity-0 group-hover:scale-150 group-hover:opacity-100 duration-1000 blur-[1px]"></div>
-         </div>
-      </div>
-
-      {/* Brand Text: Premium Minimalist */}
-      <div className={`flex flex-col gap-0.5 ${dir === "rtl" ? "items-end" : "items-start"}`}>
-        <h1 className="text-2xl font-display font-black tracking-[-0.08em] uppercase text-white leading-none">
-           PERFUME <span className="text-gold italic font-extrabold tracking-tighter ml-[-2px]">NEXUS</span>
-        </h1>
-        <div className="flex items-center gap-2">
-           <div className="h-[1px] w-4 bg-gold/40"></div>
-           <span className="text-[9px] font-black uppercase tracking-[0.6em] text-gold opacity-60 leading-tight">
-              WORLDWIDE • NETWORK
-           </span>
-        </div>
+    <div className={`flex items-center ${className}`}>
+      <div className="relative h-16 md:h-24 flex items-center justify-center pl-2">
+        {/* L'image traitée sans damier et redimensionnée proprement */}
+        {src && (
+          <img
+            src={src}
+            alt="AromaVerse"
+            className="h-full w-auto object-contain transition-opacity duration-300"
+            style={{ transform: "scale(1.2)" }} 
+          />
+        )}
       </div>
     </div>
   );
 };
+
+export default Logo;
+

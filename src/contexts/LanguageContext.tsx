@@ -12,7 +12,8 @@ interface LanguageContextType {
 const translations: Record<Lang, Record<string, string>> = {
   fr: {
     // Navbar
-    "nav.marketplace": "Marketplace",
+    "nav.marketplace": "Marketplace C2C",
+    "nav.database": "Base de Données",
     "nav.studio": "Studio Lab",
     "nav.academy": "Academy",
     "nav.invest": "Investir",
@@ -137,6 +138,7 @@ const translations: Record<Lang, Record<string, string>> = {
   ar: {
     // Navbar
     "nav.marketplace": "السوق",
+    "nav.database": "قاعدة البيانات",
     "nav.studio": "استوديو المختبر",
     "nav.academy": "الأكاديمية",
     "nav.invest": "الاستثمار",

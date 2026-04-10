@@ -9,7 +9,7 @@ type Profile = {
   id: string;
   user_id: string;
   full_name: string | null;
-  role: "client" | "creator" | "supplier" | "investor" | "admin";
+  role: "client" | "creator" | "subscriber_pass" | "subscriber_no_pass" | "supplier" | "investor" | "admin";
 };
 
 type AuthContextType = {

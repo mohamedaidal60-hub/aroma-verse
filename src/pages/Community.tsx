@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Users, Globe2, MapPin, MessageSquare, Heart, Trophy, Plus, ArrowLeft, UserPlus, Star, Send, UserCheck } from "lucide-react";
+import { Users, Globe2, MapPin, MessageSquare, Heart, Trophy, Plus, ArrowLeft, UserPlus, Star, Send, UserCheck, BookOpen, FlaskConical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useLang } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Community() {
   const { t, lang, dir } = useLang();
+  const { user, profile } = useAuth();
+  const isAdmin = profile?.role === "admin";
   const [continent, setContinent] = useState("Loading...");
   const [activeChannel, setActiveChannel] = useState<string | null>(null);
   const [posts, setPosts] = useState([
@@ -84,34 +87,78 @@ export default function Community() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-                <div onClick={() => setActiveChannel("Global")} className="glass-card p-12 rounded-[48px] border border-white/5 hover:border-gold/40 transition-all cursor-pointer group relative overflow-hidden bg-black/20">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-gold/5 blur-3xl group-hover:bg-gold/10 transition-colors"></div>
-                  <div className="w-20 h-20 bg-gold/10 rounded-3xl flex items-center justify-center text-gold mb-10 group-hover:scale-110 group-hover:rotate-6 transition-transform border border-gold/20">
-                    <Globe2 size={40} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {/* Global Hub - Visible to All */}
+                <div onClick={() => setActiveChannel("Global")} className="glass-card p-10 rounded-[48px] border border-primary/20 hover:border-primary transition-all cursor-pointer group relative overflow-hidden bg-white shadow-xl">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                  <div className="w-16 h-16 bg-primary/10 rounded-[24px] flex items-center justify-center text-primary mb-8 group-hover:scale-110 group-hover:rotate-6 transition-transform border border-primary/20">
+                    <Globe2 size={32} />
                   </div>
-                  <h2 className="text-3xl font-black mb-4 font-display uppercase tracking-tighter">Global Nexus</h2>
-                  <p className="text-muted-foreground mb-10 leading-relaxed">Le hub mondial de la parfumerie (85K+ membres). Tout le réseau est ici.</p>
+                  <h2 className="text-2xl font-display font-black mb-3 uppercase tracking-tighter text-primary">Global Nexus</h2>
+                  <p className="text-primary/60 text-xs mb-8 leading-relaxed font-bold">Le centre névralgique mondial de l'industrie (85K+ membres).</p>
                   <div className="flex items-center justify-between">
                     <div className="flex -space-x-4">
-                      {[1,2,3,4,5].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 20}`} className="w-12 h-12 rounded-2xl border-4 border-background" alt="avatar" />)}
+                      {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 20}`} className="w-10 h-10 rounded-xl border-4 border-white" alt="avatar" />)}
                     </div>
-                    <span className="text-xs font-black text-gold flex items-center gap-2 uppercase tracking-widest">Entrer <Plus size={16}/></span>
+                    <span className="text-[10px] font-black text-primary flex items-center gap-2 uppercase tracking-widest">Entrer <Plus size={14}/></span>
                   </div>
                 </div>
 
-                <div onClick={() => setActiveChannel(continent)} className="glass-card p-12 rounded-[48px] border border-white/5 hover:border-gold/40 transition-all cursor-pointer group bg-gradient-to-br from-gold/5 to-transparent relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-gold/10 blur-3xl"></div>
-                  <div className="w-20 h-20 bg-gold rounded-3xl flex items-center justify-center text-black mb-10 group-hover:scale-110 group-hover:-rotate-3 transition-transform shadow-gold">
-                    <MapPin size={40} />
+                {/* Algérie Hub */}
+                <div onClick={() => setActiveChannel("Algerie")} className="glass-card p-10 rounded-[48px] border border-primary/20 hover:border-primary transition-all cursor-pointer group bg-forest-deep relative overflow-hidden shadow-2xl">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl"></div>
+                   <div className="w-16 h-16 bg-white/10 rounded-[24px] flex items-center justify-center text-white mb-8 group-hover:scale-110 group-hover:-rotate-3 transition-transform shadow-lg">
+                    <MapPin size={32} />
                   </div>
-                  <h2 className="text-3xl font-black mb-4 font-display text-white uppercase tracking-tighter">{continent} Hub</h2>
-                  <p className="text-muted-foreground mb-10 leading-relaxed">Focus régional. Discutez des fournisseurs locaux et de la logistique en {continent}.</p>
+                  <h2 className="text-2xl font-display font-black mb-3 text-white uppercase tracking-tighter">Algérie Hub</h2>
+                  <p className="text-white/40 text-xs mb-8 leading-relaxed font-bold">Production locale, sourcing Sud et logistique (12K+ membres).</p>
                   <div className="flex items-center justify-between">
                     <div className="flex -space-x-4">
-                      {[1,2,3,4,5].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 30}`} className="w-12 h-12 rounded-2xl border-4 border-background" alt="avatar" />)}
+                      {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 30}`} className="w-10 h-10 rounded-xl border-4 border-primary" alt="avatar" />)}
                     </div>
-                    <span className="text-xs font-black text-gold flex items-center gap-2 uppercase tracking-widest">Rejoindre <Plus size={16}/></span>
+                    <span className="text-[10px] font-black text-gold flex items-center gap-2 uppercase tracking-widest italic animate-pulse">Accès Certifié <Plus size={14}/></span>
+                  </div>
+                </div>
+
+                {/* France Hub */}
+                <div onClick={() => setActiveChannel("France")} className="glass-card p-10 rounded-[48px] border border-primary/20 hover:border-primary transition-all cursor-pointer group bg-white relative overflow-hidden shadow-xl">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl"></div>
+                   <div className="w-16 h-16 bg-primary/5 rounded-[24px] flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
+                    <MapPin size={32} />
+                  </div>
+                  <h2 className="text-2xl font-display font-black mb-3 text-primary uppercase tracking-tighter">France Hub</h2>
+                  <p className="text-primary/60 text-xs mb-8 leading-relaxed font-bold">Héritage de Grasse et centres R&D Européens (24K+ membres).</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex -space-x-4">
+                      {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 40}`} className="w-10 h-10 rounded-xl border-4 border-white" alt="avatar" />)}
+                    </div>
+                    <span className="text-[10px] font-black text-primary flex items-center gap-2 uppercase tracking-widest">Rejoindre <Plus size={14}/></span>
+                  </div>
+                </div>
+
+                {/* Scent Archive */}
+                <div onClick={() => setActiveChannel("Scent Archive")} className="glass-card p-10 rounded-[48px] border border-gold/40 hover:border-gold transition-all cursor-pointer group bg-gold/5 relative overflow-hidden shadow-xl">
+                  <div className="absolute top-0 left-0 w-32 h-32 bg-gold/10 blur-3xl"></div>
+                   <div className="w-16 h-16 bg-gold/20 rounded-[24px] flex items-center justify-center text-gold mb-8 group-hover:scale-110 transition-transform border border-gold/20">
+                    <BookOpen size={32} />
+                  </div>
+                  <h2 className="text-2xl font-display font-black mb-3 text-gold uppercase tracking-tighter">Scent Archive</h2>
+                  <p className="text-muted-foreground text-xs mb-8 leading-relaxed font-bold">L'encyclopédie participative du patrimoine olfactif mondial et historique.</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black text-gold flex items-center gap-2 uppercase tracking-widest">Explorer l'Histoire <Plus size={14}/></span>
+                  </div>
+                </div>
+
+                {/* Open Research Hub */}
+                <div onClick={() => setActiveChannel("Research")} className="glass-card p-10 rounded-[48px] border border-blue-500/20 hover:border-blue-500 transition-all cursor-pointer group bg-blue-500/5 relative overflow-hidden shadow-xl">
+                  <div className="absolute bottom-0 right-0 w-32 h-32 bg-blue-500/10 blur-3xl"></div>
+                   <div className="w-16 h-16 bg-blue-500/20 rounded-[24px] flex items-center justify-center text-blue-500 mb-8 group-hover:scale-110 transition-transform border border-blue-500/20">
+                    <FlaskConical size={32} />
+                  </div>
+                  <h2 className="text-2xl font-display font-black mb-3 text-blue-500 uppercase tracking-tighter">Open Research</h2>
+                  <p className="text-muted-foreground text-xs mb-8 leading-relaxed font-bold">Documentation collaborative. Publiez vos succès et échecs de distillation.</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black text-blue-500 flex items-center gap-2 uppercase tracking-widest">Contribuer <Plus size={14}/></span>
                   </div>
                 </div>
             </div>

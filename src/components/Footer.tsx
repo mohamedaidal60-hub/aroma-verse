@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Globe, ShieldCheck, Phone, Instagram, Twitter, Linkedin, MessageSquare } from "lucide-react";
-import { Logo } from "./Logo";
+import Logo from "./Logo";
 import { useLang } from "@/contexts/LanguageContext";
 
 const Footer = () => {

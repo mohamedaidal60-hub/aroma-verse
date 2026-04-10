@@ -80,7 +80,7 @@ const Dashboard = () => {
           </div>
 
           {/* Key Metrics */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
              {[
                { icon: ShoppingBag, label: t("dashboard.orders"), value: stats.order_count, sub: "Suivi marketplace", color: "bg-blue-500/10 text-blue-500" },
                { icon: TrendingUp, label: t("dashboard.invested"), value: `${stats.total_invested}€`, sub: "Valeur actuelle", color: "bg-green-500/10 text-green-500" },
@@ -99,6 +99,26 @@ const Dashboard = () => {
                   </div>
                </div>
              ))}
+          </div>
+
+          {/* Gamification Banner */}
+          <div className="glass-card mb-16 p-6 rounded-[32px] border border-green-500/30 bg-green-500/5 flex flex-col md:flex-row items-center justify-between gap-6 hover:bg-green-500/10 transition-colors">
+            <div className="flex items-center gap-4 text-green-500">
+               <Star size={32} />
+               <div>
+                 <h4 className="font-black text-xl">Programme de Fidélité Actif</h4>
+                 <p className="text-sm text-muted-foreground">Transformez vos points de formulation en <strong className="text-green-500 font-black">Actions ou Parts d'Investissement Agricole</strong>.</p>
+               </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                 <span className="text-2xl font-black text-white block leading-none">2,450 PTS</span>
+                 <span className="text-[10px] uppercase tracking-widest text-muted-foreground">= 2 Actions Lavande</span>
+              </div>
+              <Button onClick={() => navigate('/investir')} className="h-12 border border-green-500 text-green-500 hover:bg-green-500 hover:text-black font-black uppercase tracking-widest rounded-2xl shadow-elevated transition-colors bg-transparent">
+                 Convertir
+              </Button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -217,6 +237,21 @@ const Dashboard = () => {
                  </Button>
                </div>
 
+               {/* Seller Dashboard CTA */}
+               <div className="glass-card p-8 rounded-[40px] border border-gold/30 bg-gold/5 relative overflow-hidden mt-2 group">
+                  <div className="absolute top-0 right-0 p-6 opacity-10 blur-xl group-hover:opacity-30 transition-all">
+                    <ShoppingBag size={100} className="text-gold" />
+                  </div>
+                  <h3 className="font-display font-bold text-2xl mb-2 text-white">
+                    Devenir Vendeur
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 relative z-10">
+                    Abonnés exclusifs : ouvrez votre vitrine sur le <strong className="text-gold">Marché Indépendant</strong>. Vendez vos huiles ou formules à la communauté en toute sécurité (Commission AromaVerse : 8%).
+                  </p>
+                  <Button className="w-full h-12 bg-white hover:bg-gold text-black font-black uppercase tracking-widest rounded-2xl shadow-elevated relative z-10 transition-colors">
+                     + Vendre un produit
+                  </Button>
+               </div>
             </div>
           </div>
         </div>

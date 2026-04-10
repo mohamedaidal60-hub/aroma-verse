@@ -1,0 +1,1874 @@
+{
+    "products": [
+        {
+            "name": "2 3-Dimethyl Pyrazine",
+            "description": "2 3-Dimethyl Pyrazine",
+            "category": "Matières Premières",
+            "base_price": 2.69,
+            "display_price": 3.09,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4EW07503",
+            "image": "https://www.perfumersworld.com/images/product/2 3-Dimethyl Pyrazine.jpg"
+        },
+        {
+            "name": "2 3-Dimethyl Pyrazine 1% in DPG",
+            "description": "2 3-Dimethyl Pyrazine 1% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.12,
+            "display_price": 0.14,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5EW07840",
+            "image": "https://www.perfumersworld.com/images/product/2 3-Dimethyl Pyrazine.jpg"
+        },
+        {
+            "name": "2 3-Dimethyl Pyrazine 10% in DPG",
+            "description": "2 3-Dimethyl Pyrazine 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.29,
+            "display_price": 0.33,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5EW20137",
+            "image": "https://www.perfumersworld.com/images/product/2 3-Dimethyl Pyrazine.jpg"
+        },
+        {
+            "name": "2 Acetyl Thaizole",
+            "description": "2 Acetyl Thaizole",
+            "category": "Matières Premières",
+            "base_price": 2.5,
+            "display_price": 2.88,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4EW14326",
+            "image": "https://www.perfumersworld.com/images/product/2 Acetyl Thaizole.jpg"
+        },
+        {
+            "name": "2-Acetyl Pyrazine",
+            "description": "2-Acetyl Pyrazine",
+            "category": "Matières Premières",
+            "base_price": 0.71,
+            "display_price": 0.82,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1EN13109",
+            "image": "https://www.perfumersworld.com/images/product/2-Acetyl Pyrazine.jpg"
+        },
+        {
+            "name": "2-Acetyl Pyrazine 1% in DPG",
+            "description": "2-Acetyl Pyrazine 1% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.1,
+            "display_price": 0.11,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5EN13769",
+            "image": "https://www.perfumersworld.com/images/product/2-Acetyl Pyrazine.jpg"
+        },
+        {
+            "name": "2-iso Propyl 4 Methyl Thiazole",
+            "description": "2-iso Propyl 4 Methyl Thiazole",
+            "category": "Matières Premières",
+            "base_price": 1.6,
+            "display_price": 1.84,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4ES11805",
+            "image": "https://www.perfumersworld.com/images/product/2-iso Propyl 4 Methyl Thiazole.jpg"
+        },
+        {
+            "name": "2-iso Propyl 4 Methyl Thiazole 1% in DPG",
+            "description": "2-iso Propyl 4 Methyl Thiazole 1% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.1,
+            "display_price": 0.11,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5ES13952",
+            "image": "https://www.perfumersworld.com/images/product/2-iso Propyl 4 Methyl Thiazole.jpg"
+        },
+        {
+            "name": "2-Methyl-2-Pentenoic Acid",
+            "description": "2-Methyl-2-Pentenoic Acid",
+            "category": "Matières Premières",
+            "base_price": 0.32,
+            "display_price": 0.37,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FC07622",
+            "image": "https://www.perfumersworld.com/images/product/2-Methyl-2-Pentenoic Acid.jpg"
+        },
+        {
+            "name": "2-Methyl-2-Pentenoic Acid 10% in DPG",
+            "description": "2-Methyl-2-Pentenoic Acid 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.05,
+            "display_price": 0.06,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5FC07623",
+            "image": "https://www.perfumersworld.com/images/product/2-Methyl-2-Pentenoic Acid.jpg"
+        },
+        {
+            "name": "2-Methylbutyl 2-Methylbutyrate",
+            "description": "2-Methylbutyl 2-Methylbutyrate",
+            "category": "Matières Premières",
+            "base_price": 0.33,
+            "display_price": 0.38,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FD00001",
+            "image": "https://www.perfumersworld.com/images/product/2-Methylbutyl 2-Methylbutyrate.jpg"
+        },
+        {
+            "name": "2-Octen-4-one",
+            "description": "2-Octen-4-one",
+            "category": "Matières Premières",
+            "base_price": 4.1,
+            "display_price": 4.71,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FY22527",
+            "image": "https://www.perfumersworld.com/images/product/2-Octen-4-one.jpg"
+        },
+        {
+            "name": "3-Methyl-3-Methoxy Butanol (MMB)",
+            "description": "3-Methyl-3-Methoxy Butanol (MMB)",
+            "category": "Matières Premières",
+            "base_price": 0.03,
+            "display_price": 0.03,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=0ZH20962",
+            "image": "https://www.perfumersworld.com/images/product/3-Methyl-3-Methoxy Butanol (MMB).jpg"
+        },
+        {
+            "name": "6-Methyl Coumarin",
+            "description": "6-Methyl Coumarin",
+            "category": "Matières Premières",
+            "base_price": 0.58,
+            "display_price": 0.67,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1VD00002",
+            "image": "https://www.perfumersworld.com/images/product/6-Methyl Coumarin.jpg"
+        },
+        {
+            "name": "6-Methyl Coumarin 10% in DPG",
+            "description": "6-Methyl Coumarin 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.18,
+            "display_price": 0.21,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5VD07562",
+            "image": "https://www.perfumersworld.com/images/product/6-Methyl Coumarin.jpg"
+        },
+        {
+            "name": "The Fleuressence Custom Creation Kit",
+            "description": "PerfumersWorld - The Art and Technology of Perfumery. Professional perfumery supplies, aroma chemicals, essential oils, creation kits, workshops, and GCMS analysis. Be the perfumer. Free worldwide shipping.",
+            "category": "Compounds",
+            "base_price": 694.95,
+            "display_price": 799.19,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=ISNIFF10",
+            "image": "https://www.perfumersworld.com/images/product/equipment/amber-glass-bottles-12ml.jpg"
+        },
+        {
+            "name": "The Fleuressence Custom Creation Kit",
+            "description": "PerfumersWorld - The Art and Technology of Perfumery. Professional perfumery supplies, aroma chemicals, essential oils, creation kits, workshops, and GCMS analysis. Be the perfumer. Free worldwide shipping.",
+            "category": "Compounds",
+            "base_price": 694.95,
+            "display_price": 799.19,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=ISNIFF30",
+            "image": "https://www.perfumersworld.com/images/product/equipment/amber-glass-bottles-12ml.jpg"
+        },
+        {
+            "name": "The Fleuressence Custom Creation Kit",
+            "description": "PerfumersWorld - The Art and Technology of Perfumery. Professional perfumery supplies, aroma chemicals, essential oils, creation kits, workshops, and GCMS analysis. Be the perfumer. Free worldwide shipping.",
+            "category": "Compounds",
+            "base_price": 694.95,
+            "display_price": 799.19,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=ISNIFF60",
+            "image": "https://www.perfumersworld.com/images/product/equipment/amber-glass-bottles-12ml.jpg"
+        },
+        {
+            "name": "A-ALDEHYDE F-TEC",
+            "description": "A-ALDEHYDE F-TEC",
+            "category": "Compounds",
+            "base_price": 0.18,
+            "display_price": 0.21,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6AN18003",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde F-TEC.jpg"
+        },
+        {
+            "name": "A-Aldehyde Fleuressence",
+            "description": "A-Aldehyde Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6AN07832",
+            "image": "https://www.perfumersworld.com/images/product/POWDERY FL.jpg"
+        },
+        {
+            "name": "ACACIA F-TEC",
+            "description": "ACACIA F-TEC",
+            "category": "Compounds",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6NL18079",
+            "image": "https://www.perfumersworld.com/images/product/ACACIA F-TEC.jpg"
+        },
+        {
+            "name": "Acacia Fleuressence",
+            "description": "Acacia Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.19,
+            "display_price": 0.22,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6NL08389",
+            "image": "https://www.perfumersworld.com/images/product/Acacia Fleuressence.jpg"
+        },
+        {
+            "name": "Acetic Acid",
+            "description": "Acetic Acid",
+            "category": "Matières Premières",
+            "base_price": 0.07,
+            "display_price": 0.08,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FG02943",
+            "image": "https://www.perfumersworld.com/images/product/Acetic Acid.jpg"
+        },
+        {
+            "name": "Acetoin",
+            "description": "Acetoin",
+            "category": "Matières Premières",
+            "base_price": 0.92,
+            "display_price": 1.06,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4DV02664",
+            "image": "https://www.perfumersworld.com/images/product/Acetoin.jpg"
+        },
+        {
+            "name": "Acetoin 10% in DPG",
+            "description": "Acetoin 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.13,
+            "display_price": 0.15,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5DV09244",
+            "image": "https://www.perfumersworld.com/images/product/Acetoin.jpg"
+        },
+        {
+            "name": "Acetophenone",
+            "description": "Acetophenone",
+            "category": "Matières Premières",
+            "base_price": 0.23,
+            "display_price": 0.26,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1NP00009",
+            "image": "https://www.perfumersworld.com/images/product/Acetophenone.jpg"
+        },
+        {
+            "name": "Acetyl Isoeugenol",
+            "description": "Acetyl Isoeugenol",
+            "category": "Matières Premières",
+            "base_price": 0.6,
+            "display_price": 0.69,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1SP00011",
+            "image": "https://www.perfumersworld.com/images/product/Acetyl Isoeugenol.jpg"
+        },
+        {
+            "name": "Acetyl Isoeugenol 10% in DPG",
+            "description": "Acetyl Isoeugenol 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.12,
+            "display_price": 0.14,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5SP07823",
+            "image": "https://www.perfumersworld.com/images/product/Acetyl Isoeugenol.jpg"
+        },
+        {
+            "name": "Adoxal",
+            "description": "Adoxal",
+            "category": "Matières Premières",
+            "base_price": 1.42,
+            "display_price": 1.63,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4GA00012",
+            "image": "https://www.perfumersworld.com/images/product/Adoxal.jpg"
+        },
+        {
+            "name": "Adoxal 10% in DPG",
+            "description": "Adoxal 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.17,
+            "display_price": 0.2,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5GA08479",
+            "image": "https://www.perfumersworld.com/images/product/Adoxal.jpg"
+        },
+        {
+            "name": "AGARWOOD F-TEC",
+            "description": "AGARWOOD F-TEC",
+            "category": "Compounds",
+            "base_price": 1.3,
+            "display_price": 1.49,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6WU18875",
+            "image": "https://www.perfumersworld.com/images/product/AGARWOOD F-TEC.jpg"
+        },
+        {
+            "name": "Agarwood Fleuressence",
+            "description": "Agarwood Fleuressence",
+            "category": "Compounds",
+            "base_price": 1.6,
+            "display_price": 1.84,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6WU08483",
+            "image": "https://www.perfumersworld.com/images/product/Agarwood Fleuressence.jpg"
+        },
+        {
+            "name": "Agarwood Oil Siam",
+            "description": "Agarwood Oil Siam",
+            "category": "Essential Oils",
+            "base_price": 25.0,
+            "display_price": 28.75,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7WU09890",
+            "image": "https://www.perfumersworld.com/images/product/Agarwood Oil Siam.jpg"
+        },
+        {
+            "name": "Agarwood Siam 10% in Nagarmotha Oil",
+            "description": "Agarwood Siam 10% in Nagarmotha Oil",
+            "category": "Matières Premières",
+            "base_price": 3.94,
+            "display_price": 4.53,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=8WU13317",
+            "image": "https://www.perfumersworld.com/images/product/Agarwood Siam 10 in Nagarmotha Oil.jpg"
+        },
+        {
+            "name": "Agrumen Aldehyde PW",
+            "description": "Agrumen Aldehyde PW",
+            "category": "Compounds",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6CG13368",
+            "image": "https://www.perfumersworld.com/images/product/Agrumen Aldehyde PW.jpg"
+        },
+        {
+            "name": "Alcohol C-7 Heptanol",
+            "description": "Alcohol C-7 Heptanol",
+            "category": "Matières Premières",
+            "base_price": 0.34,
+            "display_price": 0.39,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3AE13387",
+            "image": "https://www.perfumersworld.com/images/product/Alcohol C-7 Heptanol.jpg"
+        },
+        {
+            "name": "Alcohol C-8 Octanol",
+            "description": "Alcohol C-8 Octanol",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3AD13388",
+            "image": "https://www.perfumersworld.com/images/product/Alcohol C-8 Octanol 2.jpg"
+        },
+        {
+            "name": "Alcohol C-9",
+            "description": "Alcohol C-9",
+            "category": "Matières Premières",
+            "base_price": 0.7,
+            "display_price": 0.8,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3AD00017",
+            "image": "https://www.perfumersworld.com/images/product/Alcohol C-9 v.jpg"
+        },
+        {
+            "name": "Aldehyde C-10 Decanal",
+            "description": "Aldehyde C-10 Decanal",
+            "category": "Matières Premières",
+            "base_price": 0.17,
+            "display_price": 0.2,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00018",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-10 Decanal.jpg"
+        },
+        {
+            "name": "Aldehyde C-10 Decanal 50% in DPG",
+            "description": "Aldehyde C-10 Decanal 50% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.12,
+            "display_price": 0.14,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5AC08459",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-10 Decanal - 3.jpg"
+        },
+        {
+            "name": "Aldehyde C-11 Undecanal",
+            "description": "Aldehyde C-11 Undecanal",
+            "category": "Matières Premières",
+            "base_price": 0.41,
+            "display_price": 0.47,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4AR00020",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-11 Undecanal.jpg"
+        },
+        {
+            "name": "Aldehyde C-11 Undecanal 10% in DPG",
+            "description": "Aldehyde C-11 Undecanal 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.11,
+            "display_price": 0.13,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5AR08831",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-11 Undecanal - 2.jpg"
+        },
+        {
+            "name": "Aldehyde C-11 Undecylenic",
+            "description": "Aldehyde C-11 Undecylenic",
+            "category": "Matières Premières",
+            "base_price": 0.3,
+            "display_price": 0.34,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4AR01236",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-11 Undecylenic.jpg"
+        },
+        {
+            "name": "Aldehyde C-11 Undecylenic 10% in DPG",
+            "description": "Aldehyde C-11 Undecylenic 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.07,
+            "display_price": 0.08,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5AR08462",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-11 Undecylenic - 2.jpg"
+        },
+        {
+            "name": "Aldehyde C-12 Lauric Dodecanal",
+            "description": "Aldehyde C-12 Lauric Dodecanal",
+            "category": "Matières Premières",
+            "base_price": 0.25,
+            "display_price": 0.29,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4AA00021",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-12 Lauric.jpg"
+        },
+        {
+            "name": "Aldehyde C-12 Lauric Dodecanal 10% in DPG",
+            "description": "Aldehyde C-12 Lauric Dodecanal 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.06,
+            "display_price": 0.07,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5AA07834",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-12 Lauric - 2.jpg"
+        },
+        {
+            "name": "Aldehyde C-12 MNA",
+            "description": "Aldehyde C-12 MNA",
+            "category": "Matières Premières",
+            "base_price": 0.28,
+            "display_price": 0.32,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4AG00022",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-12 MNA.jpg"
+        },
+        {
+            "name": "Aldehyde C-14 Gamma Undecalactone 10% in DPG",
+            "description": "Aldehyde C-14 Gamma Undecalactone 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5DD07538",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-14 Gamma Undecalactone.jpg"
+        },
+        {
+            "name": "Aldehyde C-16 Ethyl Methyl Phenyl Glycidate",
+            "description": "Aldehyde C-16 Ethyl Methyl Phenyl Glycidate",
+            "category": "Matières Premières",
+            "base_price": 0.14,
+            "display_price": 0.16,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FC00176",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-16 Ethyl Methyl Phenyl Glycidate.jpg"
+        },
+        {
+            "name": "Aldehyde C-16 Ethyl Methyl Phenyl Glycidate 10% in DPG",
+            "description": "Aldehyde C-16 Ethyl Methyl Phenyl Glycidate 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.06,
+            "display_price": 0.07,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5FC07539",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-16 Ethyl Methyl Phenyl Glycidate.jpg"
+        },
+        {
+            "name": "Aldehyde C-18 Gamma Nonalactone",
+            "description": "Aldehyde C-18 Gamma Nonalactone",
+            "category": "Matières Premières",
+            "base_price": 0.21,
+            "display_price": 0.24,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-18 Gamma Nonalactone.jpg"
+        },
+        {
+            "name": "Aldehyde C-18 Gamma Nonalactone 10% in DPG",
+            "description": "Aldehyde C-18 Gamma Nonalactone 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.07,
+            "display_price": 0.08,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5DD12925",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-18 Gamma Nonalactone.jpg"
+        },
+        {
+            "name": "Aldehyde C-7 Heptanal",
+            "description": "Aldehyde C-7 Heptanal",
+            "category": "Matières Premières",
+            "base_price": 0.62,
+            "display_price": 0.71,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4AG00025",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-7 Heptanal.jpg"
+        },
+        {
+            "name": "Aldehyde C-8 Octanal",
+            "description": "Aldehyde C-8 Octanal",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00026",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-8 Octanal.jpg"
+        },
+        {
+            "name": "Aldehyde C-9 Nonanal 10% in DPG",
+            "description": "Aldehyde C-9 Nonanal 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.07,
+            "display_price": 0.08,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5AC10167",
+            "image": "https://www.perfumersworld.com/images/product/Aldehyde C-9 Nonanal - 2.jpg"
+        },
+        {
+            "name": "Algenone",
+            "description": "Algenone",
+            "category": "Compounds",
+            "base_price": 0.4,
+            "display_price": 0.46,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6GN23713",
+            "image": "https://www.perfumersworld.com/images/product/Algenone.jpg"
+        },
+        {
+            "name": "Algix Pure",
+            "description": "Algix Pure",
+            "category": "Matières Premières",
+            "base_price": 2.25,
+            "display_price": 2.59,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4GN23714",
+            "image": "https://www.perfumersworld.com/images/product/Algix Pure.jpg"
+        },
+        {
+            "name": "Allyl Amyl Glycolate",
+            "description": "Allyl Amyl Glycolate",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FG00029",
+            "image": "https://www.perfumersworld.com/images/product/Allyl Amyl Glycolate.jpg"
+        },
+        {
+            "name": "Allyl Amyl Glycolate 10% in DPG",
+            "description": "Allyl Amyl Glycolate 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.05,
+            "display_price": 0.06,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5FG07543",
+            "image": "https://www.perfumersworld.com/images/product/Allyl Amyl Glycolate.jpg"
+        },
+        {
+            "name": "Allyl Caproate",
+            "description": "Allyl Caproate",
+            "category": "Matières Premières",
+            "base_price": 0.14,
+            "display_price": 0.16,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FC02995",
+            "image": "https://www.perfumersworld.com/images/product/Allyl Caproate.jpg"
+        },
+        {
+            "name": "Allyl Cyclohexyl Propionate",
+            "description": "Allyl Cyclohexyl Propionate",
+            "category": "Matières Premières",
+            "base_price": 0.17,
+            "display_price": 0.2,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FC00030",
+            "image": "https://www.perfumersworld.com/images/product/Allyl Cyclohexyl Propionate.jpg"
+        },
+        {
+            "name": "Allyl Cyclohexyl Propionate 10% in DPG",
+            "description": "Allyl Cyclohexyl Propionate 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.06,
+            "display_price": 0.07,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5FC12465",
+            "image": "https://www.perfumersworld.com/images/product/Allyl Cyclohexyl Propionate.jpg"
+        },
+        {
+            "name": "Allyl Ionone Cetone V",
+            "description": "Allyl Ionone Cetone V",
+            "category": "Matières Premières",
+            "base_price": 1.3,
+            "display_price": 1.49,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4IN10857",
+            "image": "https://www.perfumersworld.com/images/product/Allyl Ionone Cetone V.jpg"
+        },
+        {
+            "name": "Alpha Damascone",
+            "description": "Alpha Damascone",
+            "category": "Matières Premières",
+            "base_price": 1.9,
+            "display_price": 2.18,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=9IF02656",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Damascone.jpg"
+        },
+        {
+            "name": "Alpha Damascone 10% in DPG",
+            "description": "Alpha Damascone 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.21,
+            "display_price": 0.24,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5IF07569",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Damascone.jpg"
+        },
+        {
+            "name": "Alpha Ionone",
+            "description": "Alpha Ionone",
+            "category": "Matières Premières",
+            "base_price": 0.26,
+            "display_price": 0.3,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3IF00237",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Ionone.jpg"
+        },
+        {
+            "name": "Alpha Irone",
+            "description": "Alpha Irone",
+            "category": "Matières Premières",
+            "base_price": 5.5,
+            "display_price": 6.32,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=8II00243",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Irone.jpg"
+        },
+        {
+            "name": "Alpha Irone 10% in DPG",
+            "description": "Alpha Irone 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.6,
+            "display_price": 0.69,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5II11436",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Irone.jpg"
+        },
+        {
+            "name": "Alpha Irone 10% in Myristic Acid(solid)",
+            "description": "Alpha Irone 10% in Myristic Acid(solid)",
+            "category": "Matières Premières",
+            "base_price": 0.61,
+            "display_price": 0.7,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5II09179",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Irone.jpg"
+        },
+        {
+            "name": "Alpha Isomethyl Ionone",
+            "description": "Alpha Isomethyl Ionone",
+            "category": "Matières Premières",
+            "base_price": 0.23,
+            "display_price": 0.26,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3IW00300",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Isomethyl Ionone.jpg"
+        },
+        {
+            "name": "Alpha Pinene",
+            "description": "Alpha Pinene",
+            "category": "Matières Premières",
+            "base_price": 0.08,
+            "display_price": 0.09,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3KC14406",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Pinene.jpg"
+        },
+        {
+            "name": "Alpha Terpineol",
+            "description": "Alpha Terpineol",
+            "category": "Matières Premières",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3KL00430",
+            "image": "https://www.perfumersworld.com/images/product/Alpha Terpineol.jpg"
+        },
+        {
+            "name": "Alpha-Male Concentrate",
+            "description": "Alpha-Male Concentrate",
+            "category": "Matières Premières",
+            "base_price": 5.02,
+            "display_price": 5.77,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=ALP06024",
+            "image": "https://www.perfumersworld.com/images/product/Alpha-Male Concentrate.jpg"
+        },
+        {
+            "name": "Alpha-Male Factor",
+            "description": "Alpha-Male Factor",
+            "category": "Matières Premières",
+            "base_price": 0.52,
+            "display_price": 0.6,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=ALP06025",
+            "image": "https://www.perfumersworld.com/images/product/Alpha-Male Factor.jpg"
+        },
+        {
+            "name": "Amber Core",
+            "description": "Amber Core",
+            "category": "Matières Premières",
+            "base_price": 0.5,
+            "display_price": 0.57,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4WW17035",
+            "image": "https://www.perfumersworld.com/images/product/Amber core.jpg"
+        },
+        {
+            "name": "Amber Decane",
+            "description": "Amber Decane",
+            "category": "Matières Premières",
+            "base_price": 0.45,
+            "display_price": 0.52,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3WQ11673",
+            "image": "https://www.perfumersworld.com/images/product/Amber Decane.jpg"
+        },
+        {
+            "name": "AMBER F-TEC",
+            "description": "AMBER F-TEC",
+            "category": "Compounds",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6WV18080",
+            "image": "https://www.perfumersworld.com/images/product/AMBER F-TEC.jpg"
+        },
+        {
+            "name": "Amber Fleuressence",
+            "description": "Amber Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.12,
+            "display_price": 0.14,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6WV12277",
+            "image": "https://www.perfumersworld.com/images/product/Amber Fleuressence.jpg"
+        },
+        {
+            "name": "Amber Glass Bottles 12ml",
+            "description": "Amber Glass Bottles 12ml",
+            "category": "Equipment",
+            "base_price": 0.9,
+            "display_price": 1.03,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=BOTAM12M",
+            "image": "https://www.perfumersworld.com/images/product/equipment/amber-glass-bottles-12ml.jpg"
+        },
+        {
+            "name": "Amber Glass Bottles 30ml",
+            "description": "Amber Glass Bottles 30ml",
+            "category": "Equipment",
+            "base_price": 2.4,
+            "display_price": 2.76,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=BOTAMB30",
+            "image": "https://www.perfumersworld.com/images/product/equipment/amber-glass-bottles-30ml.jpg"
+        },
+        {
+            "name": "Amber Glass Bottles 5ml",
+            "description": "Amber Glass Bottles 5ml",
+            "category": "Equipment",
+            "base_price": 0.9,
+            "display_price": 1.03,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=BOTAMB05",
+            "image": "https://www.perfumersworld.com/images/product/equipment/amber-glass-bottles-5ml.jpg"
+        },
+        {
+            "name": "Amber Solid",
+            "description": "Amber Solid",
+            "category": "Compounds",
+            "base_price": 0.28,
+            "display_price": 0.32,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6VU09627",
+            "image": "https://www.perfumersworld.com/images/product/Amber Solid.jpg"
+        },
+        {
+            "name": "AMBERGRIS F-TEC",
+            "description": "AMBERGRIS F-TEC",
+            "category": "Compounds",
+            "base_price": 0.22,
+            "display_price": 0.25,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6UY18081",
+            "image": "https://www.perfumersworld.com/images/product/AMBERGRIS F-TEC.jpg"
+        },
+        {
+            "name": "Ambergris Fleuressence",
+            "description": "Ambergris Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.22,
+            "display_price": 0.25,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6UY09424",
+            "image": "https://www.perfumersworld.com/images/product/Ambergris Fleuressence.jpg"
+        },
+        {
+            "name": "Amberketal IPM",
+            "description": "Amberketal IPM",
+            "category": "Matières Premières",
+            "base_price": 1.82,
+            "display_price": 2.09,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4WW16862",
+            "image": "https://www.perfumersworld.com/images/product/Amberketal IPM.jpg"
+        },
+        {
+            "name": "AMBERNOIR F-TEC",
+            "description": "AMBERNOIR F-TEC",
+            "category": "Compounds",
+            "base_price": 0.35,
+            "display_price": 0.4,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6UQ20900",
+            "image": "https://www.perfumersworld.com/images/product/AMBERNOIR F-TEC.jpg"
+        },
+        {
+            "name": "AmberNoir Fleuressence",
+            "description": "AmberNoir Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.35,
+            "display_price": 0.4,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6UQ20857",
+            "image": "https://www.perfumersworld.com/images/product/AmberNoir Fleuressence.jpg"
+        },
+        {
+            "name": "Amberome Base PW",
+            "description": "Amberome Base PW",
+            "category": "Compounds",
+            "base_price": 1.8,
+            "display_price": 2.07,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6UQ09624",
+            "image": "https://www.perfumersworld.com/images/product/Amberome Base PW.jpg"
+        },
+        {
+            "name": "Ambreine Classic PW",
+            "description": "Ambreine Classic PW",
+            "category": "Compounds",
+            "base_price": 0.8,
+            "display_price": 0.92,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6UV16208",
+            "image": "https://www.perfumersworld.com/images/product/Amberome Base PW.jpg"
+        },
+        {
+            "name": "Ambreine Fleuressence",
+            "description": "Ambreine Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6VC09625",
+            "image": "https://www.perfumersworld.com/images/product/Ambreine Fleuressence.jpg"
+        },
+        {
+            "name": "Ambrette Seed Absolute",
+            "description": "Ambrette Seed Absolute",
+            "category": "Matières Premières",
+            "base_price": 20.02,
+            "display_price": 23.02,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=8XU00529",
+            "image": "https://www.perfumersworld.com/images/product/Ambrette Seed Absolute.jpg"
+        },
+        {
+            "name": "Ambrette Seed Absolute 10% in DPG",
+            "description": "Ambrette Seed Absolute 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 2.52,
+            "display_price": 2.9,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5XU12235",
+            "image": "https://www.perfumersworld.com/images/product/Ambrette Seed Absolute.jpg"
+        },
+        {
+            "name": "AMBRETTE SEED F-TEC",
+            "description": "AMBRETTE SEED F-TEC",
+            "category": "Compounds",
+            "base_price": 0.4,
+            "display_price": 0.46,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6XU18931",
+            "image": "https://www.perfumersworld.com/images/product/AMBRETTE SEED F-TEC.jpg"
+        },
+        {
+            "name": "Ambrettolide",
+            "description": "Ambrettolide",
+            "category": "Matières Premières",
+            "base_price": 2.5,
+            "display_price": 2.88,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4XU00034",
+            "image": "https://www.perfumersworld.com/images/product/Ambrettolide.jpg"
+        },
+        {
+            "name": "Ambrettolide 10% in DPG",
+            "description": "Ambrettolide 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.27,
+            "display_price": 0.31,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5XU07617",
+            "image": "https://www.perfumersworld.com/images/product/Ambrettolide.jpg"
+        },
+        {
+            "name": "Ambrettolide 50% in DPG",
+            "description": "Ambrettolide 50% in DPG",
+            "category": "Matières Premières",
+            "base_price": 1.4,
+            "display_price": 1.61,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5XU10231",
+            "image": "https://www.perfumersworld.com/images/product/Ambrettolide.jpg"
+        },
+        {
+            "name": "Ambrocenide",
+            "description": "Ambrocenide",
+            "category": "Matières Premières",
+            "base_price": 4.93,
+            "display_price": 5.67,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1WU21632",
+            "image": "https://www.perfumersworld.com/images/product/Ambrocenide.jpg"
+        },
+        {
+            "name": "Ambrocenide 10% in DPG",
+            "description": "Ambrocenide 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.56,
+            "display_price": 0.64,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5WU22697",
+            "image": "https://www.perfumersworld.com/images/product/Ambrocenide.jpg"
+        },
+        {
+            "name": "Ambrocenide 10% in TEC",
+            "description": "Ambrocenide 10% in TEC",
+            "category": "Matières Premières",
+            "base_price": 0.58,
+            "display_price": 0.67,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5WU22696",
+            "image": "https://www.perfumersworld.com/images/product/Ambrocenide.jpg"
+        },
+        {
+            "name": "Ambrofix",
+            "description": "Ambrofix",
+            "category": "Matières Premières",
+            "base_price": 1.87,
+            "display_price": 2.15,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1UW16861",
+            "image": "https://www.perfumersworld.com/images/product/Ambrofix.jpg"
+        },
+        {
+            "name": "Ambrox Super",
+            "description": "Ambrox Super",
+            "category": "Matières Premières",
+            "base_price": 1.5,
+            "display_price": 1.72,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1UW00035",
+            "image": "https://www.perfumersworld.com/images/product/Ambrox Super.jpg"
+        },
+        {
+            "name": "Ambrox Super 10% in DPG",
+            "description": "Ambrox Super 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5UW20027",
+            "image": "https://www.perfumersworld.com/images/product/Ambrox Super.jpg"
+        },
+        {
+            "name": "Ambroxan",
+            "description": "Ambroxan",
+            "category": "Matières Premières",
+            "base_price": 2.52,
+            "display_price": 2.9,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1UW00036",
+            "image": "https://www.perfumersworld.com/images/product/Ambroxan.jpg"
+        },
+        {
+            "name": "Ambroxan 10% in DPG",
+            "description": "Ambroxan 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.37,
+            "display_price": 0.43,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5UW07540",
+            "image": "https://www.perfumersworld.com/images/product/Ambroxan.jpg"
+        },
+        {
+            "name": "Amyl Cinnamic Aldehyde (ACA)",
+            "description": "Amyl Cinnamic Aldehyde (ACA)",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3JJ00005",
+            "image": "https://www.perfumersworld.com/images/product/Amyl Cinnamic Aldehyde (ACA).jpg"
+        },
+        {
+            "name": "Amyl Salicylate",
+            "description": "Amyl Salicylate",
+            "category": "Matières Premières",
+            "base_price": 0.14,
+            "display_price": 0.16,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3OH00037",
+            "image": "https://www.perfumersworld.com/images/product/Amyl Salicylate.jpg"
+        },
+        {
+            "name": "Amyl Valerate",
+            "description": "Amyl Valerate",
+            "category": "Matières Premières",
+            "base_price": 0.95,
+            "display_price": 1.09,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FD06346",
+            "image": "https://www.perfumersworld.com/images/product/Amyl Valerate.jpg"
+        },
+        {
+            "name": "Amyris Essential Oil",
+            "description": "Amyris Essential Oil",
+            "category": "Essential Oils",
+            "base_price": 0.82,
+            "display_price": 0.94,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7WX00917",
+            "image": "https://www.perfumersworld.com/images/product/Amyris Essential Oil.jpg"
+        },
+        {
+            "name": "Anethole",
+            "description": "Anethole",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4SB00038",
+            "image": "https://www.perfumersworld.com/images/product/Anethole.jpg"
+        },
+        {
+            "name": "ANIMALISSIMO F-TEC",
+            "description": "ANIMALISSIMO F-TEC",
+            "category": "Compounds",
+            "base_price": 0.16,
+            "display_price": 0.18,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6DU18084",
+            "image": "https://www.perfumersworld.com/images/product/ANIMALISSIMO F-TEC.jpg"
+        },
+        {
+            "name": "Animalissio Blender Fleuressence",
+            "description": "Animalissio Blender Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6DU12415",
+            "image": "https://www.perfumersworld.com/images/product/Animalissio Blender Fleuressence.jpg"
+        },
+        {
+            "name": "Anisaldehyde",
+            "description": "Anisaldehyde",
+            "category": "Matières Premières",
+            "base_price": 0.26,
+            "display_price": 0.3,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3NV00040",
+            "image": "https://www.perfumersworld.com/images/product/Anisaldehyde.jpg"
+        },
+        {
+            "name": "Anisyl Acetate",
+            "description": "Anisyl Acetate",
+            "category": "Matières Premières",
+            "base_price": 0.28,
+            "display_price": 0.32,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3LN00043",
+            "image": "https://www.perfumersworld.com/images/product/Anisyl Acetate.jpg"
+        },
+        {
+            "name": "Anisyl Alcohol",
+            "description": "Anisyl Alcohol",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3NL00044",
+            "image": "https://www.perfumersworld.com/images/product/Anisyl Alcohol.jpg"
+        },
+        {
+            "name": "Anthopogen Essential Oil",
+            "description": "Anthopogen Essential Oil",
+            "category": "Essential Oils",
+            "base_price": 1.8,
+            "display_price": 2.07,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7WY10413",
+            "image": "https://www.perfumersworld.com/images/product/Anthopogen Essential Oil.jpg"
+        },
+        {
+            "name": "Anti-dandruff Shampoo Base - unscented",
+            "description": "Anti-dandruff Shampoo Base - unscented",
+            "category": "Matières Premières",
+            "base_price": 0.04,
+            "display_price": 0.05,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=SHAMPADD",
+            "image": "https://www.perfumersworld.com/images/product/Shampoo_Base_ unscented.jpg"
+        },
+        {
+            "name": "Aphermate",
+            "description": "Aphermate",
+            "category": "Matières Premières",
+            "base_price": 0.8,
+            "display_price": 0.92,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4WF06853",
+            "image": "https://www.perfumersworld.com/images/product/Aphermate.jpg"
+        },
+        {
+            "name": "APPLE F-TEC",
+            "description": "APPLE F-TEC",
+            "category": "Compounds",
+            "base_price": 0.16,
+            "display_price": 0.18,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6FG18856",
+            "image": "https://www.perfumersworld.com/images/product/APPLE F-TEC.jpg"
+        },
+        {
+            "name": "Apple Fleuressence",
+            "description": "Apple Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.22,
+            "display_price": 0.25,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6FG07793",
+            "image": "https://www.perfumersworld.com/images/product/Apple Fleuressence.jpg"
+        },
+        {
+            "name": "Apple Green",
+            "description": "Apple Green",
+            "category": "Compounds",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6FG08058",
+            "image": "https://www.perfumersworld.com/images/product/Apple Green.jpg"
+        },
+        {
+            "name": "Apple Red",
+            "description": "Apple Red",
+            "category": "Compounds",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6FG08026",
+            "image": "https://www.perfumersworld.com/images/product/Apple Red.jpg"
+        },
+        {
+            "name": "Apricot Oil - Fixed Oil",
+            "description": "Apricot Oil - Fixed Oil",
+            "category": "Matières Premières",
+            "base_price": 0.1,
+            "display_price": 0.11,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=0ZA01228",
+            "image": "https://www.perfumersworld.com/images/product/apricot_oil.jpg"
+        },
+        {
+            "name": "Apritone",
+            "description": "Apritone",
+            "category": "Matières Premières",
+            "base_price": 0.78,
+            "display_price": 0.9,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3FD06779",
+            "image": "https://www.perfumersworld.com/images/product/Apritone.jpg"
+        },
+        {
+            "name": "ARABIAN OUD F-TEC",
+            "description": "ARABIAN OUD F-TEC",
+            "category": "Compounds",
+            "base_price": 0.4,
+            "display_price": 0.46,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6WQ18085",
+            "image": "https://www.perfumersworld.com/images/product/ARABIAN OUD F-TEC.jpg"
+        },
+        {
+            "name": "Arabian Oud Fleuressence",
+            "description": "Arabian Oud Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.28,
+            "display_price": 0.32,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6WQ08484",
+            "image": "https://www.perfumersworld.com/images/product/Arabian Oud Fleuressence.jpg"
+        },
+        {
+            "name": "Armoise Essential Oil",
+            "description": "Armoise Essential Oil",
+            "category": "Essential Oils",
+            "base_price": 0.99,
+            "display_price": 1.14,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7HH00896",
+            "image": "https://www.perfumersworld.com/images/product/Armoise Essential Oil.jpg"
+        },
+        {
+            "name": "ARMOISE F-TEC",
+            "description": "ARMOISE F-TEC",
+            "category": "Compounds",
+            "base_price": 0.37,
+            "display_price": 0.43,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6HH18090",
+            "image": "https://www.perfumersworld.com/images/product/ARMOISE F-TEC.jpg"
+        },
+        {
+            "name": "Armoise Fleuressence",
+            "description": "Armoise Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.35,
+            "display_price": 0.4,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6HH09096",
+            "image": "https://www.perfumersworld.com/images/product/Armoise Fleuressence.jpg"
+        },
+        {
+            "name": "Atlas Cedarwood Essential Oil",
+            "description": "Atlas Cedarwood Essential Oil",
+            "category": "Essential Oils",
+            "base_price": 0.31,
+            "display_price": 0.36,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7WW00915",
+            "image": "https://www.perfumersworld.com/images/product/Atlas Cedarwood Essential Oil.jpg"
+        },
+        {
+            "name": "Aurantiol (Methyl Anthranilate Schiffs Base) 50% in DPG",
+            "description": "Aurantiol (Methyl Anthranilate Schiffs Base) 50% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.22,
+            "display_price": 0.25,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5NC12180",
+            "image": "https://www.perfumersworld.com/images/product/Methyl Anthranilate.jpg"
+        },
+        {
+            "name": "Aurantiol - Methyl Anthranilate Schiffs Base",
+            "description": "Aurantiol - Methyl Anthranilate Schiffs Base",
+            "category": "Matières Premières",
+            "base_price": 0.37,
+            "display_price": 0.43,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=2NC00409",
+            "image": "https://www.perfumersworld.com/images/product/Aurantiol - Methyl Anthranilate Schiffs Base.jpg"
+        },
+        {
+            "name": "Avocado Oil - Fixed Oil",
+            "description": "Avocado Oil - Fixed Oil",
+            "category": "Matières Premières",
+            "base_price": 0.12,
+            "display_price": 0.14,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=0ZA01433",
+            "image": "https://www.perfumersworld.com/images/product/Avocado_Oil.jpg"
+        },
+        {
+            "name": "Azarbre",
+            "description": "Azarbre",
+            "category": "Matières Premières",
+            "base_price": 0.4,
+            "display_price": 0.46,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4WB16858",
+            "image": "https://www.perfumersworld.com/images/product/Azarbre.jpg"
+        },
+        {
+            "name": "B-ICEBERG F-TEC",
+            "description": "B-ICEBERG F-TEC",
+            "category": "Compounds",
+            "base_price": 0.12,
+            "display_price": 0.14,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6BB18004",
+            "image": "https://www.perfumersworld.com/images/product/Iceberg F-TEC.jpg"
+        },
+        {
+            "name": "B-iceBerg Fleuressence",
+            "description": "B-iceBerg Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6BB07833",
+            "image": "https://www.perfumersworld.com/images/product/iceberg.jpg"
+        },
+        {
+            "name": "Bacdanol",
+            "description": "Bacdanol",
+            "category": "Matières Premières",
+            "base_price": 0.29,
+            "display_price": 0.33,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4WR00045",
+            "image": "https://www.perfumersworld.com/images/product/Bacdanol.jpg"
+        },
+        {
+            "name": "BANANA F-TEC",
+            "description": "BANANA F-TEC",
+            "category": "Compounds",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6FD18188",
+            "image": "https://www.perfumersworld.com/images/product/BANANA F-TEC.jpg"
+        },
+        {
+            "name": "Banana Fleuressence",
+            "description": "Banana Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.26,
+            "display_price": 0.3,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6FD09062",
+            "image": "https://www.perfumersworld.com/images/product/Banana Fleuressence.jpg"
+        },
+        {
+            "name": "BASIL F-TEC",
+            "description": "BASIL F-TEC",
+            "category": "Compounds",
+            "base_price": 0.38,
+            "display_price": 0.44,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6PS18638",
+            "image": "https://www.perfumersworld.com/images/product/BASIL F-TEC.jpg"
+        },
+        {
+            "name": "Basil Fleuressence",
+            "description": "Basil Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.18,
+            "display_price": 0.21,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6PS12413",
+            "image": "https://www.perfumersworld.com/images/product/Basil Fleuressence.jpg"
+        },
+        {
+            "name": "Basil Linalool Oil Egypt",
+            "description": "Basil Linalool Oil Egypt",
+            "category": "Essential Oils",
+            "base_price": 0.3,
+            "display_price": 0.34,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7PL24627",
+            "image": "https://www.perfumersworld.com/images/product/Basil Linalool Oil Egypt.jpg"
+        },
+        {
+            "name": "Bay West Indies Essential Oil",
+            "description": "Bay West Indies Essential Oil",
+            "category": "Essential Oils",
+            "base_price": 1.3,
+            "display_price": 1.49,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7SP00048",
+            "image": "https://www.perfumersworld.com/images/product/Bay West Indies Essential Oil.jpg"
+        },
+        {
+            "name": "Bay West Indies Essential Oil 10% in DPG",
+            "description": "Bay West Indies Essential Oil 10% in DPG",
+            "category": "Essential Oils",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5SP07871",
+            "image": "https://www.perfumersworld.com/images/product/Bay West Indies Essential Oil.jpg"
+        },
+        {
+            "name": "Benjoin Laos Matured",
+            "description": "Benjoin Laos Matured",
+            "category": "Matières Premières",
+            "base_price": 0.6,
+            "display_price": 0.69,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=2QV23712",
+            "image": "https://www.perfumersworld.com/images/product/Benjoin Laos Matured.jpg"
+        },
+        {
+            "name": "Benzaldehyde",
+            "description": "Benzaldehyde",
+            "category": "Matières Premières",
+            "base_price": 0.18,
+            "display_price": 0.21,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4FN00049",
+            "image": "https://www.perfumersworld.com/images/product/Benzaldehyde.jpg"
+        },
+        {
+            "name": "Benzaldehyde 10% in DPG",
+            "description": "Benzaldehyde 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.07,
+            "display_price": 0.08,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5FN07794",
+            "image": "https://www.perfumersworld.com/images/product/Benzaldehyde.jpg"
+        },
+        {
+            "name": "BENZOIN F-TEC",
+            "description": "BENZOIN F-TEC",
+            "category": "Compounds",
+            "base_price": 0.3,
+            "display_price": 0.34,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6QV18435",
+            "image": "https://www.perfumersworld.com/images/product/BENZOIN F-TEC.jpg"
+        },
+        {
+            "name": "Benzoin Fleuressence",
+            "description": "Benzoin Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.35,
+            "display_price": 0.4,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6QV09111",
+            "image": "https://www.perfumersworld.com/images/product/Benzoin Fleuressence.jpg"
+        },
+        {
+            "name": "Benzoin Siam Resinoid",
+            "description": "Benzoin Siam Resinoid",
+            "category": "Matières Premières",
+            "base_price": 0.7,
+            "display_price": 0.8,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=2QV00050",
+            "image": "https://www.perfumersworld.com/images/product/Benzoin Siam Resinoid.jpg"
+        },
+        {
+            "name": "Benzoin Siam Resinoid 50% in BB",
+            "description": "Benzoin Siam Resinoid 50% in BB",
+            "category": "Matières Premières",
+            "base_price": 0.4,
+            "display_price": 0.46,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5QV07505",
+            "image": "https://www.perfumersworld.com/images/product/Benzoin Siam Resinoid.jpg"
+        },
+        {
+            "name": "Benzoin Siam Resinoid 50% in DPG",
+            "description": "Benzoin Siam Resinoid 50% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.4,
+            "display_price": 0.46,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5QV13027",
+            "image": "https://www.perfumersworld.com/images/product/Benzoin Siam Resinoid.jpg"
+        },
+        {
+            "name": "Benzoin Sumatra Resinoid",
+            "description": "Benzoin Sumatra Resinoid",
+            "category": "Matières Premières",
+            "base_price": 0.4,
+            "display_price": 0.46,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=2QV08253",
+            "image": "https://www.perfumersworld.com/images/product/Benzoin Sumatra Resinoid.jpg"
+        },
+        {
+            "name": "Benzophenone",
+            "description": "Benzophenone",
+            "category": "Matières Premières",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1RP00051",
+            "image": "https://www.perfumersworld.com/images/product/Benzophenone.jpg"
+        },
+        {
+            "name": "Benzophenone 10% in DPG",
+            "description": "Benzophenone 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.08,
+            "display_price": 0.09,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5RP09245",
+            "image": "https://www.perfumersworld.com/images/product/Benzophenone.jpg"
+        },
+        {
+            "name": "Benzyl Acetate",
+            "description": "Benzyl Acetate",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3JF00052",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Acetate.jpg"
+        },
+        {
+            "name": "Benzyl Alcohol (BA)",
+            "description": "Benzyl Alcohol (BA)",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=0ZN00053",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Alcohol (BA).jpg"
+        },
+        {
+            "name": "Benzyl Benzoate (BB)",
+            "description": "Benzyl Benzoate (BB)",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=0ZN00054",
+            "image": "https://www.perfumersworld.com/images/product/BENZYL BENZOATE.jpg"
+        },
+        {
+            "name": "Benzyl Butyrate",
+            "description": "Benzyl Butyrate",
+            "category": "Matières Premières",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4JD00055",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Butyrate.jpg"
+        },
+        {
+            "name": "Benzyl Cinnamate",
+            "description": "Benzyl Cinnamate",
+            "category": "Matières Premières",
+            "base_price": 0.3,
+            "display_price": 0.34,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=2SQ00056",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Cinnamate.jpg"
+        },
+        {
+            "name": "Benzyl Cinnamate 10% in DPG",
+            "description": "Benzyl Cinnamate 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.1,
+            "display_price": 0.11,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5SQ12479",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Cinnamate.jpg"
+        },
+        {
+            "name": "Benzyl Formate",
+            "description": "Benzyl Formate",
+            "category": "Matières Premières",
+            "base_price": 0.84,
+            "display_price": 0.97,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4JW00057",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Formate.jpg"
+        },
+        {
+            "name": "Benzyl Isoeugenol",
+            "description": "Benzyl Isoeugenol",
+            "category": "Matières Premières",
+            "base_price": 0.7,
+            "display_price": 0.8,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=1SP00058",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Isoeugenol.jpg"
+        },
+        {
+            "name": "Benzyl Isoeugenol 10% in DPG",
+            "description": "Benzyl Isoeugenol 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.1,
+            "display_price": 0.11,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5SP12480",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Isoeugenol.jpg"
+        },
+        {
+            "name": "Benzyl Propionate",
+            "description": "Benzyl Propionate",
+            "category": "Matières Premières",
+            "base_price": 0.09,
+            "display_price": 0.1,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3JF00059",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Propionate.jpg"
+        },
+        {
+            "name": "Benzyl Salicylate",
+            "description": "Benzyl Salicylate",
+            "category": "Matières Premières",
+            "base_price": 0.09,
+            "display_price": 0.1,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3ON00060",
+            "image": "https://www.perfumersworld.com/images/product/Benzyl Salicylate.jpg"
+        },
+        {
+            "name": "Bergamot Essential Oil",
+            "description": "Bergamot Essential Oil",
+            "category": "Essential Oils",
+            "base_price": 0.35,
+            "display_price": 0.4,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7CL00061",
+            "image": "https://www.perfumersworld.com/images/product/Bergamot Essential Oil.jpg"
+        },
+        {
+            "name": "BERGAMOT F-TEC",
+            "description": "BERGAMOT F-TEC",
+            "category": "Compounds",
+            "base_price": 0.18,
+            "display_price": 0.21,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6CL18898",
+            "image": "https://www.perfumersworld.com/images/product/BERGAMOT F-TEC.jpg"
+        },
+        {
+            "name": "Bergamot FCF oil Sicilian",
+            "description": "Bergamot FCF oil Sicilian",
+            "category": "Essential Oils",
+            "base_price": 0.22,
+            "display_price": 0.25,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7CL24020",
+            "image": "https://www.perfumersworld.com/images/product/Bergamot FCF oil Sicilian.jpg"
+        },
+        {
+            "name": "Bergamot Fleuressence",
+            "description": "Bergamot Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.2,
+            "display_price": 0.23,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6CL09058",
+            "image": "https://www.perfumersworld.com/images/product/Bergamot Fleuressence.jpg"
+        },
+        {
+            "name": "Berry Hexanoate (BerryFlor)",
+            "description": "Berry Hexanoate (BerryFlor)",
+            "category": "Matières Premières",
+            "base_price": 1.5,
+            "display_price": 1.72,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3FG19149",
+            "image": "https://www.perfumersworld.com/images/product/Berry Hexanoate (BerryFlor).jpg"
+        },
+        {
+            "name": "Beta Caryophyllene",
+            "description": "Beta Caryophyllene",
+            "category": "Matières Premières",
+            "base_price": 0.14,
+            "display_price": 0.16,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3WS00089",
+            "image": "https://www.perfumersworld.com/images/product/Beta Caryophyllene.jpg"
+        },
+        {
+            "name": "Beta Damascone",
+            "description": "Beta Damascone",
+            "category": "Matières Premières",
+            "base_price": 3.18,
+            "display_price": 3.66,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=9IR00141",
+            "image": "https://www.perfumersworld.com/images/product/Beta Damascone.jpg"
+        },
+        {
+            "name": "Beta Damascone 10% in DPG",
+            "description": "Beta Damascone 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.35,
+            "display_price": 0.4,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5IR07532",
+            "image": "https://www.perfumersworld.com/images/product/Beta Damascone.jpg"
+        },
+        {
+            "name": "Beta Homocyclocitral",
+            "description": "Beta Homocyclocitral",
+            "category": "Matières Premières",
+            "base_price": 7.6,
+            "display_price": 8.74,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=4BC11314",
+            "image": "https://www.perfumersworld.com/images/product/Beta Homocyclocitral.jpg"
+        },
+        {
+            "name": "Beta Ionone",
+            "description": "Beta Ionone",
+            "category": "Matières Premières",
+            "base_price": 0.29,
+            "display_price": 0.33,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3IF00238",
+            "image": "https://www.perfumersworld.com/images/product/Beta Ionone.jpg"
+        },
+        {
+            "name": "Beta Pinene",
+            "description": "Beta Pinene",
+            "category": "Matières Premières",
+            "base_price": 0.06,
+            "display_price": 0.07,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=3KC00386",
+            "image": "https://www.perfumersworld.com/images/product/Beta Pinene.jpg"
+        },
+        {
+            "name": "Birch Tar Essential Oil 1% in DPG",
+            "description": "Birch Tar Essential Oil 1% in DPG",
+            "category": "Essential Oils",
+            "base_price": 0.15,
+            "display_price": 0.17,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5TP07825",
+            "image": "https://www.perfumersworld.com/images/product/Birch Tar Oil Rectified.jpg"
+        },
+        {
+            "name": "Birch Tar Oil Rectified",
+            "description": "Birch Tar Oil Rectified",
+            "category": "Essential Oils",
+            "base_price": 2.3,
+            "display_price": 2.64,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7TP00822",
+            "image": "https://www.perfumersworld.com/images/product/Birch Tar Oil Rectified.jpg"
+        },
+        {
+            "name": "Birch Tar Oil Rectified 10% in DPG",
+            "description": "Birch Tar Oil Rectified 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.25,
+            "display_price": 0.29,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5TP11094",
+            "image": "https://www.perfumersworld.com/images/product/Birch Tar Oil Rectified.jpg"
+        },
+        {
+            "name": "Bitter Orange Essential Oil",
+            "description": "Bitter Orange Essential Oil",
+            "category": "Essential Oils",
+            "base_price": 0.5,
+            "display_price": 0.57,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=7CA00849",
+            "image": "https://www.perfumersworld.com/images/product/Bitter Orange Essential Oil.jpg"
+        },
+        {
+            "name": "Black Agarwood Artificial",
+            "description": "Black Agarwood Artificial",
+            "category": "Compounds",
+            "base_price": 1.7,
+            "display_price": 1.95,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6WU07708",
+            "image": "https://www.perfumersworld.com/images/product/Black Agarwood Artificial.jpg"
+        },
+        {
+            "name": "BLACK PEPPER F-TEC",
+            "description": "BLACK PEPPER F-TEC",
+            "category": "Compounds",
+            "base_price": 0.3,
+            "display_price": 0.34,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6SH18444",
+            "image": "https://www.perfumersworld.com/images/product/BLACK PEPPER F-TEC.jpg"
+        },
+        {
+            "name": "Black Pepper Fleuressence",
+            "description": "Black Pepper Fleuressence",
+            "category": "Compounds",
+            "base_price": 0.5,
+            "display_price": 0.57,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6SH09677",
+            "image": "https://www.perfumersworld.com/images/product/Black Pepper Fleuressence.jpg"
+        },
+        {
+            "name": "Black Tea Base",
+            "description": "Black Tea Base",
+            "category": "Compounds",
+            "base_price": 0.29,
+            "display_price": 0.33,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6HE09224",
+            "image": "https://www.perfumersworld.com/images/product/Black Tea Base.jpg"
+        },
+        {
+            "name": "Blackcurrant Absolute",
+            "description": "Blackcurrant Absolute",
+            "category": "Matières Premières",
+            "base_price": 8.1,
+            "display_price": 9.31,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=8FB00063",
+            "image": "https://www.perfumersworld.com/images/product/Blackcurrant Absolute.jpg"
+        },
+        {
+            "name": "Blackcurrant Absolute 10% in DPG",
+            "description": "Blackcurrant Absolute 10% in DPG",
+            "category": "Matières Premières",
+            "base_price": 0.64,
+            "display_price": 0.74,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=5FB20096",
+            "image": "https://www.perfumersworld.com/images/product/Blackcurrant Absolute.jpg"
+        },
+        {
+            "name": "BLACKCURRANT F-TEC",
+            "description": "BLACKCURRANT F-TEC",
+            "category": "Compounds",
+            "base_price": 0.32,
+            "display_price": 0.37,
+            "source": "PerfumersWorld",
+            "url": "https://www.perfumersworld.com/view.php?pro_id=6FB18179",
+            "image": "https://www.perfumersworld.com/images/product/BLACKCURRANT F-TEC.jpg"
+        }
+    ]
+}

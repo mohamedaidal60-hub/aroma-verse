@@ -1,29 +1,79 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Search, ExternalLink, Globe, Zap, ShieldCheck, Factory, Box, Droplets, Ship, Building, Handshake, BrainCircuit, Shield, FileSignature, Check, Video, MessageSquare } from "lucide-react";
+import { Search, ExternalLink, Globe, Zap, ShieldCheck, Factory, Box, Droplets, Ship, Building, Handshake, BrainCircuit, Shield, FileSignature, Check, Video, MessageSquare, Info, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import { useLang } from "@/contexts/LanguageContext";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+// @ts-ignore
+import pwData from "@/data/pw_database.json" assert { type: "json" };
+// Note: Le fichier sera généré par le robot python
 
 const Store = () => {
   const { t, dir } = useLang();
   const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState("Tous");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+
+  // Simulation Produits Officiels (Admin) + Données PW Réelles
+  const initialProducts = [
+    { id: "admin1", name: "Ambroxan (Pure)", category: "Matières Premières", price: 65.00, displayPrice: 65.00 * 1.15, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600", source: "AromaVerse", desc: "Substitut d'ambre gris synthétique, puissance et sillage." }
+  ];
+
+  const externalProducts = (pwData as any)?.products?.map((p: any, i:number) => ({
+      ...p,
+      id: `pw-${i}`,
+      displayPrice: p.display_price
+  })) || [];
+
+  const products = [...initialProducts, ...externalProducts];
+
+  // Catégories Dynamiques
+  const categoryMapping: {[key: string]: string} = {
+    "Essential Oils": "Huiles Essentielles",
+    "Kits": "Kits Création",
+    "Compounds": "Compositions",
+    "Aroma Materials": "Matières Premières",
+    "Specialty Bases": "Bases Spéciales",
+    "Equipment": "Équipement",
+    "Additives": "Additifs & Bases",
+    "Matières Premières": "Matières Premières"
+  };
+
+  const getMappedCategory = (rawCat: string) => categoryMapping[rawCat] || rawCat;
+
+  const categories = ["Tous", ...Array.from(new Set(products.map(p => getMappedCategory(p.category))))];
 
   // Animating stats
   const [stats, setStats] = useState({ companies: 0, deals: 0, countries: 0 });
 
   useEffect(() => {
-    // Simulate loading stats with a small animation
     const timer = setTimeout(() => {
       setStats({ companies: 845, deals: 1240, countries: 34 });
     }, 500);
     return () => clearTimeout(timer);
   }, []);
 
+  const filteredProducts = products
+    .filter(p => {
+      const productCat = getMappedCategory(p.category);
+      const matchesCategory = activeCategory === "Tous" || productCat === activeCategory;
+      const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    })
+    .sort((a, b) => {
+      const catA = getMappedCategory(a.category);
+      const catB = getMappedCategory(b.category);
+      if (catA < catB) return -1;
+      if (catA > catB) return 1;
+      return a.name.localeCompare(b.name);
+    });
+
   return (
     <div className="min-h-screen font-body overflow-x-hidden bg-background">
-      {/* Background Gradient Vert Naturel (Soothing Natural Green) */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/20"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-primary/10 to-transparent blur-[120px] rounded-full"></div>
@@ -32,190 +82,157 @@ const Store = () => {
       <Navbar />
       
       <main className="flex-1 pt-24 pb-16 relative z-10">
-        
-        {/* Top Security Banner */}
         <div className="bg-emerald-900/10 backdrop-blur-md text-emerald-900 text-center py-2 text-xs md:text-sm border-y border-emerald-900/10 shadow-sm">
           <div className="container mx-auto flex items-center justify-center gap-2">
             <ShieldCheck className="text-emerald-600 w-4 h-4" /> 
-            <span className="opacity-90 tracking-wide font-medium">Cryptage Militaire AES-256 | SSL/TLS | Protection des Données B2B</span>
+            <span className="opacity-90 tracking-wide font-medium">Boutique Officielle AromaVerse | Certifiée Qualité Nexus</span>
           </div>
         </div>
 
         <div className="container mx-auto px-4 max-w-7xl pt-16">
           
-          {/* Hero Section */}
-          <div className="flex flex-col items-center justify-center mb-24 text-center">
-            <div className="inline-flex items-center gap-2 bg-[#10B981]/10 backdrop-blur-sm rounded-full px-5 py-2 mb-8 border border-[#10B981]/30">
-              <BrainCircuit className="text-gold w-4 h-4" />
-              <span className="text-xs font-bold text-gold uppercase tracking-[0.1em]">Intelligence Artificielle de Sourcing</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-black mb-6 tracking-tighter text-foreground leading-[1.1]">
-               NEXUS <br className="hidden md:block"/>
-               <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-gold to-amber-600">
-                 Supply Chain
-               </span>
+          <div className="flex flex-col items-center justify-center mb-20 text-center">
+            <h1 className="text-5xl md:text-7xl font-display font-black mb-6 tracking-tighter text-foreground">
+               Boutique <span className="text-gold italic">Officielle</span>
             </h1>
-            
-            <p className="text-xl md:text-2xl text-foreground/70 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
-               Connectez votre entreprise aux meilleurs fournisseurs et acheteurs mondiaux via notre plateforme B2B intelligente et sécurisée. Transaction garantie, frais réduits.
+            <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-12 font-medium">
+               Matières premières d'excellence sourcées auprès de nos partenaires mondiaux. Commission fixe de 15% appliquée pour le soutien aux agriculteurs du réseau.
             </p>
             
-            <div className="flex justify-center gap-4 flex-col sm:flex-row w-full sm:w-auto">
-                <Button 
-                    onClick={() => navigate("/auth")}
-                    className="h-14 px-8 bg-gradient-gold hover:opacity-90 text-black font-black text-sm uppercase tracking-widest rounded-full shadow-gold shadow-lg flex items-center gap-3 transition-transform hover:scale-105"
-                >
-                    <Zap className="fill-black" size={18} />
-                    Inscrire ma société
-                </Button>
-                <Button 
-                    variant="outline"
-                    className="h-14 px-8 border-emerald-900/20 text-emerald-900 hover:bg-emerald-50 font-bold text-sm uppercase tracking-widest rounded-full transition-colors"
-                >
-                    <Video size={18} className="mr-2" /> Voir la Démo
-                </Button>
+            <div className="w-full max-w-xl relative group">
+               <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-gold transition-colors" size={20} />
+               <Input 
+                 placeholder="Chercher une molécule, un kit ou une huile..." 
+                 className="h-16 pl-14 pr-6 rounded-full bg-white/50 border-white/20 shadow-xl focus-visible:ring-gold font-bold text-lg"
+                 value={searchTerm}
+                 onChange={e => setSearchTerm(e.target.value)}
+               />
             </div>
           </div>
 
-          {/* Stats Section */}
+          {/* Catalogue */}
+          <div className="flex flex-col md:flex-row gap-4 mb-10 items-center justify-between">
+             <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                {categories.map(cat => (
+                   <Button 
+                    key={cat} 
+                    variant={activeCategory === cat ? "default" : "outline"}
+                    className={`rounded-full px-6 h-10 uppercase tracking-widest text-[10px] font-black ${activeCategory === cat ? 'bg-gold text-black border-gold shadow-gold/20 shadow-lg' : 'border-white/10 text-muted-foreground'}`}
+                    onClick={() => setActiveCategory(cat)}
+                   >
+                      {cat}
+                   </Button>
+                ))}
+             </div>
+             <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                <Info size={14} className="text-gold" /> Partenariat Direct: PerfumersWorld, TGSC, Grasse Lab
+             </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
+             {filteredProducts.map(product => (
+                <div key={product.id} className="glass-card rounded-[32px] overflow-hidden group border border-white/5 hover:border-gold/30 transition-all flex flex-col shadow-xl bg-white/40" onClick={() => setSelectedProduct(product)}>
+                    <div className="aspect-square relative overflow-hidden">
+                       <img src={encodeURI(product.image)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={product.name} />
+                       <div className="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-[8px] font-black text-gold uppercase tracking-widest border border-gold/20">
+                          {product.source}
+                       </div>
+                    </div>
+                   <div className="p-6 flex-1 flex flex-col">
+                      <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-1">{product.category}</p>
+                      <h3 className="text-lg font-bold text-foreground mb-4 line-clamp-1">{product.name}</h3>
+                      <div className="mt-auto flex items-end justify-between border-t border-black/5 pt-4">
+                         <div>
+                            <span className="text-[8px] font-black uppercase text-muted-foreground block">Prix Nexus</span>
+                            <div className="text-xl font-black text-primary italic leading-none">{product.displayPrice.toFixed(2)} €</div>
+                         </div>
+                         <Button 
+                            className="w-10 h-10 rounded-full bg-gold/10 text-gold p-0 border border-gold/20 hover:bg-gold hover:text-white"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toast.success(`${product.name} ajouté au panier B2B !`);
+                            }}
+                          >
+                             <ShoppingCart size={16} />
+                          </Button>
+                      </div>
+                   </div>
+                </div>
+             ))}
+          </div>
+
+          {/* Stats Bar */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32 relative z-20">
-              <div className="glass-card p-8 rounded-[32px] text-center border border-emerald-900/5 hover:border-emerald-500/30 transition-all hover:-translate-y-2 duration-300">
-                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/5 flex items-center justify-center mx-auto mb-6 text-emerald-600">
-                      <Building size={32} />
-                  </div>
-                  <div className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-gold">
-                      {stats.companies}+
-                  </div>
-                  <p className="text-foreground/60 font-bold uppercase tracking-widest text-sm">Sociétés Vérifiées</p>
+              <div className="glass-card p-8 rounded-[32px] text-center border border-emerald-900/5 bg-emerald-500/5">
+                  <div className="text-4xl font-black mb-1 text-primary">{stats.companies}+</div>
+                  <p className="text-primary/60 font-black uppercase tracking-widest text-[10px]">Sociétés Vérifiées</p>
               </div>
-
-              <div className="glass-card bg-[#05110B]/60 p-8 rounded-[32px] text-center border border-emerald-900/50 hover:border-emerald-500/50 transition-all hover:-translate-y-2 duration-300 delay-100">
-                  <div className="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center mx-auto mb-6 text-gold">
-                      <Handshake size={32} />
-                  </div>
-                  <div className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-gold to-amber-500">
-                      {stats.deals}+
-                  </div>
-                  <p className="text-emerald-100/60 font-bold uppercase tracking-widest text-sm">Contrats Sécurisés</p>
+              <div className="glass-card p-8 rounded-[32px] text-center border border-gold/20 bg-gold/5">
+                  <div className="text-4xl font-black mb-1 text-primary">{stats.deals}+</div>
+                  <p className="text-primary/60 font-black uppercase tracking-widest text-[10px]">Contrats Sécurisés</p>
               </div>
-
-              <div className="glass-card bg-[#05110B]/60 p-8 rounded-[32px] text-center border border-emerald-900/50 hover:border-emerald-500/50 transition-all hover:-translate-y-2 duration-300 delay-200">
-                  <div className="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center mx-auto mb-6 text-blue-400">
-                      <Globe size={32} />
-                  </div>
-                  <div className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-                      {stats.countries}
-                  </div>
-                  <p className="text-emerald-100/60 font-bold uppercase tracking-widest text-sm">Pays Couverts</p>
+              <div className="glass-card p-8 rounded-[32px] text-center border border-blue-500/10 bg-blue-500/5">
+                  <div className="text-4xl font-black mb-1 text-primary">{stats.countries}</div>
+                  <p className="text-primary/60 font-black uppercase tracking-widest text-[10px]">Pays Couverts</p>
               </div>
           </div>
 
-          {/* Features */}
-          <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6">Le Choix Stratégique de l'Industrie</h2>
-              <p className="text-foreground/60 text-lg max-w-2xl mx-auto">Une infrastructure B2B complète pour sourcer, négocier et contractualiser en toute sérénité.</p>
+          <div className="text-center mb-24 bg-gradient-to-b from-primary/10 to-transparent p-16 rounded-[48px] border border-primary/10">
+              <h2 className="text-4xl font-display font-black text-foreground mb-4 italic">Sourcing Industriel <span className="text-gold">Sur Mesure</span></h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium mb-10">
+                 Vous cherchez un volume massif ou une molécule rare absente du catalogue ? Nos Key Account Managers négocient pour vous.
+              </p>
+              <Button 
+                className="h-16 px-12 bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-2xl hover:scale-105 transition-transform"
+                onClick={() => toast.info("Un Expert Nexus va vous recontacter par message privé.")}
+               >
+                  <MessageSquare size={20} className="mr-3" /> Parler à un Expert Nexus
+               </Button>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-             <div className="group bg-gradient-card p-10 rounded-[40px] border border-white/5 hover:border-gold/30 transition-all text-center">
-                 <div className="w-20 h-20 bg-[#10B981]/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#10B981]/20 transition-colors">
-                     <BrainCircuit className="text-[#10B981] w-10 h-10" />
-                 </div>
-                 <h3 className="text-2xl font-bold mb-4 text-foreground">Matching Hyper-Précis (IA)</h3>
-                 <p className="text-muted-foreground leading-relaxed">
-                     Nos algorithmes propriétaires vous suggèrent les 3 meilleurs partenaires certifiés en moins de 24h, selon vos cahiers des charges.
-                 </p>
-             </div>
-
-             <div className="group bg-gradient-card p-10 rounded-[40px] border border-white/5 hover:border-gold/30 transition-all text-center">
-                 <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold/20 transition-colors">
-                     <Shield className="text-gold w-10 h-10" />
-                 </div>
-                 <h3 className="text-2xl font-bold mb-4 text-foreground">Chambres Fortes Digitales</h3>
-                 <p className="text-muted-foreground leading-relaxed">
-                     Négociation en salons privés avec chiffrement de bout en bout (AES-256). Vos données industrielles restent strictement confidentielles.
-                 </p>
-             </div>
-
-             <div className="group bg-gradient-card p-10 rounded-[40px] border border-white/5 hover:border-gold/30 transition-all text-center">
-                 <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-500/20 transition-colors">
-                     <FileSignature className="text-blue-400 w-10 h-10" />
-                 </div>
-                 <h3 className="text-2xl font-bold mb-4 text-foreground">E-Contrats Légaux</h3>
-                 <p className="text-muted-foreground leading-relaxed">
-                     Signature de LOI et contrats finaux intégrée à la plateforme avec validité juridique internationale, sans sortir de votre espace.
-                 </p>
-             </div>
-          </div>
-
-          {/* Pricing */}
-          <div className="text-center mb-16 relative">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-gold/10 blur-[100px] rounded-full pointer-events-none"></div>
-             <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 relative">Partenariat Sur-Mesure</h2>
-             <p className="text-emerald-100/60 text-lg max-w-2xl mx-auto relative">De la découverte au déploiement multinational, un modèle transparent.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 max-w-6xl mx-auto items-stretch">
-             {/* Plan 1 */}
-              <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[40px] border border-emerald-900/10 flex flex-col mt-4 shadow-sm">
-                 <div className="mb-8">
-                     <h3 className="text-2xl font-bold text-foreground mb-2">Découverte</h3>
-                     <p className="text-foreground/50 text-sm">Pour tester le marché</p>
-                 </div>
-                 <div className="text-4xl font-black text-foreground mb-8">
-                     Gratuit
-                 </div>
-                 <ul className="space-y-4 mb-10 flex-1">
-                     <li className="flex gap-3 text-sm text-foreground/70"><Check className="text-emerald-600 w-5 h-5 flex-shrink-0"/>1 publication d'offre/demande</li>
-                     <li className="flex gap-3 text-sm text-foreground/70"><Check className="text-emerald-600 w-5 h-5 flex-shrink-0"/>Accès au registre public</li>
-                     <li className="flex gap-3 text-sm text-foreground/70 opacity-40"><span className="w-5 flex justify-center text-red-500">×</span>Pas de salon virtuel privé</li>
-                 </ul>
-                 <Button variant="outline" className="w-full h-12 rounded-2xl border-emerald-900/10 hover:bg-emerald-50 text-emerald-900">Créer un profil</Button>
-             </div>
-
-             {/* Plan 2 */}
-             <div className="bg-white p-10 rounded-[40px] border-2 border-gold flex flex-col relative transform md:-translate-y-4 shadow-xl z-10">
-                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold text-white text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-gold">
-                    Le Standard B2B
-                 </div>
-                 <div className="mb-8 mt-2">
-                     <h3 className="text-2xl font-bold text-foreground mb-2">Nexus Pro</h3>
-                     <p className="text-foreground/50 text-sm">Pour les acteurs établis</p>
-                 </div>
-                 <div className="flex items-baseline gap-2 mb-8">
-                     <span className="text-5xl font-black text-gold">Sur Devis</span>
-                 </div>
-                 <ul className="space-y-4 mb-10 flex-1">
-                     <li className="flex gap-3 text-sm text-foreground/90"><Check className="text-gold w-5 h-5 flex-shrink-0"/>Publications illimitées</li>
-                     <li className="flex gap-3 text-sm text-foreground/90"><Check className="text-gold w-5 h-5 flex-shrink-0"/>Salons virtuels & Visioconférence</li>
-                     <li className="flex gap-3 text-sm text-foreground/90"><Check className="text-gold w-5 h-5 flex-shrink-0"/>Badge "Fournisseur Vérifié"</li>
-                     <li className="flex gap-3 text-sm text-foreground/90"><Check className="text-gold w-5 h-5 flex-shrink-0"/>Support prioritaire 24/7</li>
-                 </ul>
-                 <Button className="w-full h-14 rounded-2xl bg-gradient-gold text-black font-black uppercase tracking-widest hover:scale-105 transition-transform">
-                     Contacter l'équipe
-                 </Button>
-             </div>
-
-             {/* Plan 3 */}
-             <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[40px] border border-emerald-900/10 flex flex-col mt-4 shadow-sm">
-                 <div className="mb-8">
-                     <h3 className="text-2xl font-bold text-foreground mb-2">Enterprise</h3>
-                     <p className="text-foreground/50 text-sm">Volume massif & Intégration</p>
-                 </div>
-                 <div className="text-4xl font-black text-foreground mb-8">
-                     Custom
-                 </div>
-                 <ul className="space-y-4 mb-10 flex-1">
-                     <li className="flex gap-3 text-sm text-foreground/70"><Check className="text-emerald-600 w-5 h-5 flex-shrink-0"/>API intégration ERP/CRM</li>
-                     <li className="flex gap-3 text-sm text-foreground/70"><Check className="text-emerald-600 w-5 h-5 flex-shrink-0"/>Key Account Manager dédié</li>
-                     <li className="flex gap-3 text-sm text-foreground/70"><Check className="text-emerald-600 w-5 h-5 flex-shrink-0"/>Conditions tarifaires sur-mesure</li>
-                 </ul>
-                 <Button variant="outline" className="w-full h-12 rounded-2xl border-emerald-900/10 hover:bg-emerald-50 text-emerald-900">Organiser un appel</Button>
-             </div>
-          </div>
-
         </div>
+
+        {/* Modal Détails */}
+        {selectedProduct && (
+           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl" onClick={() => setSelectedProduct(null)}>
+              <div className="glass-card max-w-4xl w-full flex flex-col md:flex-row overflow-hidden rounded-[40px] border border-white/10 shadow-3xl" onClick={e => e.stopPropagation()}>
+                  <div className="w-full md:w-1/2 p-2">
+                     <img 
+                        src={selectedProduct.image} 
+                        className="w-full h-full object-cover rounded-[36px]" 
+                        onError={(e) => {
+                           (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1616949755610-8c9bac08f9f8?auto=format&fit=crop&q=80&w=800";
+                        }}
+                     />
+                  </div>
+                 <div className="w-full md:w-1/2 p-10 flex flex-col">
+                    <div className="mb-8">
+                       <span className="inline-block px-3 py-1 bg-gold/20 text-gold rounded-full text-[10px] font-black uppercase tracking-widest mb-4">Produit Origine {selectedProduct.source}</span>
+                       <h2 className="text-4xl font-display font-black text-white italic mb-2">{selectedProduct.name}</h2>
+                       <p className="text-gold text-3xl font-black">{selectedProduct.displayPrice.toFixed(2)} € <span className="text-xs text-muted-foreground font-medium">HT</span></p>
+                    </div>
+                    
+                    <div className="space-y-6 mb-10">
+                       <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground border-b border-white/10 pb-2">Description Technique</h4>
+                       <p className="text-white/70 leading-relaxed text-sm">{selectedProduct.desc}</p>
+                       <div className="flex items-center gap-3">
+                          <ShieldCheck className="text-emerald-500" size={20} />
+                          <span className="text-xs font-bold text-emerald-500 uppercase tracking-widest">Certifié Pur (Nexus Lab Check)</span>
+                       </div>
+                    </div>
+                    
+                    <div className="mt-auto flex flex-col gap-4">
+                       <Button 
+                          className="h-14 bg-white text-black font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-gold transition-all"
+                          onClick={() => toast.success(`${selectedProduct.name} ajouté au panier B2B !`)}
+                        >
+                           Ajouter au Panier B2B
+                        </Button>
+                       <Button variant="outline" className="h-14 border-white/10 text-white rounded-2xl" onClick={() => setSelectedProduct(null)}>Retour au Catalogue</Button>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        )}
       </main>
       
       <Footer />
@@ -224,3 +241,4 @@ const Store = () => {
 };
 
 export default Store;
+

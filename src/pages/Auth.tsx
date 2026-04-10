@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Logo from "@/components/Logo";
 import { toast } from "sonner";
 import { Gift, Star, ArrowRight, Eye, EyeOff, Shield } from "lucide-react";
 import { api } from "@/lib/api";
@@ -95,8 +96,8 @@ const Auth = () => {
             <div className="relative z-10">
               {/* Header */}
               <div className="text-center mb-10">
-                <div className="w-16 h-16 bg-gold/10 rounded-[28px] flex items-center justify-center mx-auto mb-6 border border-gold/20">
-                  <Shield size={32} className="text-gold" />
+                <div className="flex items-center justify-center mx-auto mb-6 h-20">
+                  <Logo className="scale-125" showText={false} />
                 </div>
                 <h1 className="text-3xl font-display font-bold text-white mb-2">
                   {isLogin ? t("auth.submit.login") : t("auth.submit.register")}

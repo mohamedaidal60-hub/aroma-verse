@@ -13,6 +13,7 @@ import Blog from "./pages/Blog";
 import Investir from "./pages/Investir";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import Database from "./pages/Database";
 import NotFound from "./pages/NotFound";
 import Store from "./pages/Store";
 import Academy from "./pages/Academy";
@@ -20,6 +21,7 @@ import Admin from "./pages/Admin";
 import Community from "./pages/Community";
 import Pricing from "./pages/Pricing";
 import BlogPost from "./pages/BlogPost";
+import CoursePlayer from "./pages/CoursePlayer";
 import { WhatsAppBubble } from "./components/WhatsAppBubble";
 
 const queryClient = new QueryClient();
@@ -42,8 +44,10 @@ const App = () => (
                 <Route path="/investir" element={<Investir />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/database" element={<Database />} />
                 <Route path="/store" element={<Store />} />
                 <Route path="/academy" element={<Academy />} />
+                <Route path="/academy/courses/:id" element={<CoursePlayer />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/community" element={<Community />} />
                 <Route path="/pricing" element={<Pricing />} />

@@ -65,11 +65,10 @@ export default function Admin() {
     setLoading(true);
     try {
       if (email === "mohamed@aroma-verse.com" && password === "@sba-Trs2026") {
-        setIsAuthenticated(true);
         localStorage.setItem("adminAuth", "true");
         toast.success("Connexion réussie à Nexus Admin — Vue Globale Activée");
-        fetchData("products");
-        fetchDbStats();
+        // Forcer le rechargement immédiat pour éviter l'écran noir et rafraîchir le contexte
+        window.location.reload();
       } else {
         toast.error("Identifiants incorrects");
       }
@@ -187,10 +186,11 @@ export default function Admin() {
     }
   };
 
-  const filteredItems = items.filter(item =>
-    item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.subtitle?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredItems = items.filter(item => {
+    const titleMatch = item.title ? String(item.title).toLowerCase().includes(searchQuery.toLowerCase()) : false;
+    const subtitleMatch = item.subtitle ? String(item.subtitle).toLowerCase().includes(searchQuery.toLowerCase()) : false;
+    return titleMatch || subtitleMatch;
+  });
 
   if (!isAuthenticated) {
     return (

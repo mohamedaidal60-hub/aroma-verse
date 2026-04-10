@@ -26,29 +26,31 @@ const Pricing = () => {
     {
       name: "Nexus Explorer",
       price: "0",
-      duration: "4 mois",
+      description: "L'éveil olfactif",
+      duration: "Gratuit / 4 mois",
       features: [
-        t("hero.pass.academy"),
-        t("hero.pass.commission"),
-        t("pricing.continents"),
-        "Support Standard 24/7",
-        "Accès Beta Studio Lab"
+        "Accès complet à l'Académie",
+        "Studio Lab (Version Beta)",
+        "0% commission sur Marketplace",
+        "Matching Sourcing (Basic)",
+        "Support Standard 24/7"
       ],
-      cta: t("pricing.trial.activate"),
+      cta: "Découvrir gratuitement",
       highlight: true
     },
     {
-      name: "Nexus Master",
+      name: "Nexus Mastermind",
       price: "199",
+      description: "Pour les industriels",
       duration: "par mois",
       features: [
         "Tout du plan Explorer",
-        "Certification Master Parfumeur",
-        "Accès VIP Sourcing Global",
-        "Analyse IA Illimitée",
-        "Assistance Juridique IFRA"
+        "Sourcing Premium Certifié",
+        "IFRA Legal Shield (Assistance)",
+        "Analyses Lab IA Illimitées",
+        "Ventes Prioritaires Globales"
       ],
-      cta: "Bientôt disponible",
+      cta: "Contacter pour démo",
       highlight: false
     }
   ];
@@ -60,45 +62,51 @@ const Pricing = () => {
       <main className="flex-1 pt-32 pb-24">
         <div className="container mx-auto px-4 max-w-6xl relative">
           
-          <div className="text-center mb-20">
-             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/5 mb-8">
-               <Award size={14} className="text-gold" />
-               <span className="text-[10px] font-bold text-gold uppercase tracking-[0.2em]">Offre de Lancement Mondiale</span>
+          <div className="text-center mb-24">
+             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 mb-8">
+               <Award size={16} className="text-primary" />
+               <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">Offre de Lancement • Nexus 4.0</span>
              </div>
-             <h1 className="text-5xl md:text-8xl font-display font-black mb-6 tracking-tighter">
-               {t("nav.pricing")}
+             <h1 className="text-5xl md:text-8xl font-display font-black mb-8 tracking-tighter text-foreground">
+               Choisir mon <span className="text-primary italic">Plan</span>
              </h1>
-             <p className={`text-xl text-muted-foreground max-w-2xl mx-auto ${dir === "rtl" ? "font-arabic" : ""}`}>
-               Accédez à l'intégralité de l'écosystème avec notre offre exclusive de 4 mois gratuits. 
-               {isAdmin && <span className="block mt-4 text-green-400 font-bold">✓ {t("pricing.admin_view")}</span>}
+             <p className={`text-xl text-primary/60 max-w-2xl mx-auto font-medium ${dir === "rtl" ? "font-arabic" : ""}`}>
+               L'écosystème B2B définitif pour la parfumerie moderne. Sans abonnement caché, sans frictions.
              </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {plans.map((plan, i) => (
               <div 
                 key={i} 
-                className={`glass-card rounded-[48px] p-12 border-2 transition-all duration-500 hover:-translate-y-2 flex flex-col ${plan.highlight ? 'border-gold shadow-gold/20' : 'border-white/5 bg-black/40'}`}
+                className={`group rounded-[56px] p-12 border-2 transition-all duration-700 hover:-translate-y-4 flex flex-col relative overflow-hidden ${plan.highlight ? 'bg-forest-deep border-primary shadow-2xl shadow-primary/20' : 'bg-white border-primary/10 shadow-xl'}`}
               >
+                {/* Background Decor */}
                 {plan.highlight && (
-                  <div className="bg-gold text-black px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest w-fit mb-8 shadow-gold">
-                    Recommandé
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-[100px] -mr-32 -mt-32"></div>
+                )}
+                
+                {plan.highlight && (
+                  <div className="absolute top-8 right-12">
+                     <Sparkles className="text-gold animate-pulse" size={40} />
                   </div>
                 )}
                 
-                <h3 className="text-3xl font-display font-bold mb-2">{plan.name}</h3>
-                <div className="flex items-baseline gap-2 mb-10">
-                  <span className="text-6xl font-black text-white">{plan.price}€</span>
-                  <span className="text-muted-foreground font-bold italic">{plan.duration}</span>
+                <h3 className={`text-3xl font-display font-black mb-1 uppercase tracking-tighter ${plan.highlight ? 'text-white' : 'text-primary'}`}>{plan.name}</h3>
+                <p className={`text-xs font-bold uppercase tracking-widest mb-10 ${plan.highlight ? 'text-white/40' : 'text-primary/40'}`}>{plan.description}</p>
+                
+                <div className="flex items-baseline gap-2 mb-12">
+                  <span className={`text-7xl font-black tracking-tighter ${plan.highlight ? 'text-white' : 'text-primary'}`}>{plan.price}€</span>
+                  <span className={`font-black uppercase text-[10px] tracking-widest ${plan.highlight ? 'text-white/60' : 'text-primary/60'}`}>{plan.duration}</span>
                 </div>
 
-                <div className="space-y-6 mb-12 flex-1">
+                <div className="space-y-6 mb-16 flex-1">
                    {plan.features.map((feature, j) => (
-                     <div key={j} className="flex gap-4">
-                        <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                           <Check size={14} className="text-gold" />
+                     <div key={j} className="flex gap-5 items-center">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${plan.highlight ? 'bg-white/10 text-gold' : 'bg-primary/10 text-primary'}`}>
+                           <Check size={14} className="font-bold" />
                         </div>
-                        <span className="text-sm font-medium text-white/80">{feature}</span>
+                        <span className={`text-sm font-bold ${plan.highlight ? 'text-white/80' : 'text-primary'}`}>{feature}</span>
                      </div>
                    ))}
                 </div>
@@ -106,34 +114,32 @@ const Pricing = () => {
                 <Button 
                    onClick={handleStartTrial}
                    disabled={loading || i === 1}
-                   className={`h-16 px-10 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${plan.highlight ? 'bg-gold hover:bg-gold/80 text-black shadow-gold' : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'}`}
+                   className={`h-20 px-10 rounded-[32px] font-black text-xs uppercase tracking-[0.3em] transition-all relative overflow-hidden group shadow-2xl ${plan.highlight ? 'bg-white text-primary hover:bg-gold hover:text-black' : 'bg-primary text-white hover:bg-gold hover:text-black'}`}
                 >
-                  {plan.cta}
+                  <span className="relative z-10">{plan.highlight && !loading ? "ACTIVER MON PASS" : plan.cta}</span>
+                  {plan.highlight && (
+                    <div className="absolute inset-0 bg-gold translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                  )}
                 </Button>
               </div>
             ))}
           </div>
 
-          {/* Admin override section */}
-          {isAdmin && (
-            <div className="mt-16 glass-card rounded-[40px] p-10 border-2 border-green-500/30 bg-green-500/5 animate-pulse">
-               <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                  <div className="flex items-center gap-6">
-                    <Shield size={48} className="text-green-500" />
-                    <div>
-                       <h4 className="text-2xl font-display font-black uppercase tracking-tighter text-white">Privilèges Administrateur</h4>
-                       <p className="text-sm text-muted-foreground">Votre compte est configuré pour avoir une visibilité <strong className="text-white">TOUTES ZONES</strong> et un accès illimité sans facturation.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                     <div className="flex items-center gap-2 px-4 py-2 bg-black/40 rounded-xl border border-green-500/20">
-                        <Globe size={16} className="text-green-500" />
-                        <span className="text-[10px] font-black uppercase tracking-widest">Global Scan Active</span>
-                     </div>
-                  </div>
-               </div>
-            </div>
-          )}
+          {/* Special Case: Enterprise */}
+          <div className="mt-20 glass-card rounded-[56px] p-12 md:p-20 border border-primary/10 bg-white relative overflow-hidden shadow-2xl group">
+             <div className="absolute -right-20 -top-20 w-80 h-80 bg-primary/5 rounded-full blur-[100px] group-hover:bg-primary/10 transition-colors"></div>
+             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                <div className="flex-1 text-center md:text-left">
+                   <h2 className="text-4xl md:text-5xl font-display font-black text-primary mb-6 tracking-tighter">Échelle <span className="italic">Pro & Multinationale</span></h2>
+                   <p className="text-primary/60 text-lg font-medium leading-relaxed max-w-xl">
+                      Besoin de formations sur mesure ou d'un sytème de supply chain automatisé ? Nos experts déploient Nexus sur vos serveurs privés.
+                   </p>
+                </div>
+                <Button variant="outline" className="h-16 px-12 border-primary/20 rounded-[28px] font-black text-xs uppercase tracking-widest text-primary hover:bg-primary/5 shadow-xl transition-all hover:scale-105 active:scale-95">
+                   Demander une Consultation
+                </Button>
+             </div>
+          </div>
 
         </div>
       </main>
