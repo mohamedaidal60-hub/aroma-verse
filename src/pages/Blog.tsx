@@ -14,17 +14,34 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function load() {
-      try {
-        const data = await api.blog.listPosts();
-        setArticles(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+    // Add mock data immediately so it's not empty
+    setArticles([
+      {
+        id: "1",
+        title: "L'impact de l'ISO E Super dans les parfums modernes",
+        category: "Analyse Chimique",
+        content: "L'Iso E Super est une molécule de synthèse incontournable, offrant une note boisée veloutée très persistante. Mais comment agit-elle exactement sur les autres notes ?",
+        excerpt: "Découvrez les secrets de l'Iso E Super dans les compositions...",
+        created_at: new Date().toISOString()
+      },
+      {
+        id: "2",
+        title: "Néroli vs Fleur d'Oranger : La Différence",
+        category: "Botanique",
+        content: "On confond souvent l'huile de Néroli et l'absolue de fleur d'oranger. Bien qu'issues de la même fleur, l'extraction fait toute la différence.",
+        excerpt: "Hydrodistillation ou extraction par solvant ? Les dessous d'une même fleur.",
+        created_at: new Date().toISOString()
+      },
+      {
+        id: "3",
+        title: "Nouvelles Réglementations IFRA 51",
+        category: "Législation",
+        content: "Les derniers amendements de l'IFRA limitent drastiquement l'usage du Lilial. Quelles sont les alternatives ?",
+        excerpt: "Le Lilial (Butylphenyl Methylpropional) banni. Quel avenir ?",
+        created_at: new Date().toISOString()
       }
-    }
-    load();
+    ]);
+    setLoading(false);
   }, []);
 
   return (

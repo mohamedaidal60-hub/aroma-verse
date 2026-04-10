@@ -20,11 +20,14 @@ const Cosmetiques = () => {
                <span className="text-[10px] font-bold text-gold uppercase tracking-widest">Marques Prestigieuses</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-black text-white mb-4">
-              Produits <span className="text-gold italic">Cosmétiques</span> (B2C)
+              Produits <span className="text-gold italic">Cosmétiques</span> (C2C)
             </h1>
-            <p className="text-white/60 max-w-xl mx-auto">
-              Retrouvez ici les produits cosmétiques de marques externes connues. Ce marché B2C est dédié à la vente de produits finis importés ou haut de gamme.
+            <p className="text-white/60 max-w-xl mx-auto mb-6">
+              Vendez et achetez des produits cosmétiques entre abonnés du Nexus (C2C). Partagez vos créations, poudres, sérums ou achats non utilisés avec la communauté.
             </p>
+            <Button className="bg-gold hover:bg-gold/80 text-black font-bold uppercase tracking-widest text-[10px] rounded-full shadow-gold">
+               + Publier une annonce
+            </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

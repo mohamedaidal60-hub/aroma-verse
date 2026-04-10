@@ -35,8 +35,9 @@ const Navbar = () => {
     { labelKey: "nav.database", path: "/database" },
     { labelKey: "nav.invest", path: "/investir" },
     { labelKey: "nav.community", path: "/community" },
-    { labelKey: "Cosmétiques", path: "/cosmetiques" },
-    { labelKey: "Accessoires", path: "/accessoires" },
+    { labelKey: "Cosmétiques (C2C)", path: "/cosmetiques" },
+    { labelKey: "Acc. Industriels", path: "/accessoires-industriels" },
+    { labelKey: "Acc. Artisanaux", path: "/accessoires-artisanaux" },
     { labelKey: "Blog", path: "/blog" },
     { labelKey: "nav.pricing", path: "/pricing" },
   ];

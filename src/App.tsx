@@ -22,7 +22,8 @@ import Community from "./pages/Community";
 import Pricing from "./pages/Pricing";
 import BlogPost from "./pages/BlogPost";
 import CoursePlayer from "./pages/CoursePlayer";
-import Accessoires from "./pages/Accessoires";
+import AccessoiresIndustriels from "./pages/AccessoiresIndustriels";
+import AccessoiresArtisanaux from "./pages/AccessoiresArtisanaux";
 import Cosmetiques from "./pages/Cosmetiques";
 import { WhatsAppBubble } from "./components/WhatsAppBubble";
 
@@ -43,7 +44,8 @@ const App = () => (
                 <Route path="/studio" element={<Studio />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
-                <Route path="/accessoires" element={<Accessoires />} />
+                <Route path="/accessoires-industriels" element={<AccessoiresIndustriels />} />
+                <Route path="/accessoires-artisanaux" element={<AccessoiresArtisanaux />} />
                 <Route path="/cosmetiques" element={<Cosmetiques />} />
                 <Route path="/investir" element={<Investir />} />
                 <Route path="/auth" element={<Auth />} />
