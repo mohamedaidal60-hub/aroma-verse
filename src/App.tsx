@@ -22,6 +22,8 @@ import Community from "./pages/Community";
 import Pricing from "./pages/Pricing";
 import BlogPost from "./pages/BlogPost";
 import CoursePlayer from "./pages/CoursePlayer";
+import Accessoires from "./pages/Accessoires";
+import Cosmetiques from "./pages/Cosmetiques";
 import { WhatsAppBubble } from "./components/WhatsAppBubble";
 
 const queryClient = new QueryClient();
@@ -41,6 +43,8 @@ const App = () => (
                 <Route path="/studio" element={<Studio />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/accessoires" element={<Accessoires />} />
+                <Route path="/cosmetiques" element={<Cosmetiques />} />
                 <Route path="/investir" element={<Investir />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/dashboard" element={<Dashboard />} />

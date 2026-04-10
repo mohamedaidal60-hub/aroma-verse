@@ -35,6 +35,9 @@ const Navbar = () => {
     { labelKey: "nav.database", path: "/database" },
     { labelKey: "nav.invest", path: "/investir" },
     { labelKey: "nav.community", path: "/community" },
+    { labelKey: "Cosmétiques", path: "/cosmetiques" },
+    { labelKey: "Accessoires", path: "/accessoires" },
+    { labelKey: "Blog", path: "/blog" },
     { labelKey: "nav.pricing", path: "/pricing" },
   ];
 

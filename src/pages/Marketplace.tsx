@@ -35,7 +35,7 @@ export default function Marketplace() {
   const isSpectator = profile?.role === "subscriber_no_pass" || !profile;
   const isFullSubscriber = profile?.role === "subscriber_pass" || profile?.role === "admin";
 
-  const categoryFilters = ["Tous", "Matières Premières", "Molécules de Synthèse", "Produits Industriels", "Artisanat", "Produits Cosmétiques", "Packaging", "Flacons"];
+  const categoryFilters = ["Tous", "Matières Premières", "Molécules de Synthèse", "Produits Industriels", "Artisanat", "Packaging", "Flacons"];
 
   // Simulation BDD initiale
   useEffect(() => {

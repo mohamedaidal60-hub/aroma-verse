@@ -252,23 +252,28 @@ export default function Database() {
                          <p className="text-white leading-relaxed">{selectedItem.usage || "Aucune information d'usage spécifique n'est enregistrée pour cette molécule."}</p>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                          <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Impact</h4>
-                            <p className="text-xl font-bold text-white">{selectedItem.impact || "N/A"}</p>
+                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Point d'ébullition</h4>
+                            <p className="text-sm font-bold text-white whitespace-nowrap overflow-hidden text-ellipsis">{selectedItem.boiling_point || "En cours d'indexation..."}</p>
                          </div>
                          <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Longévité</h4>
-                            <p className="text-xl font-bold text-white">{selectedItem.longevity ? `${selectedItem.longevity}h` : "N/A"}</p>
+                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Flash Point</h4>
+                            <p className="text-sm font-bold text-white whitespace-nowrap overflow-hidden text-ellipsis">{selectedItem.flash_point || "En cours d'indexation..."}</p>
                          </div>
                          <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">IFRA</h4>
-                            {selectedItem.ifra_restricted ? (
-                               <span className="text-xs text-red-400 font-bold">Réglementé</span>
-                            ) : (
-                               <span className="text-xs text-blue-400 font-bold">Usage Standard</span>
-                            )}
+                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Poids Moléculaire</h4>
+                            <p className="text-sm font-bold text-white whitespace-nowrap overflow-hidden text-ellipsis">{selectedItem.molecular_weight || "En cours..."}</p>
                          </div>
+                         <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
+                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Plafond IFRA (Max %)</h4>
+                            <p className="text-sm font-bold text-gold">{selectedItem.ifra_recommendation || "En cours d'indexation..."}</p>
+                         </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 p-3 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span className="text-xs font-bold leading-tight">Robot d'Extraction en Cours : Le module <i>Nexus Scraper</i> analyse actuellement des dizaines de milliers de fiches. Les valeurs "En cours" apparaîtront d'ici peu.</span>
                       </div>
                    </div>
                 </div>
