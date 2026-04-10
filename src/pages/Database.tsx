@@ -107,10 +107,12 @@ export default function Database() {
                 <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Base de Données Scientifique</span>
              </div>
              <h1 className="text-4xl md:text-6xl font-display font-black mb-4 tracking-tighter text-foreground relative z-10">
-               Nexus <span className="text-primary">Data Hub</span>
+               Nexus <span className="text-primary">Data Lake</span>
              </h1>
-             <p className="text-muted-foreground max-w-2xl mx-auto text-lg relative z-10">
-                L'encyclopédie exhaustive des matières premières. Propulsée par <span className="text-primary font-bold">PerfumeNuke</span> + <span className="text-gold font-bold">The Good Scents Company</span> — {totalCount.toLocaleString()} ingrédients en direct.
+             <p className="text-muted-foreground max-w-3xl mx-auto text-lg relative z-10">
+                La plus grande base de données de référencement au monde. Moteur d'agrégation asynchrone propulsé par  <span className="text-primary font-bold">PerfumeNuke (Nuke-Haus)</span>, <span className="text-gold font-bold">The Good Scents Company</span>, et <span className="text-blue-400 font-bold">PubChem</span>. 
+                <br/><br/>
+                <span className="text-xs uppercase tracking-widest font-black text-muted-foreground/50 border border-white/10 rounded px-2 py-1">Nexus Spider active: {totalCount.toLocaleString()} indexations complétées.</span>
               </p>
           </div>
 

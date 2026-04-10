@@ -32,7 +32,7 @@ const Auth = () => {
         toast.error(error.message || "Email ou mot de passe incorrect");
       } else {
         toast.success("Bienvenue sur Perfume Nexus !");
-        navigate("/");
+        window.location.href = "/";
       }
     } else {
       // Use api.auth.register which sets 4-month trial
@@ -46,7 +46,7 @@ const Auth = () => {
           toast.error(error.message);
         } else {
           toast.success("Bienvenue ! Votre essai de 4 mois commence maintenant 🎉");
-          navigate("/");
+          window.location.href = "/";
         }
       }
     }
