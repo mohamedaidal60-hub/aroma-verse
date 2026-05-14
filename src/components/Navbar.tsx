@@ -33,7 +33,6 @@ const Navbar = () => {
     { labelKey: "nav.academy", path: "/academy" },
     { labelKey: "nav.studio", path: "/studio" },
     { labelKey: "nav.invest", path: "/investir" },
-    { labelKey: "nav.community", path: "/community" },
     { labelKey: "nav.acc_industriels", path: "/accessoires-industriels" },
     { labelKey: "nav.acc_artisanaux", path: "/accessoires-artisanaux" },
     { labelKey: "nav.pricing", path: "/pricing" },
@@ -60,16 +59,10 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-3 md:gap-5">
+          <div id="google_translate_element" className="mr-2"></div>
           {/* Desktop Only Buttons (Language, Profile, Carts) */}
           <div className="hidden lg:flex items-center gap-3">
-            <button
-              onClick={() => setLang(lang === "fr" ? "ar" : "fr")}
-              className="flex items-center gap-1.5 text-xs font-black text-gold border border-gold/30 px-3 py-1.5 rounded-full hover:bg-gold hover:text-black transition-all"
-              title="Changer la langue"
-            >
-              <Globe size={12} />
-              {lang === "fr" ? "عربي" : "Français"}
-            </button>
+            
 
             <CartSheet />
 
@@ -108,12 +101,6 @@ const Navbar = () => {
 
           {/* Mobile Only Cart / Lang */}
           <div className="flex lg:hidden items-center gap-3">
-            <button
-              onClick={() => setLang(lang === "fr" ? "ar" : "fr")}
-              className="text-xs font-black text-gold border border-gold/30 px-2 py-1 rounded-full"
-            >
-              {lang === "fr" ? "ع" : "Fr"}
-            </button>
             <CartSheet />
           </div>
 

@@ -22,7 +22,7 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Store = React.lazy(() => import("./pages/Store"));
 const Academy = React.lazy(() => import("./pages/Academy"));
 const Admin = React.lazy(() => import("./pages/Admin"));
-const Community = React.lazy(() => import("./pages/Community"));
+
 const Pricing = React.lazy(() => import("./pages/Pricing"));
 const BlogPost = React.lazy(() => import("./pages/BlogPost"));
 const CoursePlayer = React.lazy(() => import("./pages/CoursePlayer"));
@@ -67,7 +67,7 @@ const App = () => (
                   <Route path="/academy" element={<Academy />} />
                   <Route path="/academy/courses/:id" element={<CoursePlayer />} />
                   <Route path="/admin" element={<Admin />} />
-                  <Route path="/community" element={<Community />} />
+
                   <Route path="/pricing" element={<Pricing />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
