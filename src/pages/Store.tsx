@@ -14,7 +14,7 @@ import pwData from "@/data/pw_database.json" assert { type: "json" };
 const Store = () => {
   const { t, dir } = useLang();
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState("Matières Premières");
+  const [activeCategory, setActiveCategory] = useState("Huile essentielle");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
 
@@ -33,26 +33,27 @@ const Store = () => {
 
   // Catégories Dynamiques
   const categoryMapping: {[key: string]: string} = {
-    "Essential Oils": "Huiles Essentielles",
-    "Kits": "Kits Création",
-    "Compounds": "Compositions",
-    "Aroma Materials": "Matières Premières",
-    "Specialty Bases": "Bases Spéciales",
-    "Equipment": "Équipement",
-    "Additives": "Additifs & Bases",
-    "Matières Premières": "Matières Premières"
+    "Essential Oils": "Huile essentielle",
+    "Kits": "parfum Fini",
+    "Compounds": "parfum Fini",
+    "Aroma Materials": "Aromas chemicals",
+    "Specialty Bases": "Aromas chemicals",
+    "Equipment": "equipment (laboratoire)",
+    "Additives": "Aromas chemicals",
+    "Matières Premières": "Aromas chemicals"
   };
 
   const getMappedCategory = (rawCat: string) => categoryMapping[rawCat] || rawCat;
 
-  let dynamicCategories = Array.from(new Set(products.map(p => getMappedCategory(p.category))));
-  if (!dynamicCategories.includes("Matières Premières")) {
-     dynamicCategories.unshift("Matières Premières");
-  }
-  if (!dynamicCategories.includes("Cosmétiques")) {
-     dynamicCategories.push("Cosmétiques");
-  }
-  const categories = dynamicCategories;
+  const categories = [
+    "Huile essentielle",
+    "Huile absolut",
+    "Hydrolat",
+    "Aromas chemicals",
+    "equipment (laboratoire)",
+    "sourcing Materieres solid (plants aromatiques et médicinales)",
+    "parfum Fini"
+  ];
 
   // Animating stats
   const [stats, setStats] = useState({ companies: 0, deals: 0, countries: 0 });

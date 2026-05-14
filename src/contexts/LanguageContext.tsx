@@ -12,14 +12,14 @@ interface LanguageContextType {
 const translations: Record<Lang, Record<string, string>> = {
   fr: {
     // Navbar
-    "nav.marketplace": "Marché Communautaire (C to C)",
+    "nav.marketplace": "C2C client to client",
     "nav.database": "Base de Données Scientifique",
     "nav.studio": "Studio de Formulation",
     "nav.academy": "Nexus Académie",
     "nav.invest": "Nexus Investissement",
     "nav.community": "Communauté Nexus",
     "nav.blog": "Journal Scientifique",
-    "nav.store": "Boutique B to B",
+    "nav.store": "B2B business to business",
     "nav.pricing": "Abonnements",
     "nav.cosmetiques": "Cosmétiques (C to C)",
     "nav.acc_industriels": "Acc. Industriels",
@@ -132,14 +132,14 @@ const translations: Record<Lang, Record<string, string>> = {
   },
   ar: {
     // Navbar
-    "nav.marketplace": "السوق",
+    "nav.marketplace": "C2C client to client",
     "nav.database": "قاعدة البيانات",
     "nav.studio": "استوديو المختبر",
     "nav.academy": "الأكاديمية",
     "nav.invest": "الاستثمار",
     "nav.community": "المجتمع",
     "nav.blog": "تقارير نكسوس",
-    "nav.store": "المتجر B to B",
+    "nav.store": "B2B business to business",
     "nav.pricing": "الاشتراكات",
     "nav.cosmetiques": "مستحضرات التجميل (C to C)",
     "nav.acc_industriels": "إكسسوارات صناعية",

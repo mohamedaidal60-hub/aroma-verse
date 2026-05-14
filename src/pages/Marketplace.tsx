@@ -20,7 +20,7 @@ export default function Marketplace() {
   const [newProdName, setNewProdName] = useState("");
   const [newProdDesc, setNewProdDesc] = useState("");
   const [newProdPrice, setNewProdPrice] = useState("");
-  const [newProdCategory, setNewProdCategory] = useState("Matières Premières");
+  const [newProdCategory, setNewProdCategory] = useState("Huile essentielle");
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   
   // États de Chat & Détails
@@ -35,17 +35,13 @@ export default function Marketplace() {
   const isFullSubscriber = profile?.role === "subscriber_pass" || profile?.role === "admin";
 
   const categoryFilters = [
-    "Matières Premières", 
-    "Huiles Essentielles", 
-    "Huiles Distillés",
-    "Molécules de Synthèse", 
-    "Accessoires Artisanaux", 
-    "Accessoires Industriels", 
-    "Packaging & Flacons",
-    "Autres Senteurs",
-    "Cosmétiques"
+    "Huile essentielle", 
+    "Huile absolut", 
+    "Hydrolat",
+    "Aromas chemicals", 
+    "equipment (laboratoire)"
   ];
-  const [activeFilter, setActiveFilter] = useState("Matières Premières");
+  const [activeFilter, setActiveFilter] = useState("Huile essentielle");
 
   // Simulation BDD initiale
   useEffect(() => {
