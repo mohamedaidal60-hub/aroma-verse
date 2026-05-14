@@ -6,14 +6,15 @@
 <head>
 	<title>PERFUMENUKE</title>
 	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 	<link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
 	<link href="style.css" rel="stylesheet" type="text/css"/>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap" rel="stylesheet">
 	<style>
-		body, html { margin: 0; padding: 0; overflow: hidden; width: 100vw; height: 100vh; background-color: #062112; }
-		#reactcontainer { overflow-y: auto; overflow-x: hidden; height: 100%; width: 100%; }
+		body, html { margin: 0; padding: 0; overflow-x: hidden; width: 100vw; height: 100vh; background-color: #062112; }
+		#reactcontainer { overflow-y: auto; overflow-x: hidden; height: 100%; width: 100%; padding-bottom: 50px; }
 		/* Custom scrollbar for webkit */
 		::-webkit-scrollbar { width: 8px; }
 		::-webkit-scrollbar-track { background: #062112; }
@@ -27,7 +28,7 @@
 		<img src="/logo.svg" alt="AromaVerse" style="height: 50px; margin-right: 15px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNiODhlMmQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNCAyMnYtNmExMCAxMCAwIDAgMSAxNiAwdjYiPjwvcGF0aD48cGF0aCBkPSJNMTEgN2EyIDIgMCAwIDEgMiAyYTUgNSAwIDAgMC01IDVsLTMgM3YyaDIiPjwvcGF0aD48cGF0aCBkPSJNNiAxMmMtLTMgMy00IDQtNSA1djJoMiI+PC9wYXRoPjxwYXRoIGQ9Ik0xMyA3YTIgMiAwIDAgMCAyIDJhNSA1IDAgMCAxIDUgNWwzIDN2MmgtMiI+PC9wYXRoPjxwYXRoIGQ9Ik0xOCAxMmMzIDMgNCA0IDUgNXYyaC0yIj48L3BhdGg+PHBhdGggZD0iTTEyIDJ2NSI+PC9wYXRoPjwvc3ZnPg=='" />
 		<h1 style="color: #b88e2d; font-family: 'Work Sans', sans-serif; margin:0; text-transform:uppercase; letter-spacing:3px; font-size:24px;">Nexus Lab Studio</h1>
 	</div>
-	<div id="reactcontainer" style="height: calc(100vh - 71px); overflow: hidden; display: flex; flex-direction: column;">
+	<div id="reactcontainer" style="height: calc(100vh - 71px); display: block;">
 	</div>
 
 	<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>

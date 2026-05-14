@@ -9,6 +9,25 @@ body {
     margin: 0;
 	
 	-webkit-font-smoothing: antialiased;
+    zoom: 0.75;
+}
+
+@media (max-width: 1024px) {
+    body {
+        zoom: 0.55;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        zoom: 0.40;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        zoom: 0.30;
+    }
 }
 
 a:link {
