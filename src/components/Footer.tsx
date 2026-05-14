@@ -18,20 +18,20 @@ const Footer = () => {
             <Link to="/" className="inline-block hover:opacity-80 transition-opacity">
               <Logo />
             </Link>
-            <p className={`text-sm text-muted-foreground leading-relaxed max-w-xs ${dir === "rtl" ? "font-arabic" : ""}`}>
+            <p className={`text-sm text-emerald-700/70 leading-relaxed max-w-xs ${dir === "rtl" ? "font-arabic" : ""}`}>
               {t("footer.tagline")}
             </p>
             <div className="flex gap-4 pt-4">
-              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all border border-white/5"><Instagram size={20} /></a>
-              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all border border-white/5"><Twitter size={20} /></a>
-              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-muted-foreground hover:bg-gold hover:text-black transition-all border border-white/5"><Linkedin size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-700/70 hover:bg-gold hover:text-black transition-all border border-emerald-100"><Instagram size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-700/70 hover:bg-gold hover:text-black transition-all border border-emerald-100"><Twitter size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-700/70 hover:bg-gold hover:text-black transition-all border border-emerald-100"><Linkedin size={20} /></a>
             </div>
           </div>
 
           {/* Ecosystem Column */}
           <div>
             <h4 className="font-display font-black text-xl mb-10 text-foreground uppercase tracking-tighter">{t("nav.home")}</h4>
-            <ul className="space-y-5 text-sm font-bold text-muted-foreground">
+            <ul className="space-y-5 text-sm font-bold text-emerald-700/70">
               <li><Link to="/marketplace" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.marketplace")}</Link></li>
               <li><Link to="/studio" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.studio")}</Link></li>
               <li><Link to="/academy" className="hover:text-gold transition-all flex items-center gap-2">{t("nav.academy")}</Link></li>
@@ -66,11 +66,11 @@ const Footer = () => {
           {/* Global Column */}
           <div>
             <h4 className="font-display font-black text-xl mb-10 text-foreground uppercase tracking-tighter">Global</h4>
-            <ul className="space-y-5 text-sm font-bold text-muted-foreground">
+            <ul className="space-y-5 text-sm font-bold text-emerald-700/70">
               <li><Link to="/pricing" className="text-gold font-black hover:scale-105 inline-block transition-transform">{t("nav.pricing")}</Link></li>
               <li><span className="flex items-center gap-3 text-green-500/80"><ShieldCheck size={18} /> Protocoles Certifiés</span></li>
               <li className="pt-6">
-                 <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-2xl border border-white/5">
+                 <div className="flex items-center gap-3 px-4 py-3 bg-emerald-50 rounded-2xl border border-emerald-100">
                     <Globe size={18} className="text-gold" />
                     <span className="text-[10px] font-black text-foreground uppercase tracking-widest leading-none">Nexus Global Network v3.0</span>
                  </div>
@@ -80,11 +80,11 @@ const Footer = () => {
 
         </div>
 
-        <div className="border-t border-white/5 mt-24 pt-12 flex flex-col md:flex-row items-center justify-between gap-8">
-          <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.4em]">
+        <div className="border-t border-emerald-100 mt-24 pt-12 flex flex-col md:flex-row items-center justify-between gap-8">
+          <p className="text-[10px] text-emerald-700/70 font-black uppercase tracking-[0.4em]">
             {t("footer.copyright")}
           </p>
-          <div className="flex gap-10 text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest">
+          <div className="flex gap-10 text-[10px] font-black text-emerald-700/70/40 uppercase tracking-widest">
              <span className="hover:text-gold cursor-pointer transition-colors">Confidentialité</span>
              <span className="hover:text-gold cursor-pointer transition-colors">Termes</span>
              <span className="hover:text-gold cursor-pointer transition-colors">Presse</span>

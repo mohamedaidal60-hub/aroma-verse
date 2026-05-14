@@ -11,7 +11,7 @@ const CTASection = () => {
     <section className="py-32 relative font-body overflow-hidden">
       <div className="container mx-auto px-4 max-w-6xl">
         
-        <div className="relative rounded-[64px] overflow-hidden border-2 border-gold/30 bg-black/40 p-12 md:p-24 text-center shadow-2xl group">
+        <div className="relative rounded-[64px] overflow-hidden border-2 border-gold/30 bg-white/40 p-12 md:p-24 text-center shadow-2xl group">
           
           {/* Animated background effects */}
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-gold/50 to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
@@ -25,11 +25,11 @@ const CTASection = () => {
               <span className="text-[10px] font-black text-gold uppercase tracking-[0.2em]">{t("auth.trial")}</span>
             </div>
 
-            <h2 className="text-5xl md:text-7xl font-display font-black mb-6 text-white tracking-tight">
+            <h2 className="text-5xl md:text-7xl font-display font-black mb-6 text-foreground tracking-tight">
               {t("auth.title")}
             </h2>
             
-            <p className="text-xl text-muted-foreground leading-relaxed mb-12 max-w-2xl mx-auto">
+            <p className="text-xl text-emerald-700/70 leading-relaxed mb-12 max-w-2xl mx-auto">
               {t("features.desc")}
             </p>
 
@@ -46,7 +46,7 @@ const CTASection = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white/20 text-white hover:bg-white/5 h-16 px-12 rounded-[24px] font-bold text-sm tracking-widest"
+                className="border-emerald-300 text-foreground hover:bg-emerald-50 h-16 px-12 rounded-[24px] font-bold text-sm tracking-widest"
                 onClick={() => navigate("/pricing")}
               >
                 {t("nav.pricing")}
@@ -54,8 +54,8 @@ const CTASection = () => {
             </div>
 
             <div className="mt-16 flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700">
-               <div className="flex items-center gap-2"><ShieldCheck size={18} /> <span className="text-[11px] font-black text-white">Sécurité Bancaire</span></div>
-               <div className="flex items-center gap-2"><Sparkles size={18} /> <span className="text-[11px] font-black text-white">Support 24/7 Experts</span></div>
+               <div className="flex items-center gap-2"><ShieldCheck size={18} /> <span className="text-[11px] font-black text-foreground">Sécurité Bancaire</span></div>
+               <div className="flex items-center gap-2"><Sparkles size={18} /> <span className="text-[11px] font-black text-foreground">Support 24/7 Experts</span></div>
             </div>
           </div>
         </div>

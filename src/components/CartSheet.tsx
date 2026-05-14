@@ -48,12 +48,12 @@ const CartSheet = () => {
       <SheetContent className="w-full sm:max-w-md bg-secondary/95 backdrop-blur-xl border-border flex flex-col">
         <SheetHeader><SheetTitle className="text-xl font-display font-bold">Votre Panier</SheetTitle></SheetHeader>
         <div className="flex-1 overflow-y-auto py-6">
-          {items.length === 0 ? <p className="text-muted-foreground text-center">Votre panier est vide.</p> : (
+          {items.length === 0 ? <p className="text-emerald-700/70 text-center">Votre panier est vide.</p> : (
             <div className="space-y-4">
               {items.map((item) => (
-                <div key={item.id} className="flex gap-4 items-center bg-background/50 p-3 rounded-xl border border-border">
-                  <div className="flex-1"><h4 className="font-semibold text-sm">{(item as any).name || (item as any).title}</h4><div className="flex items-center gap-2 mt-2"><span className="text-sm font-bold text-primary">{item.price} €</span><span className="text-xs text-muted-foreground">x{item.quantity}</span></div></div>
-                  <Button variant="ghost" size="icon" onClick={() => removeItem(item.id)} className="h-8 w-8 text-muted-foreground hover:text-destructive"><X className="w-4 h-4" /></Button>
+                <div key={item.id} className="flex gap-4 items-center bg-[#f1f5f9]/50 p-3 rounded-xl border border-border">
+                  <div className="flex-1"><h4 className="font-semibold text-sm">{(item as any).name || (item as any).title}</h4><div className="flex items-center gap-2 mt-2"><span className="text-sm font-bold text-primary">{item.price} €</span><span className="text-xs text-emerald-700/70">x{item.quantity}</span></div></div>
+                  <Button variant="ghost" size="icon" onClick={() => removeItem(item.id)} className="h-8 w-8 text-emerald-700/70 hover:text-destructive"><X className="w-4 h-4" /></Button>
                 </div>
               ))}
             </div>
@@ -62,7 +62,7 @@ const CartSheet = () => {
         {items.length > 0 && (
           <div className="border-t border-border pt-4 mt-auto">
             <div className="flex justify-between items-center mb-6"><span className="text-foreground font-semibold">Total</span><span className="text-2xl font-bold text-gradient-gold">{total} €</span></div>
-            <Button className="w-full bg-gradient-gold shadow-gold text-white font-bold" onClick={handleCheckout} disabled={loading}>{loading ? "Traitement..." : "Procéder au paiement via l'Admin WhatsApp"} <ArrowRight className="w-4 h-4 ml-2" /></Button>
+            <Button className="w-full bg-gradient-gold shadow-gold text-foreground font-bold" onClick={handleCheckout} disabled={loading}>{loading ? "Traitement..." : "Procéder au paiement via l'Admin WhatsApp"} <ArrowRight className="w-4 h-4 ml-2" /></Button>
           </div>
         )}
       </SheetContent>

@@ -10,49 +10,85 @@ const FeaturesSection = () => {
   const modules = [
     {
       icon: Palette,
-      titleKey: "features.studio.title",
-      descKey: "features.studio.desc",
-      btnKey: "studio.simulation.action",
+      title: "Perfume Studio Lab",
+      desc: "Création de parfums 3D et analyses ISO E.",
+      btnText: "Ouvrir",
       path: "/studio",
       color: "from-purple-500/20 to-transparent",
-      img: "https://images.unsplash.com/photo-1595151402017-40c291109a20?auto=format&fit=crop&w=800&q=80"
+      img: "https://picsum.photos/seed/studio/800/600"
     },
     {
       icon: ShoppingBag,
-      titleKey: "features.marketplace.title",
-      descKey: "features.marketplace.desc",
-      btnKey: "marketplace.view_all",
+      title: "Marché Central B2B",
+      desc: "Échanges professionnels et gros volumes.",
+      btnText: "Explorer",
       path: "/marketplace",
       color: "from-gold/20 to-transparent",
-      img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80"
+      img: "https://picsum.photos/seed/market/800/600"
     },
     {
       icon: TrendingUp,
-      titleKey: "features.invest.title",
-      descKey: "features.invest.desc",
-      btnKey: "invest.cta.buy",
+      title: "Investissement",
+      desc: "Parcelles de terre agricole en Algérie (0 DA pour pass).",
+      btnText: "Investir",
       path: "/investir",
       color: "from-green-500/20 to-transparent",
-      img: "https://images.unsplash.com/photo-1434682881908-b43d0467b798?auto=format&fit=crop&w=800&q=80"
-    },
-  ];
-
-  const extras = [
-    {
-      icon: GraduationCap,
-      titleKey: "features.academy.title",
-      descKey: "features.academy.desc",
+      img: "https://picsum.photos/seed/invest/800/600"
     },
     {
       icon: Globe2,
-      titleKey: "features.store.title",
-      descKey: "features.store.desc",
+      title: "Boutique Officielle",
+      desc: "Achetez les produits finis officiels d'NEXUS.",
+      btnText: "Acheter",
+      path: "/store",
+      color: "from-blue-500/20 to-transparent",
+      img: "https://picsum.photos/seed/boutique/800/600"
+    },
+    {
+      icon: Beaker,
+      title: "Acc. Industriels",
+      desc: "Béchers, propipettes, agitateurs.",
+      btnText: "Voir",
+      path: "/accessoires-industriels",
+      color: "from-slate-500/20 to-transparent",
+      img: "https://picsum.photos/seed/science/800/600"
     },
     {
       icon: Users,
-      titleKey: "features.community.title",
-      descKey: "features.community.desc",
+      title: "Acc. Artisanaux",
+      desc: "Tubes en terre, mortiers, cuves traditionnelles.",
+      btnText: "Voir",
+      path: "/accessoires-artisanaux",
+      color: "from-amber-600/20 to-transparent",
+      img: "https://picsum.photos/seed/artisanat/800/600"
     },
+    {
+      icon: ShoppingBag,
+      title: "Cosmétiques C2C",
+      desc: "Vente et achat entre abonnés.",
+      btnText: "Parcourir",
+      path: "/cosmetiques",
+      color: "from-rose-500/20 to-transparent",
+      img: "https://picsum.photos/seed/cosmetics/800/600"
+    },
+    {
+      icon: GraduationCap,
+      title: "Aroma Academy",
+      desc: "Formations certifiantes en parfumerie.",
+      btnText: "Apprendre",
+      path: "/academy",
+      color: "from-indigo-500/20 to-transparent",
+      img: "https://picsum.photos/seed/academy/800/600"
+    },
+    {
+      icon: Award,
+      title: "Nexus Blog",
+      desc: "Dernières recherches, législation et IFRA.",
+      btnText: "Lire",
+      path: "/blog",
+      color: "from-teal-500/20 to-transparent",
+      img: "https://picsum.photos/seed/journal/800/600"
+    }
   ];
 
   return (
@@ -69,50 +105,37 @@ const FeaturesSection = () => {
           <h2 className="text-4xl md:text-6xl font-display font-black mb-6">
             {t("features.title.1")} <span className="text-gold">{t("features.title.2")}</span>
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            {t("features.desc")}
+          <p className="text-xl text-emerald-700/70 leading-relaxed">
+            Plongez dans un écosystème globalisé couvrant toutes vos opérations.
           </p>
         </div>
 
         {/* Major Modules Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {modules.map((m, i) => (
             <div
               key={i}
-              className="group glass-card rounded-[48px] overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full bg-black/40"
+              className="group glass-card rounded-[48px] overflow-hidden border border-emerald-100 hover:border-gold/30 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full bg-white/40"
             >
               <div className="h-64 overflow-hidden relative">
-                <img src={m.img} alt={t(m.titleKey)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60" />
+                <img src={m.img} alt={m.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 bg-white" />
                 <div className={`absolute inset-0 bg-gradient-to-t ${m.color} to-transparent`} />
-                <div className="absolute top-6 left-6 w-12 h-12 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white">
+                <div className="absolute top-6 left-6 w-12 h-12 rounded-2xl bg-white/40 backdrop-blur-md border border-emerald-200 flex items-center justify-center text-foreground">
                   <m.icon size={24} />
                 </div>
               </div>
               
               <div className="p-8 flex-1 flex flex-col">
-                <h3 className="text-2xl font-display font-bold mb-4 text-white group-hover:text-gold transition-colors">{t(m.titleKey)}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-10 flex-1">{t(m.descKey)}</p>
+                <h3 className="text-2xl font-display font-bold mb-4 text-foreground group-hover:text-gold transition-colors">{m.title}</h3>
+                <p className="text-sm text-emerald-700/70 leading-relaxed mb-10 flex-1">{m.desc}</p>
                 
                 <Button
-                  className="w-full h-14 bg-white/5 hover:bg-gold hover:text-black font-black text-xs uppercase tracking-widest rounded-2xl border border-white/10 hover:border-gold transition-all"
+                  className="w-full h-14 bg-emerald-50 hover:bg-gold hover:text-black font-black text-xs uppercase tracking-widest rounded-2xl border border-emerald-200 hover:border-gold transition-all"
                   onClick={() => navigate(m.path)}
                 >
-                  {t(m.btnKey)}
+                  {m.btnText}
                 </Button>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Secondary Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {extras.map((e, i) => (
-            <div key={i} className="glass-card rounded-[32px] p-8 border border-white/5 hover:bg-gold/5 hover:border-gold/20 transition-all flex flex-col">
-              <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center mb-6 text-gold">
-                <e.icon size={20} />
-              </div>
-              <h3 className="text-xl font-display font-bold mb-4 text-white">{t(e.titleKey)}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">{t(e.descKey)}</p>
             </div>
           ))}
         </div>
@@ -123,7 +146,7 @@ const FeaturesSection = () => {
             <Award size={40} className="text-gold flex-shrink-0" />
             <div>
               <p className="text-xl font-bold">{t("features.bottom.title")}</p>
-              <p className="text-sm text-muted-foreground">{t("features.bottom.desc")}</p>
+              <p className="text-sm text-emerald-700/70">{t("features.bottom.desc")}</p>
             </div>
           </div>
           <Button className="bg-gold text-black font-black px-12 h-14 rounded-2xl shadow-gold whitespace-nowrap" onClick={() => navigate('/auth')}>

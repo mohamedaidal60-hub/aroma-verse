@@ -50,15 +50,19 @@ const Logo: React.FC<LogoProps> = ({ className = "", showText = true }) => {
 
   return (
     <div className={`flex items-center ${className}`}>
-      <div className="relative h-16 md:h-24 flex items-center justify-center pl-2">
+      <div className="relative h-16 md:h-24 flex items-center justify-center pl-2 group">
+        <div className="absolute inset-0 bg-gold/10 blur-[40px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
         {/* L'image traitée sans damier et redimensionnée proprement */}
-        {src && (
+        {src ? (
           <img
             src={src}
-            alt="AromaVerse"
-            className="h-full w-auto object-contain transition-opacity duration-300"
-            style={{ transform: "scale(1.2)" }} 
+            alt="NEXUS"
+            className="h-full w-auto object-contain transition-all duration-700 hover:scale-110 drop-shadow-[0_0_15px_rgba(184,142,45,0.3)]"
           />
+        ) : (
+          <div className="w-16 h-16 bg-emerald-50 rounded-full animate-pulse border border-gold/10 flex items-center justify-center">
+             <div className="w-8 h-8 border-2 border-gold/20 border-t-gold rounded-full animate-spin"></div>
+          </div>
         )}
       </div>
     </div>

@@ -27,24 +27,83 @@ const Investir = () => {
     load();
   }, []);
 
+  const [showProposal, setShowProposal] = useState(false);
+  const [proposalData, setProposalData] = useState({ crop: "", hectares: "" });
+
+  const handlePropose = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!proposalData.crop || !proposalData.hectares) {
+      toast.error("Veuillez remplir tous les champs.");
+      return;
+    }
+    const currentProposals = JSON.parse(localStorage.getItem("nexus_proposals") || "[]");
+    const newProposal = {
+      id: Date.now(),
+      ...proposalData,
+      status: "pending",
+      date: new Date().toLocaleDateString()
+    };
+    localStorage.setItem("nexus_proposals", JSON.stringify([...currentProposals, newProposal]));
+    toast.success("Votre proposition de culture a été envoyée à l'équipe Nexus !");
+    setShowProposal(false);
+    setProposalData({ crop: "", hectares: "" });
+  };
+
   const handleInvest = (title: string) => {
-    toast.success(`${t("invest.success")} (${title})`);
+    toast.success(t("invest.success") + " - " + title);
   };
 
   const handleWithdraw = () => {
-    toast.info(t("invest.no_profits"));
+    toast.error(t("invest.no_profits") || "Aucun profit disponible pour le retrait.");
   };
 
   const handleMarket = () => {
-    toast.info("Marché secondaire bientôt disponible sur Mobile.");
+    toast.info("Le marché secondaire sera bientôt disponible.");
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-body">
+    <div className="min-h-screen bg-[#f1f5f9] flex flex-col font-body">
       <Navbar />
       
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-6xl">
+
+          {/* Modal de Proposition */}
+          {showProposal && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+              <div className="absolute inset-0 bg-white/60 backdrop-blur-md" onClick={() => setShowProposal(false)}></div>
+              <div className="relative bg-[#062112] border border-gold/30 p-10 rounded-[40px] w-full max-w-lg shadow-2xl animate-in zoom-in duration-300">
+                <h2 className="text-3xl font-display font-black text-foreground mb-2 uppercase tracking-tight">Proposer une Culture</h2>
+                <p className="text-gold/60 text-xs font-bold uppercase tracking-widest mb-8 italic">Algérie Hub - Opportunité Nexus</p>
+                
+                <form onSubmit={handlePropose} className="space-y-6">
+                  <div>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-foreground/40 mb-2 block">Que souhaitez-vous planter ?</label>
+                    <input 
+                      type="text" 
+                      placeholder="Ex: Rose de Damas, Oud, Jasmin..." 
+                      className="w-full h-14 bg-emerald-50 border border-emerald-200 rounded-2xl px-6 text-foreground text-sm focus:border-gold outline-none transition-all"
+                      value={proposalData.crop}
+                      onChange={e => setProposalData({...proposalData, crop: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-foreground/40 mb-2 block">Surface estimée (Hectares)</label>
+                    <input 
+                      type="number" 
+                      placeholder="Ex: 5" 
+                      className="w-full h-14 bg-emerald-50 border border-emerald-200 rounded-2xl px-6 text-foreground text-sm focus:border-gold outline-none transition-all"
+                      value={proposalData.hectares}
+                      onChange={e => setProposalData({...proposalData, hectares: e.target.value})}
+                    />
+                  </div>
+                  <Button type="submit" className="w-full h-16 bg-gold text-black font-black uppercase tracking-widest rounded-2xl shadow-xl hover:scale-105 transition-all">
+                    SOUMETTRE MON PROJET
+                  </Button>
+                </form>
+              </div>
+            </div>
+          )}
           
           {/* Hero & Global Stats */}
           <div className="mb-16">
@@ -66,12 +125,12 @@ const Investir = () => {
                 { label: t("invest.roi"), value: "14.2%", icon: BarChart3 },
                 { label: "Pays Couverts", value: "87", icon: Globe }
               ].map((stat, i) => (
-                <div key={i} className="glass-card p-6 rounded-3xl border border-white/5 flex flex-col items-center text-center">
+                <div key={i} className="glass-card p-6 rounded-3xl border border-emerald-100 flex flex-col items-center text-center">
                   <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center mb-4">
                     <stat.icon className="text-gold" size={20} />
                   </div>
-                  <span className="text-2xl font-bold text-white mb-1 tracking-tighter">{stat.value}</span>
-                  <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{stat.label}</span>
+                  <span className="text-2xl font-bold text-foreground mb-1 tracking-tighter">{stat.value}</span>
+                  <span className="text-[10px] text-emerald-700/70 font-bold uppercase tracking-widest">{stat.label}</span>
                 </div>
               ))}
             </div>
@@ -84,7 +143,7 @@ const Investir = () => {
             </h2>
             
             {loading ? (
-              <div className="py-20 text-center text-muted-foreground">{t("common.loading")}</div>
+              <div className="py-20 text-center text-emerald-700/70">{t("common.loading")}</div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {projects.map((project) => (
@@ -95,7 +154,7 @@ const Investir = () => {
                             <h3 className="text-2xl font-black text-foreground mb-2 uppercase tracking-tight">{project.title}</h3>
                             <span className="text-xs text-primary font-black uppercase tracking-widest bg-primary/5 px-2 py-1 rounded border border-primary/10">{project.location}</span>
                          </div>
-                         <div className="bg-primary text-white font-black text-[10px] px-4 py-2 rounded-full shadow-lg uppercase tracking-widest">{project.roi_range} ROI</div>
+                         <div className="bg-primary text-foreground font-black text-[10px] px-4 py-2 rounded-full shadow-lg uppercase tracking-widest">{project.roi_range} ROI</div>
                        </div>
 
                        <div className="grid grid-cols-2 gap-4 mb-8">
@@ -120,7 +179,7 @@ const Investir = () => {
                     
                     <div className="mt-auto p-10 bg-primary/5 border-t border-primary/10 flex flex-col gap-4">
                        <Button 
-                         className="w-full bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-[0.2em] text-xs h-16 rounded-2xl shadow-xl transition-all"
+                         className="w-full bg-primary hover:bg-primary/90 text-foreground font-black uppercase tracking-[0.2em] text-xs h-16 rounded-2xl shadow-xl transition-all"
                          onClick={() => handleInvest(project.title)}
                        >
                          INVESTIR MAINTENANT
@@ -147,26 +206,24 @@ const Investir = () => {
                    <Target size={14} className="text-gold" />
                    <span className="text-[10px] font-bold text-gold uppercase tracking-widest">Partenariat Cultivateur</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-display font-black mb-4 text-white">Proposer votre <span className="text-gold italic">Projet Agricole</span> en Algérie</h2>
-                <p className="text-white/80 mb-6 font-medium leading-relaxed">
+                <h2 className="text-3xl md:text-4xl font-display font-black mb-4 text-foreground">Proposer votre <span className="text-gold italic">Projet Agricole</span> en Algérie</h2>
+                <p className="text-foreground/80 mb-6 font-medium leading-relaxed">
                   Offrez vos parcelles de terrain à la location (selon les dimensions désirées) ou proposez la culture d'un ingrédient spécifique. Les abonnés investissent dans votre projet pour le financer.
-                  <br/><br/>
-                  <span className="text-gold font-bold">Un avantage exclusif :</span> Lancez votre exploitation avec <span className="bg-gold text-black px-2 py-0.5 rounded uppercase tracking-widest text-[10px]">0 DA</span> d'apport personnel, sous réserve de posséder le Pass Abonné.
                 </p>
                 <div className="flex gap-4">
                    <Button 
                       className="h-14 px-8 bg-gold text-black font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-gold/20 hover:scale-105 transition-all"
-                      onClick={() => toast.success("Candidature Parcelle (0 DA) envoyée à l'équipe de validation Nexus.")}
+                      onClick={() => setShowProposal(true)}
                    >
-                      Lancer mon projet (0 DA)
+                      PROPOSER UNE CULTURE
                    </Button>
                 </div>
              </div>
-             <div className="w-full md:w-5/12 aspect-video md:aspect-[4/3] rounded-[32px] overflow-hidden border border-white/10 shadow-2xl relative">
+             <div className="w-full md:w-5/12 aspect-video md:aspect-[4/3] rounded-[32px] overflow-hidden border border-emerald-200 shadow-2xl relative">
                 <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Terrain agricole Algérie" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex items-end p-6">
                    <div>
-                     <p className="text-white font-black text-lg">Parcelles Disponibles</p>
+                     <p className="text-foreground font-black text-lg">Parcelles Disponibles</p>
                      <p className="text-gold font-bold uppercase tracking-widest text-[10px] mb-2">Terres Agricoles & Distilleries Locales</p>
                    </div>
                 </div>
@@ -174,37 +231,37 @@ const Investir = () => {
           </div>
 
           {/* User Portfolio */}
-          <div className="glass-card rounded-[48px] p-10 md:p-16 border border-white/10 bg-gradient-to-br from-secondary/40 to-background relative overflow-hidden">
+          <div className="glass-card rounded-[48px] p-10 md:p-16 border border-emerald-200 bg-gradient-to-br from-secondary/40 to-background relative overflow-hidden">
              <div className="relative z-10">
                 <h2 className="text-3xl font-display font-bold mb-8 flex items-center gap-3">
                   <BarChart3 className="text-gold" /> {t("invest.total")}
                 </h2>
                 
                 <div className="space-y-4 max-w-4xl">
-                   <div className="flex items-center justify-between p-6 bg-black/40 rounded-3xl border border-white/5 hover:bg-black/60 transition-all group">
+                   <div className="flex items-center justify-between p-6 bg-white/40 rounded-3xl border border-emerald-100 hover:bg-white/60 transition-all group">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-gold/10 rounded-2xl flex items-center justify-center text-gold border border-gold/20 group-hover:bg-gold group-hover:text-black transition-all"><FileText size={20} /></div>
                         <div>
-                          <p className="font-bold text-white">Oud Cambodge</p>
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-widest">ID: #INV-9821</p>
+                          <p className="font-bold text-foreground">Oud Cambodge</p>
+                          <p className="text-[10px] text-emerald-700/70 uppercase tracking-widest">ID: #INV-9821</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-black text-2xl text-white tracking-tighter">$2,500</p>
+                        <p className="font-black text-2xl text-foreground tracking-tighter">$2,500</p>
                         <p className="text-[10px] text-green-500 font-black uppercase tracking-widest">+8.2% Rendement</p>
                       </div>
                    </div>
 
-                   <div className="flex items-center justify-between p-6 bg-black/40 rounded-3xl border border-white/5 hover:bg-black/60 transition-all group">
+                   <div className="flex items-center justify-between p-6 bg-white/40 rounded-3xl border border-emerald-100 hover:bg-white/60 transition-all group">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-gold/10 rounded-2xl flex items-center justify-center text-gold border border-gold/20 group-hover:bg-gold group-hover:text-black transition-all"><FileText size={20} /></div>
                         <div>
-                          <p className="font-bold text-white">Rose de Damas</p>
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-widest">ID: #INV-4412</p>
+                          <p className="font-bold text-foreground">Rose de Damas</p>
+                          <p className="text-[10px] text-emerald-700/70 uppercase tracking-widest">ID: #INV-4412</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-black text-2xl text-white tracking-tighter">$1,000</p>
+                        <p className="font-black text-2xl text-foreground tracking-tighter">$1,000</p>
                         <p className="text-[10px] text-green-500 font-black uppercase tracking-widest">+4.5% Rendement</p>
                       </div>
                    </div>
@@ -220,7 +277,7 @@ const Investir = () => {
                    </Button>
                    <Button 
                      variant="ghost" 
-                     className="text-muted-foreground hover:text-white h-14 px-10 font-bold uppercase tracking-widest text-xs"
+                     className="text-emerald-700/70 hover:text-foreground h-14 px-10 font-bold uppercase tracking-widest text-xs"
                      onClick={handleMarket}
                    >
                      {t("invest.cta.market")}

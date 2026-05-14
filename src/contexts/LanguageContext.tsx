@@ -12,15 +12,18 @@ interface LanguageContextType {
 const translations: Record<Lang, Record<string, string>> = {
   fr: {
     // Navbar
-    "nav.marketplace": "Marketplace C2C",
-    "nav.database": "Base de Données",
-    "nav.studio": "Studio Lab",
-    "nav.academy": "Academy",
-    "nav.invest": "Investir",
-    "nav.community": "Communauté",
-    "nav.blog": "Insights Nexus",
-    "nav.store": "Boutique B2B",
+    "nav.marketplace": "Marché Communautaire (C to C)",
+    "nav.database": "Base de Données Scientifique",
+    "nav.studio": "Studio de Formulation",
+    "nav.academy": "Nexus Académie",
+    "nav.invest": "Nexus Investissement",
+    "nav.community": "Communauté Nexus",
+    "nav.blog": "Journal Scientifique",
+    "nav.store": "Boutique B to B",
     "nav.pricing": "Abonnements",
+    "nav.cosmetiques": "Cosmétiques (C to C)",
+    "nav.acc_industriels": "Acc. Industriels",
+    "nav.acc_artisanaux": "Acc. Artisanaux",
     "nav.login": "Connexion",
     "nav.dashboard": "Mon Espace",
     "nav.logout": "Déconnexion",
@@ -35,7 +38,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "hero.cta.trial": "ESSAI GRATUIT 4 MOIS",
     "hero.cta.catalogue": "EXAMINER LE CATALOGUE",
     "hero.pass.title": "Nexus Pass",
-    "hero.pass.academy": "Accès Academy Illimité",
+    "hero.pass.academy": "Accès Académie Illimité",
     "hero.pass.commission": "0% Commission Marketplace",
     "hero.pass.invest": "Priorité Investissement",
     "hero.pass.offer": "OFFRE DE LANCEMENT",
@@ -67,9 +70,9 @@ const translations: Record<Lang, Record<string, string>> = {
     "features.marketplace.desc": "Matières premières rares, packaging de luxe et logistique intégrée. Accès direct aux plus grands fournisseurs mondiaux.",
     "features.invest.title": "Impact Invest",
     "features.invest.desc": "Investissez dans la production agricole durable (Oud, Rose, Jasmin) et suivez vos rendements sur votre dashboard.",
-    "features.academy.title": "Nexus Academy",
+    "features.academy.title": "Nexus Académie",
     "features.academy.desc": "Formation certifiante en 3 niveaux : du socle commun à l'expertise master. 4 mois gratuits inclus.",
-    "features.store.title": "Store B2B",
+    "features.store.title": "Store B to B",
     "features.store.desc": "Moteur de recherche exclusif interrogeant 6 annuaires mondiaux pour vos besoins en gros volume.",
     "features.community.title": "Communauté & Votes",
     "features.community.desc": "Participez aux classements trimestriels et votez pour les meilleurs créateurs du réseau.",
@@ -77,34 +80,15 @@ const translations: Record<Lang, Record<string, string>> = {
     // Sourcing B2B - Image 5
     "store.title.1": "Moteur",
     "store.title.2": "Sourcing Global",
-    "store.subtitle": "Recherchez instantanément dans les 6 plus grandes bases de données mondiales de fournisseurs B2B.",
+    "store.subtitle": "Recherchez instantanément dans les 6 plus grandes bases de données mondiales de fournisseurs B to B.",
     "store.desc": "Ne soyez plus limité par les stocks locaux. Accédez au plus grand catalogue de l'industrie.",
     "store.cta": "LANCER LE SOURCING",
     "store.placeholder": "Ex: Rose essential oil bulk, 50ml luxury glass bottles...",
     "store.platforms": "Inclus dans la recherche",
 
-    // Studio - Bugs
-    "studio.simulation.title": "Simulation Moléculaire 3D",
-    "studio.simulation.action": "Lancer la simulation 3D",
-    "studio.simulation.running": "Simulation en cours...",
-    "studio.simulation.complete": "Simulation Terminée",
-    "studio.simulation.error": "Erreur : Paramètres instables",
-    "studio.analyze.result": "Analyse de Conformité IFRA",
-
-    // Academy - Bugs
-    "academy.enroll": "S'inscrire au parcours",
-    "academy.lessons": "Leçons",
-    "academy.students": "Étudiants",
-    "academy.enrolled": "Déjà Inscrit",
-
-    // Investir - Bugs
-    "invest.cta.buy": "Investir dans ce projet",
-    "invest.cta.withdraw": "Retirer mes profits",
-    "invest.cta.market": "Marché Secondaire",
-    "invest.success": "Investissement réussi !",
-    "invest.no_profits": "Aucun profit à retirer pour le moment.",
-
-    // Community - Bugs
+    // Community
+    "titre.communauté.1": "COMMUNAUTÉ",
+    "titre.communauté.2": "NEXUS",
     "community.vote.success": "Votre vote a été enregistré !",
     "community.follow": "Suivre",
     "community.following": "Suivi",
@@ -112,16 +96,27 @@ const translations: Record<Lang, Record<string, string>> = {
     "community.comment.placeholder": "Votre commentaire...",
     "community.no_comments": "Aucun commentaire pour le moment.",
 
-    // Abonnements - Bugs
-    "pricing.continents": "Toutes les régions mondiales (Europe, Afrique, Asie, Amériques, Océanie)",
-    "pricing.trial.activate": "Démarrer l'essai gratuit",
-    "pricing.trial.activated": "Essai de 4 mois activé ! Votre compte Admin est exempté d'abonnement.",
-    "pricing.admin_view": "Mode Administrateur : Visibilité Globale Active",
+    // Investir
+    "invest.title.1": "Impact",
+    "invest.title.2": "Invest",
+    "invest.subtitle": "Devenez acteur de la production durable.",
+    "invest.cta.buy": "Investir dans ce projet",
+    "invest.cta.propose": "Proposer une Culture",
+    "invest.success": "Investissement réussi !",
+    "invest.propose.title": "Proposer un Projet Agricole",
+    "invest.propose.desc": "Vous possédez des terres ou une expertise ? Proposez vos cultures à la communauté Nexus.",
 
-    // Support & Footer - Bugs
+    // Academy
+    "academy.enroll": "S'inscrire au parcours",
+    "academy.lessons": "Leçons",
+    "academy.students": "Étudiants",
+    "academy.enrolled": "Déjà Inscrit",
+    "academy.certification": "Certification Officielle NEXUS",
+
+    // Support & Footer
     "footer.support_nexus": "Support Nexus",
     "footer.whatsapp_support": "Assistance WhatsApp 24/7",
-    "footer.copyright": "© 2026 PERFUME NEXUS. TOUS DROITS RÉSERVÉS.",
+    "footer.copyright": "© 2026 NEXUS. TOUS DROITS RÉSERVÉS.",
     "footer.tagline": "Le premier écosystème dédié à l'industrie mondiale du parfum.",
 
     // Common
@@ -144,8 +139,11 @@ const translations: Record<Lang, Record<string, string>> = {
     "nav.invest": "الاستثمار",
     "nav.community": "المجتمع",
     "nav.blog": "تقارير نكسوس",
-    "nav.store": "المتجر B2B",
+    "nav.store": "المتجر B to B",
     "nav.pricing": "الاشتراكات",
+    "nav.cosmetiques": "مستحضرات التجميل (C to C)",
+    "nav.acc_industriels": "إكسسوارات صناعية",
+    "nav.acc_artisanaux": "إكسسوارات حرفية",
     "nav.login": "تسجيل الدخول",
     "nav.dashboard": "حسابي",
     "nav.logout": "تسجيل الخروج",
@@ -194,7 +192,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "features.invest.desc": "استثمر في الإنتاج الزراعي المستدام (العود، الورد، الياسمين) وتابع عوائدك على لوحة التحكم الخاصة بك.",
     "features.academy.title": "أكاديمية نكسوس",
     "features.academy.desc": "دورة تدريبية معتمدة على 3 مستويات: من الأساسيات إلى الخبرة العالية. 4 أشهر مجانية مشمولة.",
-    "features.store.title": "المتجر الاحترافي B2B",
+    "features.store.title": "المتجر الاحترافي B to B",
     "features.store.desc": "محرك بحث حصري يبحث في 6 أدلة عالمية لاحتياجاتك بسعة الجملة.",
     "features.community.title": "المجتمع والتصويت",
     "features.community.desc": "شارك في التصنيفات الربع سنوية وصوت لأفضل المبدعين في الشبكة.",
@@ -202,7 +200,7 @@ const translations: Record<Lang, Record<string, string>> = {
     // Sourcing B2B
     "store.title.1": "محرك",
     "store.title.2": "التوريد العالمي",
-    "store.subtitle": "ابحث فوراً في أكبر 6 قواعد بيانات عالمية لموردي B2B.",
+    "store.subtitle": "ابحث فوراً في أكبر 6 قواعد بيانات عالمية لموردي B to B.",
     "store.desc": "لا تتقيد بالمخزون المحلي بعد الآن. ادخل إلى أكبر كتالوج في الصناعة.",
     "store.cta": "بدء التوريد",
     "store.placeholder": "مثال: زيت ورد طبيعي بالجملة، زجاجات فاخرة 50 مل...",

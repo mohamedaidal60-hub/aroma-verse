@@ -54,7 +54,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background font-body overflow-hidden">
+    <div className="min-h-screen bg-[#f1f5f9] font-body overflow-hidden">
       <Navbar />
 
       {/* Background glow */}
@@ -73,10 +73,10 @@ const Auth = () => {
                   <Gift size={24} className="text-black" />
                 </div>
                 <div>
-                  <h2 className="font-display font-bold text-xl text-white mb-1">
+                  <h2 className="font-display font-bold text-xl text-foreground mb-1">
                     🎁 {t("auth.trial")}
                   </h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-emerald-700/70 leading-relaxed">
                     Accès complet à toutes les fonctionnalités Nexus Pro : Lab moléculaire, Marketplace B2B, Investissements, et la communauté mondiale.
                   </p>
                   <div className="flex flex-wrap gap-2 mt-4">
@@ -90,7 +90,7 @@ const Auth = () => {
           )}
 
           {/* Main Card */}
-          <div className="glass-card rounded-[40px] p-10 border border-white/10 shadow-elevated relative overflow-hidden">
+          <div className="glass-card rounded-[40px] p-10 border border-emerald-200 shadow-elevated relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gold/3 blur-[80px] pointer-events-none"></div>
 
             <div className="relative z-10">
@@ -99,10 +99,10 @@ const Auth = () => {
                 <div className="flex items-center justify-center mx-auto mb-6 h-20">
                   <Logo className="scale-125" showText={false} />
                 </div>
-                <h1 className="text-3xl font-display font-bold text-white mb-2">
+                <h1 className="text-3xl font-display font-bold text-foreground mb-2">
                   {isLogin ? t("auth.submit.login") : t("auth.submit.register")}
                 </h1>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-emerald-700/70 text-sm">
                   {isLogin ? "Accédez à votre espace professionnel" : t("auth.trial")}
                 </p>
               </div>
@@ -110,11 +110,11 @@ const Auth = () => {
               <form onSubmit={handleSubmit} className="space-y-5">
                 {!isLogin && (
                   <div className="space-y-1.5">
-                    <label className="text-xs text-muted-foreground uppercase font-bold tracking-widest ml-1">Nom complet</label>
+                    <label className="text-xs text-emerald-700/70 uppercase font-bold tracking-widest ml-1">Nom complet</label>
                     <Input
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="bg-black/40 border-white/10 h-14 rounded-2xl text-white placeholder:text-muted-foreground/50 focus-visible:ring-gold/50 focus-visible:border-gold/50"
+                      className="bg-white/40 border-emerald-200 h-14 rounded-2xl text-foreground placeholder:text-emerald-700/70/50 focus-visible:ring-gold/50 focus-visible:border-gold/50"
                       placeholder="Votre nom et prénom"
                       required={!isLogin}
                     />
@@ -122,25 +122,25 @@ const Auth = () => {
                 )}
 
                 <div className="space-y-1.5">
-                  <label className="text-xs text-muted-foreground uppercase font-bold tracking-widest ml-1">Email</label>
+                  <label className="text-xs text-emerald-700/70 uppercase font-bold tracking-widest ml-1">Email</label>
                   <Input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-black/40 border-white/10 h-14 rounded-2xl text-white placeholder:text-muted-foreground/50 focus-visible:ring-gold/50 focus-visible:border-gold/50"
+                    className="bg-white/40 border-emerald-200 h-14 rounded-2xl text-foreground placeholder:text-emerald-700/70/50 focus-visible:ring-gold/50 focus-visible:border-gold/50"
                     placeholder="vous@email.com"
                     required
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs text-muted-foreground uppercase font-bold tracking-widest ml-1">Mot de passe</label>
+                  <label className="text-xs text-emerald-700/70 uppercase font-bold tracking-widest ml-1">Mot de passe</label>
                   <div className="relative">
                     <Input
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="bg-black/40 border-white/10 h-14 rounded-2xl text-white placeholder:text-muted-foreground/50 focus-visible:ring-gold/50 focus-visible:border-gold/50 pr-14"
+                      className="bg-white/40 border-emerald-200 h-14 rounded-2xl text-foreground placeholder:text-emerald-700/70/50 focus-visible:ring-gold/50 focus-visible:border-gold/50 pr-14"
                       placeholder="••••••••"
                       required
                       minLength={6}
@@ -148,7 +148,7 @@ const Auth = () => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-gold transition-colors"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-emerald-700/70 hover:text-gold transition-colors"
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -175,14 +175,14 @@ const Auth = () => {
               {!isLogin && (
                 <div className="flex items-center justify-center gap-1.5 mt-6">
                   {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-gold fill-gold" />)}
-                  <span className="text-xs text-muted-foreground ml-2">+12,000 experts de confiance</span>
+                  <span className="text-xs text-emerald-700/70 ml-2">+12,000 experts de confiance</span>
                 </div>
               )}
 
-              <div className="mt-8 pt-6 border-t border-white/5 text-center">
+              <div className="mt-8 pt-6 border-t border-emerald-100 text-center">
                 <button
                   onClick={() => setIsLogin(!isLogin)}
-                  className="text-sm text-muted-foreground hover:text-gold transition-colors font-medium"
+                  className="text-sm text-emerald-700/70 hover:text-gold transition-colors font-medium"
                 >
                   {isLogin ? "Pas de compte ? " : "Déjà membre ? "}
                   <span className="text-gold font-bold underline underline-offset-2">
@@ -194,7 +194,7 @@ const Auth = () => {
           </div>
 
           {/* Footer note */}
-          <p className="text-center text-[11px] text-muted-foreground mt-6">
+          <p className="text-center text-[11px] text-emerald-700/70 mt-6">
             En vous inscrivant, vous acceptez nos{" "}
             <span className="text-gold cursor-pointer hover:underline">Conditions d'utilisation</span> et notre{" "}
             <span className="text-gold cursor-pointer hover:underline">Politique de confidentialité</span>.

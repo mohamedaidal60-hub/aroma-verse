@@ -11,9 +11,9 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden font-body">
       {/* Background with Ambient light */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-background/40 z-10" />
+        <div className="absolute inset-0 bg-[#f1f5f9]/40 z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1920&q=80" 
+          src="https://picsum.photos/seed/hero-perfume/1920/1080" 
           alt="Nexus Parfumerie" 
           className="w-full h-full object-cover opacity-30 grayscale hover:grayscale-0 transition-all duration-1000"
         />
@@ -39,7 +39,7 @@ const HeroSection = () => {
               {t("hero.subtitle")}
             </p>
             
-            <p className={`text-xl text-muted-foreground mb-12 italic ${dir === "rtl" ? "font-arabic" : ""}`}>
+            <p className={`text-xl text-emerald-700/70 mb-12 italic ${dir === "rtl" ? "font-arabic" : ""}`}>
               {t("hero.tagline")}
             </p>
 
@@ -65,7 +65,7 @@ const HeroSection = () => {
           <div className="relative group animate-in fade-in zoom-in duration-1000 delay-300">
             <div className="absolute -inset-1 bg-gradient-to-r from-gold/50 to-transparent blur opacity-20 group-hover:opacity-40 transition-opacity" />
             
-            <div className="relative glass-card rounded-[48px] p-10 md:p-12 border border-white/10 overflow-hidden bg-gradient-to-br from-secondary/80 to-background/90">
+            <div className="relative glass-card rounded-[48px] p-10 md:p-12 border border-emerald-200 overflow-hidden bg-gradient-to-br from-secondary/80 to-background/90">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 blur-3xl -mr-32 -mt-32" />
               
               <div className="flex justify-between items-start mb-12">
@@ -86,7 +86,7 @@ const HeroSection = () => {
                   { icon: Award, text: t("hero.pass.commission") },
                   { icon: BarChart3, text: t("hero.pass.invest") }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-5 p-4 rounded-3xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                  <div key={i} className="flex items-center gap-5 p-4 rounded-3xl bg-emerald-50 border border-emerald-100 hover:bg-emerald-100 transition-colors">
                     <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center text-gold">
                       <item.icon size={20} />
                     </div>
@@ -97,7 +97,7 @@ const HeroSection = () => {
 
               {/* NFC Chip visual decorator */}
               <div className="mt-12 h-1 px-8">
-                <div className="h-full bg-white/5 rounded-full relative">
+                <div className="h-full bg-emerald-50 rounded-full relative">
                   <div className="absolute inset-y-0 left-0 w-1/3 bg-gold/50 rounded-full" />
                 </div>
               </div>

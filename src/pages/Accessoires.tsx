@@ -11,7 +11,7 @@ const Accessoires = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-body">
+    <div className="min-h-screen bg-[#f1f5f9] flex flex-col font-body">
       <Navbar />
       <main className="flex-1 pt-28 pb-16 container mx-auto px-4 max-w-6xl">
         <div className="mb-12 text-center flex flex-col items-center">
@@ -19,27 +19,27 @@ const Accessoires = () => {
                <Sparkles size={14} className="text-gold" />
                <span className="text-[10px] font-bold text-gold uppercase tracking-widest">Matériel & Équipement</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-black text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-display font-black text-foreground mb-4">
               Outils & <span className="text-gold italic">Accessoires</span>
             </h1>
-            <p className="text-white/60 max-w-xl mx-auto">
+            <p className="text-foreground/60 max-w-xl mx-auto">
               Découvrez notre sélection de matériel industriel et traditionnel pour la formulation, allant du bécher aux tubes d'analyse en terre cuite artisanaux.
             </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {accessories.map((item, i) => (
-             <div key={i} className="glass-card rounded-[32px] overflow-hidden border border-white/5 bg-white/5 flex flex-col hover:border-gold/30 transition-all hover:-translate-y-2 group">
+             <div key={i} className="glass-card rounded-[32px] overflow-hidden border border-emerald-100 bg-emerald-50 flex flex-col hover:border-gold/30 transition-all hover:-translate-y-2 group">
                 <div className="aspect-square relative overflow-hidden">
-                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10" />
+                   <div className="absolute inset-0 bg-white/20 group-hover:bg-transparent transition-all z-10" />
                    <img src={item.img} className="w-full h-full object-cover" alt={item.title} />
                 </div>
                 <div className="p-6 flex flex-col flex-1">
-                   <h3 className="font-bold text-lg text-white mb-2">{item.title}</h3>
-                   <p className="text-xs text-muted-foreground mb-4 flex-1">{item.desc}</p>
+                   <h3 className="font-bold text-lg text-foreground mb-2">{item.title}</h3>
+                   <p className="text-xs text-emerald-700/70 mb-4 flex-1">{item.desc}</p>
                    <div className="flex justify-between items-center mt-auto">
                      <span className="font-black text-gold text-lg">{item.price} DA</span>
-                     <Button size="sm" className="bg-white/10 hover:bg-gold hover:text-black text-white rounded-full"><ShoppingBag size={14} className="mr-2"/> Acheter</Button>
+                     <Button size="sm" className="bg-emerald-100 hover:bg-gold hover:text-black text-foreground rounded-full"><ShoppingBag size={14} className="mr-2"/> Acheter</Button>
                    </div>
                 </div>
              </div>

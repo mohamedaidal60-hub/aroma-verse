@@ -11,7 +11,10 @@ import { toast } from "sonner";
 const CoursePlayer = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [completed, setCompleted] = useState<number[]>([]);
+  const [completed, setCompleted] = useState<number[]>(() => {
+    const saved = localStorage.getItem("academy_completed");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [currentLesson, setCurrentLesson] = useState(0);
 
   const lessons = [
@@ -23,13 +26,15 @@ const CoursePlayer = () => {
 
   const handleComplete = () => {
     if (!completed.includes(currentLesson)) {
-      setCompleted([...completed, currentLesson]);
-      toast.success("Leçon terminée !");
+      const newCompleted = [...completed, currentLesson];
+      setCompleted(newCompleted);
+      localStorage.setItem("academy_completed", JSON.stringify(newCompleted));
+      toast.success("Leçon terminée ! Progression sauvegardée.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-body">
+    <div className="min-h-screen bg-[#f1f5f9] flex flex-col font-body">
       <Navbar />
       
       <main className="flex-1 pt-24 pb-16">
@@ -44,10 +49,10 @@ const CoursePlayer = () => {
              {/* Player Area */}
              <div className="lg:col-span-2 space-y-8">
                 <div className="aspect-video bg-forest-deep rounded-[48px] overflow-hidden shadow-2xl relative border-4 border-primary/20 bg-gradient-to-br from-primary/10 to-transparent flex flex-col items-center justify-center group cursor-pointer">
-                   <div className="w-24 h-24 bg-gold rounded-full flex items-center justify-center text-white shadow-gold animate-bounce group-hover:scale-125 transition-transform">
+                   <div className="w-24 h-24 bg-gold rounded-full flex items-center justify-center text-foreground shadow-gold animate-bounce group-hover:scale-125 transition-transform">
                       <Play size={40} className="ml-2" />
                    </div>
-                   <div className="absolute bottom-10 left-10 text-white/40 text-[10px] font-black uppercase tracking-widest">Leçon {currentLesson + 1} de {lessons.length} • HD 4K Streaming Mode</div>
+                   <div className="absolute bottom-10 left-10 text-foreground/40 text-[10px] font-black uppercase tracking-widest">Leçon {currentLesson + 1} de {lessons.length} • HD 4K Streaming Mode</div>
                 </div>
 
                 <div className="flex justify-between items-center bg-white p-10 rounded-[40px] border border-primary/10 shadow-xl">
@@ -55,7 +60,7 @@ const CoursePlayer = () => {
                       <h1 className="text-3xl font-display font-black text-primary mb-3 tracking-tighter uppercase">{lessons[currentLesson].title}</h1>
                       <p className="text-primary/60 text-sm font-medium leading-relaxed">Apprenez les fondamentaux chimiques et olfactifs qui définissent la haute parfumerie moderne. Cette leçon couvre la structure des esters et des aldéhydes.</p>
                    </div>
-                   <Button onClick={handleComplete} className="h-16 px-10 bg-primary hover:bg-gold text-white hover:text-black font-black uppercase tracking-widest rounded-2xl shadow-xl transition-all">
+                   <Button onClick={handleComplete} className="h-16 px-10 bg-primary hover:bg-gold text-foreground hover:text-black font-black uppercase tracking-widest rounded-2xl shadow-xl transition-all">
                       {completed.includes(currentLesson) ? "DÉJÀ TERMINÉ" : "TERMINER LA LEÇON"}
                    </Button>
                 </div>
@@ -75,7 +80,7 @@ const CoursePlayer = () => {
                    </div>
                    <div className="relative group">
                       <Input placeholder="Un feedback sur ce cours ?" className="h-16 pl-6 pr-20 bg-white border-primary/10 rounded-2xl font-bold focus-visible:ring-primary/20 text-primary" />
-                      <button className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform"><Send size={18}/></button>
+                      <button className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-foreground shadow-lg group-hover:scale-110 transition-transform"><Send size={18}/></button>
                    </div>
                 </div>
              </div>
@@ -98,27 +103,27 @@ const CoursePlayer = () => {
                       >
                          <div className="flex items-center gap-5">
                             {completed.includes(idx) ? (
-                              <div className={currentLesson === idx ? 'text-white' : 'text-primary'}><CheckCircle2 size={24}/></div>
+                              <div className={currentLesson === idx ? 'text-foreground' : 'text-primary'}><CheckCircle2 size={24}/></div>
                             ) : (
-                              <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black ${currentLesson === idx ? 'bg-white/10 text-white' : 'bg-primary/10 text-primary'}`}>{idx + 1}</div>
+                              <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black ${currentLesson === idx ? 'bg-emerald-100 text-foreground' : 'bg-primary/10 text-primary'}`}>{idx + 1}</div>
                             )}
                             <div>
-                               <p className={`font-black uppercase tracking-tight text-sm ${currentLesson === idx ? 'text-white' : 'text-primary'}`}>{lesson.title}</p>
-                               <span className={`text-[10px] font-black uppercase tracking-widest ${currentLesson === idx ? 'text-white/60' : 'text-primary/40'}`}>{lesson.duration}</span>
+                               <p className={`font-black uppercase tracking-tight text-sm ${currentLesson === idx ? 'text-foreground' : 'text-primary'}`}>{lesson.title}</p>
+                               <span className={`text-[10px] font-black uppercase tracking-widest ${currentLesson === idx ? 'text-foreground/60' : 'text-primary/40'}`}>{lesson.duration}</span>
                             </div>
                          </div>
-                         <Play size={16} className={`group-hover:translate-x-1 transition-transform ${currentLesson === idx ? 'text-white' : 'text-primary'}`} />
+                         <Play size={16} className={`group-hover:translate-x-1 transition-transform ${currentLesson === idx ? 'text-foreground' : 'text-primary'}`} />
                       </div>
                     ))}
                   </div>
                </div>
 
-               <div className="glass-card p-10 rounded-[48px] border-primary/10 bg-forest-deep text-white shadow-2xl text-center relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl -mr-16 -mt-16"></div>
+               <div className="glass-card p-10 rounded-[48px] border-primary/10 bg-forest-deep text-foreground shadow-2xl text-center relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 blur-3xl -mr-16 -mt-16"></div>
                   <Lock size={48} className="mx-auto text-gold mb-6 animate-glow" />
                   <h4 className="text-2xl font-black uppercase tracking-tighter mb-4">Chapitre 2 : Verrouillé</h4>
-                  <p className="text-xs text-white/40 font-bold uppercase tracking-widest leading-relaxed mb-8">Obtenez le badge "Initié Junior" pour accéder au chapitre suivant sur le marketing olfactif.</p>
-                  <Button variant="outline" className="w-full h-12 border-white/20 text-white hover:bg-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-xl">Obtenir le Badge</Button>
+                  <p className="text-xs text-foreground/40 font-bold uppercase tracking-widest leading-relaxed mb-8">Obtenez le badge "Initié Junior" pour accéder au chapitre suivant sur le marketing olfactif.</p>
+                  <Button variant="outline" className="w-full h-12 border-emerald-300 text-foreground hover:bg-emerald-100 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-xl">Obtenir le Badge</Button>
                </div>
              </div>
 

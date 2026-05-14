@@ -38,7 +38,8 @@ export default function Database() {
            setTotalCount(realCount + 134); // on ajoute les locaux
 
            results = await sql`
-             SELECT name, cas, scent, note, 'The Good Scents Co' as company, true as "isTGSC", ifra_restricted 
+             SELECT name, cas, scent, note, 'Nexus Data Lake (TGSC, Nuke-Haus)' as company, true as "isTGSC", 
+                    ifra_restricted, molecular_weight, boiling_point, flash_point, ifra_recommendation 
              FROM tgsc_materials 
              LIMIT ${itemsPerPage} OFFSET ${(currentPage - 1) * itemsPerPage}
            `;
@@ -53,7 +54,8 @@ export default function Database() {
              setTotalCount(Number(countRes[0].count));
 
              results = await sql`
-               SELECT name, cas, scent, note, 'The Good Scents Co' as company, true as "isTGSC", ifra_restricted 
+               SELECT name, cas, scent, note, 'Nexus Data Lake (TGSC, Nuke-Haus)' as company, true as "isTGSC", 
+                      ifra_restricted, molecular_weight, boiling_point, flash_point, ifra_recommendation 
                FROM tgsc_materials 
                WHERE (LOWER(name) LIKE ${query} OR cas LIKE ${query})
                AND note = ${filterNote}
@@ -67,7 +69,8 @@ export default function Database() {
              setTotalCount(Number(countRes[0].count));
 
              results = await sql`
-               SELECT name, cas, scent, note, 'The Good Scents Co' as company, true as "isTGSC", ifra_restricted 
+               SELECT name, cas, scent, note, 'Nexus Data Lake (TGSC, Nuke-Haus)' as company, true as "isTGSC", 
+                      ifra_restricted, molecular_weight, boiling_point, flash_point, ifra_recommendation 
                FROM tgsc_materials 
                WHERE (LOWER(name) LIKE ${query} OR cas LIKE ${query})
                LIMIT ${itemsPerPage} OFFSET ${(currentPage - 1) * itemsPerPage}
@@ -92,10 +95,11 @@ export default function Database() {
     (filterNote ? m.note === filterNote : true)
   );
 
-  const materials = [...baseMaterials, ...dbMaterials];
+  // On ne montre les bases locales que sur la page 1
+  const materials = currentPage === 1 ? [...baseMaterials, ...dbMaterials] : dbMaterials;
 
   return (
-    <div className={`min-h-screen bg-background flex flex-col font-body ${dir === "rtl" ? "text-right" : "text-left"}`}>
+    <div className={`min-h-screen bg-[#f1f5f9] flex flex-col font-body ${dir === "rtl" ? "text-right" : "text-left"}`}>
       <Navbar />
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-7xl">
@@ -109,21 +113,21 @@ export default function Database() {
              <h1 className="text-4xl md:text-6xl font-display font-black mb-4 tracking-tighter text-foreground relative z-10">
                Nexus <span className="text-primary">Data Lake</span>
              </h1>
-             <p className="text-muted-foreground max-w-3xl mx-auto text-lg relative z-10">
+             <p className="text-emerald-700/70 max-w-3xl mx-auto text-lg relative z-10">
                 La plus grande base de données de référencement au monde. Moteur d'agrégation asynchrone propulsé par  <span className="text-primary font-bold">PerfumeNuke (Nuke-Haus)</span>, <span className="text-gold font-bold">The Good Scents Company</span>, et <span className="text-blue-400 font-bold">PubChem</span>. 
                 <br/><br/>
-                <span className="text-xs uppercase tracking-widest font-black text-muted-foreground/50 border border-white/10 rounded px-2 py-1">Nexus Spider active: {totalCount.toLocaleString()} indexations complétées.</span>
+                <span className="text-xs uppercase tracking-widest font-black text-emerald-700/70/50 border border-emerald-200 rounded px-2 py-1">Nexus Spider active: {totalCount.toLocaleString()} indexations complétées.</span>
               </p>
           </div>
 
-          <div className="glass-card p-6 rounded-[32px] border border-white/5 mb-10 flex flex-col md:flex-row gap-4 items-center justify-between sticky top-24 z-30 shadow-2xl bg-background/80 backdrop-blur-xl">
+          <div className="glass-card p-6 rounded-[32px] border border-emerald-100 mb-10 flex flex-col md:flex-row gap-4 items-center justify-between sticky top-24 z-30 shadow-2xl bg-[#f1f5f9]/80 backdrop-blur-xl">
              <div className="relative flex-1 w-full group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-gold transition-colors" size={20} />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-700/70 group-focus-within:text-gold transition-colors" size={20} />
                 <Input 
                    placeholder="Rechercher par nom, CAS ou tag (ex: Rose, 106-22-9, Musc)..." 
                    value={searchTerm}
                    onChange={(e) => setSearchTerm(e.target.value)}
-                   className="h-14 pl-12 bg-white/5 border-white/10 rounded-2xl w-full text-lg focus-visible:ring-gold transition-all"
+                   className="h-14 pl-12 bg-emerald-50 border-emerald-200 rounded-2xl w-full text-lg focus-visible:ring-gold transition-all"
                 />
                 {loading && <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 text-primary animate-spin" size={20} />}
              </div>
@@ -133,7 +137,7 @@ export default function Database() {
                       key={note}
                       variant={filterNote === note ? "default" : "outline"}
                       onClick={() => setFilterNote(filterNote === note ? null : note)}
-                      className={`h-14 rounded-2xl px-6 font-black uppercase tracking-widest text-xs flex-shrink-0 ${filterNote === note ? (note === 'TOP' ? 'bg-yellow-500 text-black' : note === 'HEART' ? 'bg-rose-500 text-white' : 'bg-amber-900 text-white') : 'border-white/10 text-muted-foreground hover:bg-white/5'}`}
+                      className={`h-14 rounded-2xl px-6 font-black uppercase tracking-widest text-xs flex-shrink-0 ${filterNote === note ? (note === 'TOP' ? 'bg-yellow-500 text-black' : note === 'HEART' ? 'bg-rose-500 text-foreground' : 'bg-amber-900 text-foreground') : 'border-emerald-200 text-emerald-700/70 hover:bg-emerald-50'}`}
                    >
                      {note}
                    </Button>
@@ -142,39 +146,39 @@ export default function Database() {
           </div>
 
           {/* Table Database View */}
-          <div className="glass-card rounded-[32px] border border-white/5 overflow-hidden border-t-4 border-t-primary">
+          <div className="glass-card rounded-[32px] border border-emerald-100 overflow-hidden border-t-4 border-t-primary">
              <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                    <thead>
-                      <tr className="border-b border-white/5 bg-white/5">
-                         <th className="p-5 font-black text-xs uppercase tracking-widest text-muted-foreground">Matière</th>
-                         <th className="p-5 font-black text-xs uppercase tracking-widest text-muted-foreground">CAS</th>
-                         <th className="p-5 font-black text-xs uppercase tracking-widest text-muted-foreground">Scent / Profil</th>
-                         <th className="p-5 font-black text-xs uppercase tracking-widest text-muted-foreground">Note</th>
-                         <th className="p-5 font-black text-xs uppercase tracking-widest text-muted-foreground"><div className="flex items-center gap-1"><Clock size={14}/> Longévité (h)</div></th>
-                         <th className="p-5 font-black text-xs uppercase tracking-widest text-muted-foreground"><div className="flex items-center gap-1"><Zap size={14}/> Impact</div></th>
-                         <th className="p-5 font-black text-xs uppercase tracking-widest text-muted-foreground">IFRA</th>
+                      <tr className="border-b border-emerald-100 bg-emerald-50">
+                         <th className="p-5 font-black text-xs uppercase tracking-widest text-emerald-700/70">Matière</th>
+                         <th className="p-5 font-black text-xs uppercase tracking-widest text-emerald-700/70">CAS</th>
+                         <th className="p-5 font-black text-xs uppercase tracking-widest text-emerald-700/70">Scent / Profil</th>
+                         <th className="p-5 font-black text-xs uppercase tracking-widest text-emerald-700/70">Note</th>
+                         <th className="p-5 font-black text-xs uppercase tracking-widest text-emerald-700/70"><div className="flex items-center gap-1"><Clock size={14}/> Longévité (h)</div></th>
+                         <th className="p-5 font-black text-xs uppercase tracking-widest text-emerald-700/70"><div className="flex items-center gap-1"><Zap size={14}/> Impact</div></th>
+                         <th className="p-5 font-black text-xs uppercase tracking-widest text-emerald-700/70">IFRA</th>
                       </tr>
                    </thead>
                    <tbody className="divide-y divide-white/5">
                       {materials.map((m, index) => (
-                         <tr key={index} className="hover:bg-white/5 transition-colors group cursor-pointer" onClick={() => setSelectedItem(m)}>
+                         <tr key={index} className="hover:bg-emerald-50 transition-colors group cursor-pointer" onClick={() => setSelectedItem(m)}>
                             <td className="p-5 align-top">
-                               <span className="font-bold text-white block mb-1">{m.name}</span>
+                               <span className="font-bold text-foreground block mb-1">{m.name}</span>
                                <div className="flex items-center gap-1 mt-0.5">
                                  {(m as any).isTGSC && <span className="text-[8px] font-black uppercase tracking-widest px-1.5 py-0.5 rounded bg-gold/20 text-gold border border-gold/30">TGSC</span>}
-                                 <span className="text-[10px] text-muted-foreground uppercase">{m.company || m.id}</span>
+                                 <span className="text-[10px] text-emerald-700/70 uppercase">{m.company || m.id}</span>
                                </div>
                             </td>
-                            <td className="p-5 align-top text-xs font-mono text-muted-foreground">
+                            <td className="p-5 align-top text-xs font-mono text-emerald-700/70">
                                {m.cas || "N/A"}
                             </td>
                             <td className="p-5 align-top max-w-sm">
-                               <p className="text-sm text-white/80 line-clamp-2 group-hover:line-clamp-none transition-all">{m.scent || "Solvant / Additif"}</p>
+                               <p className="text-sm text-foreground/80 line-clamp-2 group-hover:line-clamp-none transition-all">{m.scent || "Solvant / Additif"}</p>
                                {m.tags && m.tags.length > 0 && (
                                   <div className="flex flex-wrap gap-1 mt-2">
                                      {m.tags.map((tag:string, i:number) => (
-                                       <span key={i} className="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-sm bg-white/10 text-white/60">
+                                       <span key={i} className="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-sm bg-emerald-100 text-foreground/60">
                                          {tag}
                                        </span>
                                      ))}
@@ -187,7 +191,7 @@ export default function Database() {
                                     {m.note}
                                   </span>
                                ) : (
-                                  <span className="text-muted-foreground text-xs">-</span>
+                                  <span className="text-emerald-700/70 text-xs">-</span>
                                )}
                             </td>
                             <td className="p-5 align-top text-xs font-bold text-primary">{m.longevity || "-"}</td>
@@ -205,20 +209,20 @@ export default function Database() {
                 </table>
              </div>
              {materials.length === 0 && (
-                <div className="p-20 text-center text-muted-foreground">
+                <div className="p-20 text-center text-emerald-700/70">
                    Aucune matière trouvée pour votre recherche.
                 </div>
              )}
 
              {totalCount > itemsPerPage && materials.length > 0 && (
-                <div className="flex justify-between items-center p-6 border-t border-white/5 bg-white/5">
-                   <Button variant="outline" className="border-white/10 text-white hover:bg-white/10 hover:text-gold hover:border-gold font-bold" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>
+                <div className="flex justify-between items-center p-6 border-t border-emerald-100 bg-emerald-50">
+                   <Button variant="outline" className="border-emerald-200 text-foreground hover:bg-emerald-100 hover:text-gold hover:border-gold font-bold" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>
                       Précédent
                    </Button>
-                   <span className="text-muted-foreground text-xs uppercase tracking-widest font-black">
+                   <span className="text-emerald-700/70 text-xs uppercase tracking-widest font-black">
                       Page <span className="text-gold text-base">{currentPage}</span> sur {Math.ceil(totalCount / itemsPerPage)}
                    </span>
-                   <Button variant="outline" className="border-white/10 text-white hover:bg-white/10 hover:text-gold hover:border-gold font-bold" onClick={() => setCurrentPage(p => p + 1)} disabled={currentPage >= Math.ceil(totalCount / itemsPerPage)}>
+                   <Button variant="outline" className="border-emerald-200 text-foreground hover:bg-emerald-100 hover:text-gold hover:border-gold font-bold" onClick={() => setCurrentPage(p => p + 1)} disabled={currentPage >= Math.ceil(totalCount / itemsPerPage)}>
                       Suivant
                    </Button>
                 </div>
@@ -227,9 +231,9 @@ export default function Database() {
 
           {/* Modal Détails Matière */}
           {selectedItem && (
-             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={() => setSelectedItem(null)}>
-                <div className="glass-card max-w-2xl w-full p-10 rounded-[32px] border border-white/10 relative shadow-2xl" onClick={e => e.stopPropagation()}>
-                   <button className="absolute top-6 right-6 text-muted-foreground hover:text-white" onClick={() => setSelectedItem(null)}>
+             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm" onClick={() => setSelectedItem(null)}>
+                <div className="glass-card max-w-2xl w-full p-10 rounded-[32px] border border-emerald-200 relative shadow-2xl" onClick={e => e.stopPropagation()}>
+                   <button className="absolute top-6 right-6 text-emerald-700/70 hover:text-foreground" onClick={() => setSelectedItem(null)}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                    </button>
                    
@@ -238,40 +242,40 @@ export default function Database() {
                          <Beaker size={32} />
                       </div>
                       <div>
-                         <h2 className="text-3xl font-display font-black text-white">{selectedItem.name}</h2>
+                         <h2 className="text-3xl font-display font-black text-foreground">{selectedItem.name}</h2>
                          <p className="text-gold uppercase tracking-widest text-xs font-bold">{selectedItem.cas || "CAS INCONNU"}</p>
                       </div>
                    </div>
 
                    <div className="space-y-6">
-                      <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
-                         <h3 className="text-xs text-muted-foreground uppercase tracking-widest font-black mb-2">Profil Olfactif</h3>
-                         <p className="text-white leading-relaxed">{selectedItem.scent || "Profil non spécifié / Solvant"}</p>
+                      <div className="p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+                         <h3 className="text-xs text-emerald-700/70 uppercase tracking-widest font-black mb-2">Profil Olfactif</h3>
+                         <p className="text-foreground leading-relaxed">{selectedItem.scent || "Profil non spécifié / Solvant"}</p>
                       </div>
 
-                      <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
-                         <h3 className="text-xs text-muted-foreground uppercase tracking-widest font-black mb-2">Usage & Application Scientifique</h3>
-                         <p className="text-white leading-relaxed">{selectedItem.usage || "Aucune information d'usage spécifique n'est enregistrée pour cette molécule."}</p>
+                      <div className="p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+                         <h3 className="text-xs text-emerald-700/70 uppercase tracking-widest font-black mb-2">Usage & Application Scientifique</h3>
+                         <p className="text-foreground leading-relaxed">{selectedItem.usage || "Aucune information d'usage spécifique n'est enregistrée pour cette molécule."}</p>
                       </div>
 
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                         <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Point d'ébullition</h4>
-                            <p className="text-sm font-bold text-white whitespace-nowrap overflow-hidden text-ellipsis">{selectedItem.boiling_point || "En cours d'indexation..."}</p>
-                         </div>
-                         <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Flash Point</h4>
-                            <p className="text-sm font-bold text-white whitespace-nowrap overflow-hidden text-ellipsis">{selectedItem.flash_point || "En cours d'indexation..."}</p>
-                         </div>
-                         <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Poids Moléculaire</h4>
-                            <p className="text-sm font-bold text-white whitespace-nowrap overflow-hidden text-ellipsis">{selectedItem.molecular_weight || "En cours..."}</p>
-                         </div>
-                         <div className="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mb-1">Plafond IFRA (Max %)</h4>
-                            <p className="text-sm font-bold text-gold">{selectedItem.ifra_recommendation || "En cours d'indexation..."}</p>
-                         </div>
-                      </div>
+                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                          <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-center group/spec hover:border-gold/30 transition-all">
+                             <h4 className="text-[10px] text-emerald-700/70 uppercase tracking-widest font-black mb-1">Point d'ébul.</h4>
+                             <p className="text-sm font-bold text-foreground">{selectedItem.boiling_point || "N/A"}</p>
+                          </div>
+                          <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-center group/spec hover:border-gold/30 transition-all">
+                             <h4 className="text-[10px] text-emerald-700/70 uppercase tracking-widest font-black mb-1">Flash Point</h4>
+                             <p className="text-sm font-bold text-foreground">{selectedItem.flash_point || "N/A"}</p>
+                          </div>
+                          <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-center group/spec hover:border-gold/30 transition-all">
+                             <h4 className="text-[10px] text-emerald-700/70 uppercase tracking-widest font-black mb-1">Poids Mol.</h4>
+                             <p className="text-sm font-bold text-foreground">{selectedItem.molecular_weight || "N/A"}</p>
+                          </div>
+                          <div className="p-4 bg-emerald-50 rounded-2xl border border-gold/20 text-center shadow-lg bg-gold/5 group/spec hover:bg-gold/10 transition-all">
+                             <h4 className="text-[10px] text-gold uppercase tracking-widest font-black mb-1">IFRA Max %</h4>
+                             <p className="text-sm font-black text-gold">{selectedItem.ifra_recommendation || (selectedItem.ifra_restricted ? "Restreint" : "Standard")}</p>
+                          </div>
+                       </div>
                       
                       <div className="flex items-center gap-2 p-3 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>

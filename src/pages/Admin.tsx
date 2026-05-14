@@ -31,16 +31,25 @@ export default function Admin() {
   const [purgeTarget, setPurgeTarget] = useState<string | null>(null);
   const [dbStats, setDbStats] = useState<any>({});
 
+  const [proposals, setProposals] = useState<any[]>([]);
+
   useEffect(() => {
     if (localStorage.getItem("adminAuth") === "true") {
       setIsAuthenticated(true);
-      fetchData(activeTab);
+      if (activeTab === "proposals") {
+        const saved = JSON.parse(localStorage.getItem("nexus_proposals") || "[]");
+        setProposals(saved);
+        setItems(saved.map((p: any) => ({ ...p, title: p.crop, subtitle: `${p.hectares} Hectares`, details: p.status, extra: p.date })));
+      } else {
+        fetchData(activeTab);
+      }
       fetchDbStats();
     }
   }, [activeTab]);
 
   const fetchDbStats = async () => {
     try {
+      const savedProposals = JSON.parse(localStorage.getItem("nexus_proposals") || "[]");
       const [users, products, courses, blog, invest] = await Promise.all([
         sql`SELECT COUNT(*) FROM users`,
         sql`SELECT COUNT(*) FROM products`,
@@ -54,6 +63,7 @@ export default function Admin() {
         courses: courses[0]?.count || 0,
         blog: blog[0]?.count || 0,
         investments: invest[0]?.count || 0,
+        proposals: savedProposals.length,
       });
     } catch (err) {
       console.error("Stats fetch failed", err);
@@ -64,10 +74,9 @@ export default function Admin() {
     e.preventDefault();
     setLoading(true);
     try {
-      if (email === "mohamed@aroma-verse.com" && password === "@sba-Trs2026") {
+      if (email === "mohamed@nexus-global.com" && password === "@sba-Trs2026") {
         localStorage.setItem("adminAuth", "true");
         toast.success("Connexion réussie à Nexus Admin — Vue Globale Activée");
-        // Forcer le rechargement immédiat pour éviter l'écran noir et rafraîchir le contexte
         window.location.reload();
       } else {
         toast.error("Identifiants incorrects");
@@ -78,6 +87,12 @@ export default function Admin() {
   };
 
   const fetchData = async (tab: string) => {
+    if (tab === "proposals") {
+      const saved = JSON.parse(localStorage.getItem("nexus_proposals") || "[]");
+      setItems(saved.map((p: any) => ({ ...p, title: p.crop, subtitle: `${p.hectares} Hectares`, details: p.status, extra: p.date })));
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setShowAddForm(false);
     setEditingItem(null);
@@ -106,11 +121,18 @@ export default function Admin() {
   const handleDelete = async (id: any) => {
     if (!confirm("Voulez-vous vraiment supprimer cet élément ?")) return;
     try {
-      if (activeTab === "users") await sql`DELETE FROM users WHERE id = ${id}`;
-      else if (activeTab === "products") await sql`DELETE FROM products WHERE id = ${id}`;
-      else if (activeTab === "academy") await sql`DELETE FROM courses WHERE id = ${id}`;
-      else if (activeTab === "investments") await sql`DELETE FROM investment_projects WHERE id = ${id}`;
-      else if (activeTab === "blog") await sql`DELETE FROM blog_posts WHERE id = ${id}`;
+      if (activeTab === "proposals") {
+        const saved = JSON.parse(localStorage.getItem("nexus_proposals") || "[]");
+        const filtered = saved.filter((p: any) => p.id !== id);
+        localStorage.setItem("nexus_proposals", JSON.stringify(filtered));
+        setItems(filtered.map((p: any) => ({ ...p, title: p.crop, subtitle: `${p.hectares} Hectares`, details: p.status, extra: p.date })));
+      } else {
+        if (activeTab === "users") await sql`DELETE FROM users WHERE id = ${id}`;
+        else if (activeTab === "products") await sql`DELETE FROM products WHERE id = ${id}`;
+        else if (activeTab === "academy") await sql`DELETE FROM courses WHERE id = ${id}`;
+        else if (activeTab === "investments") await sql`DELETE FROM investment_projects WHERE id = ${id}`;
+        else if (activeTab === "blog") await sql`DELETE FROM blog_posts WHERE id = ${id}`;
+      }
       toast.success("Élément supprimé.");
       fetchData(activeTab);
       fetchDbStats();
@@ -123,11 +145,13 @@ export default function Admin() {
     if (!purgeTarget) return;
     setLoading(true);
     try {
-      if (purgeTarget === "products") await sql`TRUNCATE TABLE products RESTART IDENTITY CASCADE`;
+      if (purgeTarget === "proposals") localStorage.removeItem("nexus_proposals");
+      else if (purgeTarget === "products") await sql`TRUNCATE TABLE products RESTART IDENTITY CASCADE`;
       else if (purgeTarget === "academy") await sql`TRUNCATE TABLE courses RESTART IDENTITY CASCADE`;
       else if (purgeTarget === "investments") await sql`TRUNCATE TABLE investment_projects RESTART IDENTITY CASCADE`;
       else if (purgeTarget === "blog") await sql`TRUNCATE TABLE blog_posts RESTART IDENTITY CASCADE`;
       else if (purgeTarget === "all") {
+        localStorage.removeItem("nexus_proposals");
         await sql`TRUNCATE TABLE products RESTART IDENTITY CASCADE`;
         await sql`TRUNCATE TABLE courses RESTART IDENTITY CASCADE`;
         await sql`TRUNCATE TABLE investment_projects RESTART IDENTITY CASCADE`;
@@ -194,20 +218,20 @@ export default function Admin() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 font-body">
-        <div className="glass-card w-full max-w-md p-10 rounded-[40px] border border-white/10">
+      <div className="min-h-screen bg-[#f1f5f9] flex flex-col items-center justify-center p-4 font-body">
+        <div className="glass-card w-full max-w-md p-10 rounded-[40px] border border-emerald-200 text-center">
           <div className="flex justify-center mb-8">
             <div className="w-20 h-20 bg-gold/10 rounded-[24px] flex items-center justify-center text-gold border border-gold/20">
               <Shield size={40} />
             </div>
           </div>
-          <h1 className="text-3xl font-display font-bold text-center mb-2">Nexus Admin</h1>
-          <p className="text-center text-muted-foreground text-sm mb-8">Accès sécurisé à la console d'administration.</p>
+          <h1 className="text-3xl font-display font-black mb-2 uppercase tracking-tighter">NEXUS ADMIN</h1>
+          <p className="text-emerald-700/70 text-sm mb-8 font-medium">Contrôle de l'infrastructure globale NEXUS.</p>
           <form onSubmit={handleLogin} className="space-y-4">
-            <Input type="email" placeholder="Email administrateur" value={email} onChange={(e) => setEmail(e.target.value)} required className="h-14 bg-black/40 border-white/10 rounded-2xl" />
-            <Input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required className="h-14 bg-black/40 border-white/10 rounded-2xl" />
+            <Input type="email" placeholder="Email (mohamed@nexus-global.com)" value={email} onChange={(e) => setEmail(e.target.value)} required className="h-14 bg-white/40 border-emerald-200 rounded-2xl" />
+            <Input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required className="h-14 bg-white/40 border-emerald-200 rounded-2xl" />
             <Button type="submit" className="w-full h-14 bg-gold hover:bg-gold/80 text-black font-black rounded-2xl shadow-gold" disabled={loading}>
-              {loading ? "Vérification..." : "Accéder au Panel"}
+              {loading ? "AUTHENTIFICATION..." : "ACCÉDER AU PANEL"}
             </Button>
           </form>
         </div>
@@ -220,11 +244,12 @@ export default function Admin() {
     { id: "users", label: "Utilisateurs", icon: <Users size={18} />, count: dbStats.users },
     { id: "academy", label: "Academy", icon: <Settings size={18} />, count: dbStats.courses },
     { id: "investments", label: "Investissements", icon: <Activity size={18} />, count: dbStats.investments },
+    { id: "proposals", label: "Propositions", icon: <Target size={18} />, count: dbStats.proposals },
     { id: "blog", label: "Blog", icon: <Database size={18} />, count: dbStats.blog },
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-body">
+    <div className="min-h-screen bg-[#f1f5f9] flex flex-col font-body">
       <Navbar />
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-7xl">
@@ -247,10 +272,10 @@ export default function Admin() {
               </div>
             </div>
             <div className="flex gap-3">
-              <Button variant="outline" size="sm" className="gap-2 border-white/10 h-12 rounded-xl text-[10px] font-black uppercase tracking-widest" onClick={() => { fetchData(activeTab); fetchDbStats(); }}>
+              <Button variant="outline" size="sm" className="gap-2 border-emerald-200 h-12 rounded-xl text-[10px] font-black uppercase tracking-widest" onClick={() => { fetchData(activeTab); fetchDbStats(); }}>
                 <RefreshCw size={14} /> {t("common.search")}
               </Button>
-              <Button variant="outline" className="border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white h-12 rounded-xl text-[10px] font-black uppercase tracking-widest" onClick={() => { setIsAuthenticated(false); localStorage.removeItem("adminAuth"); }}>
+              <Button variant="outline" className="border-red-500/20 text-red-400 hover:bg-red-500 hover:text-foreground h-12 rounded-xl text-[10px] font-black uppercase tracking-widest" onClick={() => { setIsAuthenticated(false); localStorage.removeItem("adminAuth"); }}>
                 Déconnexion
               </Button>
             </div>
@@ -259,31 +284,31 @@ export default function Admin() {
           {/* DB Stats Overview */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
             {tabs.map(tab => (
-              <div key={tab.id} className={`glass-card p-6 rounded-[32px] cursor-pointer transition-all ${activeTab === tab.id ? 'border-gold bg-gold/5' : 'border-white/5 hover:border-gold/30'}`} onClick={() => setActiveTab(tab.id)}>
-                <div className={`mb-3 ${activeTab === tab.id ? 'text-gold' : 'text-muted-foreground'}`}>{tab.icon}</div>
-                <p className="text-3xl font-black text-white tracking-tighter">{tab.count ?? '—'}</p>
-                <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">{tab.label}</p>
+              <div key={tab.id} className={`glass-card p-6 rounded-[32px] cursor-pointer transition-all ${activeTab === tab.id ? 'border-gold bg-gold/5' : 'border-emerald-100 hover:border-gold/30'}`} onClick={() => setActiveTab(tab.id)}>
+                <div className={`mb-3 ${activeTab === tab.id ? 'text-gold' : 'text-emerald-700/70'}`}>{tab.icon}</div>
+                <p className="text-3xl font-black text-foreground tracking-tighter">{tab.count ?? '—'}</p>
+                <p className="text-[10px] text-emerald-700/70 font-black uppercase tracking-widest">{tab.label}</p>
               </div>
             ))}
           </div>
 
           {/* Purge Modal */}
           {showPurgeModal && (
-            <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-              <div className="glass-card rounded-[48px] p-12 max-w-md w-full border-2 border-red-500/30 bg-black shadow-2xl">
+            <div className="fixed inset-0 bg-white/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+              <div className="glass-card rounded-[48px] p-12 max-w-md w-full border-2 border-red-500/30 bg-white shadow-2xl">
                 <div className="w-20 h-20 bg-red-500/10 rounded-3xl flex items-center justify-center text-red-400 mx-auto mb-8 animate-pulse">
                   <AlertTriangle size={40} />
                 </div>
                 <h3 className="text-3xl font-display font-black text-center mb-4 uppercase tracking-tighter">Purger la Table ?</h3>
-                <p className="text-muted-foreground text-center mb-10 leading-relaxed">
-                  Cette action va <strong className="text-red-400">supprimer DÉFINITIVEMENT</strong> toutes les données d'exemple de la table <strong className="text-white">"{purgeTarget}"</strong>. 
+                <p className="text-emerald-700/70 text-center mb-10 leading-relaxed">
+                  Cette action va <strong className="text-red-400">supprimer DÉFINITIVEMENT</strong> toutes les données d'exemple de la table <strong className="text-foreground">"{purgeTarget}"</strong>. 
                   C'est l'étape recommandée avant la mise en production réelle.
                 </p>
                 <div className="flex flex-col gap-4">
-                  <Button className="w-full h-16 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl shadow-lg uppercase tracking-widest text-xs" onClick={handlePurgeAllSeeds} disabled={loading}>
+                  <Button className="w-full h-16 bg-red-600 hover:bg-red-700 text-foreground font-black rounded-2xl shadow-lg uppercase tracking-widest text-xs" onClick={handlePurgeAllSeeds} disabled={loading}>
                     {loading ? "Purge en cours..." : "OUI, TOUT EFFACER"}
                   </Button>
-                  <Button variant="ghost" className="w-full h-12 text-muted-foreground hover:text-white font-bold" onClick={() => { setShowPurgeModal(false); setPurgeTarget(null); }}>
+                  <Button variant="ghost" className="w-full h-12 text-emerald-700/70 hover:text-foreground font-bold" onClick={() => { setShowPurgeModal(false); setPurgeTarget(null); }}>
                     Annuler
                   </Button>
                 </div>
@@ -292,10 +317,10 @@ export default function Admin() {
           )}
 
           {/* Main Content */}
-          <div className="glass-card p-10 rounded-[48px] border border-white/10 shadow-2xl">
+          <div className="glass-card p-10 rounded-[48px] border border-emerald-200 shadow-2xl">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-10">
               <div className="flex items-center gap-6">
-                <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter">
+                <h2 className="text-3xl font-display font-black text-foreground uppercase tracking-tighter">
                   {tabs.find(t => t.id === activeTab)?.label}
                 </h2>
                 <span className="px-4 py-2 bg-gold/10 text-gold rounded-2xl text-xs font-black border border-gold/20 shadow-inner">
@@ -305,12 +330,12 @@ export default function Admin() {
               
               <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
                 <div className="relative flex-1 lg:w-72">
-                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground/30 w-5 h-5" />
+                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-emerald-700/70/30 w-5 h-5" />
                   <Input
                     placeholder="Chercher dans la liste..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="pl-14 h-14 bg-black/60 border-white/5 rounded-2xl focus-visible:ring-gold/50"
+                    className="pl-14 h-14 bg-white/60 border-emerald-100 rounded-2xl focus-visible:ring-gold/50"
                   />
                 </div>
                 
@@ -320,7 +345,7 @@ export default function Admin() {
                 
                 <Button
                   variant="outline"
-                  className="h-14 border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white rounded-2xl gap-2 px-8 uppercase font-black tracking-widest text-xs transition-all"
+                  className="h-14 border-red-500/20 text-red-500 hover:bg-red-500 hover:text-foreground rounded-2xl gap-2 px-8 uppercase font-black tracking-widest text-xs transition-all"
                   onClick={() => { setPurgeTarget(activeTab); setShowPurgeModal(true); }}
                 >
                   <Trash2 size={18} /> Purger
@@ -335,8 +360,8 @@ export default function Admin() {
               </div>
               <div className="flex-1">
                 <p className="font-black text-orange-400 text-lg uppercase tracking-tighter">Prêt pour la Production ?</p>
-                <p className="text-sm text-muted-foreground max-w-2xl mt-1 leading-relaxed">
-                  L'étape de <strong className="text-white">NETTOYAGE</strong> globale est nécessaire avant de remettre les clés au client. 
+                <p className="text-sm text-emerald-700/70 max-w-2xl mt-1 leading-relaxed">
+                  L'étape de <strong className="text-foreground">NETTOYAGE</strong> globale est nécessaire avant de remettre les clés au client. 
                   Cela videra toutes les tables de démonstration.
                 </p>
               </div>
@@ -351,37 +376,37 @@ export default function Admin() {
             {/* Table Data */}
             {loading ? (
               <div className="space-y-6">
-                {[1,2,3,4].map(i => <div key={i} className="h-24 bg-white/5 rounded-3xl animate-pulse" />)}
+                {[1,2,3,4].map(i => <div key={i} className="h-24 bg-emerald-50 rounded-3xl animate-pulse" />)}
               </div>
             ) : (
               <div className="space-y-4">
                 {filteredItems.length === 0 ? (
-                  <div className="text-center py-24 text-muted-foreground border-2 border-dashed border-white/5 rounded-[32px]">
+                  <div className="text-center py-24 text-emerald-700/70 border-2 border-dashed border-emerald-100 rounded-[32px]">
                     <Database size={56} className="mx-auto mb-6 opacity-10" />
                     <p className="text-xl font-bold">Aucune entrée pour ce module.</p>
                   </div>
                 ) : filteredItems.map(item => (
-                  <div key={item.id} className="flex flex-col lg:flex-row lg:items-center justify-between p-8 bg-black/40 rounded-[32px] hover:bg-white/5 transition-all gap-6 border border-white/5 group">
+                  <div key={item.id} className="flex flex-col lg:flex-row lg:items-center justify-between p-8 bg-white/40 rounded-[32px] hover:bg-emerald-50 transition-all gap-6 border border-emerald-100 group">
                     <div className="flex-1 min-w-0">
-                      <p className="font-black text-xl text-white group-hover:text-gold transition-colors truncate">{item.title}</p>
+                      <p className="font-black text-xl text-foreground group-hover:text-gold transition-colors truncate">{item.title}</p>
                       <div className="flex flex-wrap gap-3 mt-3">
                         {item.subtitle && (
                           <span className="text-[10px] bg-gold/10 text-gold px-4 py-1.5 rounded-xl border border-gold/20 uppercase font-black tracking-widest">{item.subtitle}</span>
                         )}
                         {item.details && (
-                          <span className="text-[10px] text-muted-foreground/60 px-4 py-1.5 bg-white/5 rounded-xl uppercase font-bold tracking-widest italic">{item.details?.substring(0, 80)}...</span>
+                          <span className="text-[10px] text-emerald-700/70/60 px-4 py-1.5 bg-emerald-50 rounded-xl uppercase font-bold tracking-widest italic">{item.details?.substring(0, 80)}...</span>
                         )}
-                        <span className="text-[10px] text-muted-foreground/30 px-2 py-1.5 font-mono">ID: {String(item.id).substring(0, 8)}</span>
+                        <span className="text-[10px] text-emerald-700/70/30 px-2 py-1.5 font-mono">ID: {String(item.id).substring(0, 8)}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
                       {item.extra && (
-                        <span className="font-black text-white text-2xl tracking-tighter mr-6">{item.extra}</span>
+                        <span className="font-black text-foreground text-2xl tracking-tighter mr-6">{item.extra}</span>
                       )}
-                      <Button variant="outline" size="sm" className="h-12 px-6 rounded-xl border-white/10 hover:bg-white/10 gap-2 font-black text-xs uppercase" onClick={() => startEdit(item)}>
+                      <Button variant="outline" size="sm" className="h-12 px-6 rounded-xl border-emerald-200 hover:bg-emerald-100 gap-2 font-black text-xs uppercase" onClick={() => startEdit(item)}>
                         <Eye size={16} /> ÉDITER
                       </Button>
-                      <Button variant="outline" size="sm" className="h-12 w-12 p-0 rounded-xl border-red-500/10 text-red-500/50 hover:bg-red-500 hover:text-white transition-all shadow-sm" onClick={() => handleDelete(item.id)}>
+                      <Button variant="outline" size="sm" className="h-12 w-12 p-0 rounded-xl border-red-500/10 text-red-500/50 hover:bg-red-500 hover:text-foreground transition-all shadow-sm" onClick={() => handleDelete(item.id)}>
                         <Trash2 size={16} />
                       </Button>
                     </div>

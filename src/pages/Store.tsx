@@ -14,13 +14,13 @@ import pwData from "@/data/pw_database.json" assert { type: "json" };
 const Store = () => {
   const { t, dir } = useLang();
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState("Tous");
+  const [activeCategory, setActiveCategory] = useState("Matières Premières");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
 
   // Simulation Produits Officiels (Admin) + Données PW Réelles
   const initialProducts = [
-    { id: "admin1", name: "Ambroxan (Pure)", category: "Matières Premières", price: 65.00, displayPrice: 65.00 * 1.15, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600", source: "AromaVerse", desc: "Substitut d'ambre gris synthétique, puissance et sillage." }
+    { id: "admin1", name: "Ambroxan (Pure)", category: "Matières Premières", price: 65.00, displayPrice: 65.00 * 1.15, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600", source: "NEXUS", desc: "Substitut d'ambre gris synthétique, puissance et sillage." }
   ];
 
   const externalProducts = (pwData as any)?.products?.map((p: any, i:number) => ({
@@ -45,7 +45,14 @@ const Store = () => {
 
   const getMappedCategory = (rawCat: string) => categoryMapping[rawCat] || rawCat;
 
-  const categories = ["Tous", ...Array.from(new Set(products.map(p => getMappedCategory(p.category))))];
+  let dynamicCategories = Array.from(new Set(products.map(p => getMappedCategory(p.category))));
+  if (!dynamicCategories.includes("Matières Premières")) {
+     dynamicCategories.unshift("Matières Premières");
+  }
+  if (!dynamicCategories.includes("Cosmétiques")) {
+     dynamicCategories.push("Cosmétiques");
+  }
+  const categories = dynamicCategories;
 
   // Animating stats
   const [stats, setStats] = useState({ companies: 0, deals: 0, countries: 0 });
@@ -59,9 +66,8 @@ const Store = () => {
 
   const filteredProducts = products
     .filter(p => {
-      const productCat = getMappedCategory(p.category);
-      const matchesCategory = activeCategory === "Tous" || productCat === activeCategory;
-      const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = (activeCategory === "" || getMappedCategory(p.category) === activeCategory);
+      const matchesSearch = (p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.category.toLowerCase().includes(searchTerm.toLowerCase()));
       return matchesCategory && matchesSearch;
     })
     .sort((a, b) => {
@@ -73,7 +79,7 @@ const Store = () => {
     });
 
   return (
-    <div className="min-h-screen font-body overflow-x-hidden bg-background">
+    <div className="min-h-screen font-body overflow-x-hidden bg-[#f1f5f9]">
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/20"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-primary/10 to-transparent blur-[120px] rounded-full"></div>
@@ -85,7 +91,7 @@ const Store = () => {
         <div className="bg-emerald-900/10 backdrop-blur-md text-emerald-900 text-center py-2 text-xs md:text-sm border-y border-emerald-900/10 shadow-sm">
           <div className="container mx-auto flex items-center justify-center gap-2">
             <ShieldCheck className="text-emerald-600 w-4 h-4" /> 
-            <span className="opacity-90 tracking-wide font-medium">Boutique Officielle AromaVerse | Certifiée Qualité Nexus</span>
+            <span className="opacity-90 tracking-wide font-medium">Boutique Officielle NEXUS | Certifiée Qualité Nexus</span>
           </div>
         </div>
 
@@ -100,10 +106,10 @@ const Store = () => {
             </p>
             
             <div className="w-full max-w-xl relative group">
-               <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-gold transition-colors" size={20} />
+               <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-emerald-700/70 group-focus-within:text-gold transition-colors" size={20} />
                <Input 
                  placeholder="Chercher une molécule, un kit ou une huile..." 
-                 className="h-16 pl-14 pr-6 rounded-full bg-white/50 border-white/20 shadow-xl focus-visible:ring-gold font-bold text-lg"
+                 className="h-16 pl-14 pr-6 rounded-full bg-emerald-500 border-emerald-300 shadow-xl focus-visible:ring-gold font-bold text-lg"
                  value={searchTerm}
                  onChange={e => setSearchTerm(e.target.value)}
                />
@@ -112,42 +118,52 @@ const Store = () => {
 
           {/* Catalogue */}
           <div className="flex flex-col md:flex-row gap-4 mb-10 items-center justify-between">
-             <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                {categories.map(cat => (
-                   <Button 
-                    key={cat} 
-                    variant={activeCategory === cat ? "default" : "outline"}
-                    className={`rounded-full px-6 h-10 uppercase tracking-widest text-[10px] font-black ${activeCategory === cat ? 'bg-gold text-black border-gold shadow-gold/20 shadow-lg' : 'border-white/10 text-muted-foreground'}`}
-                    onClick={() => setActiveCategory(cat)}
-                   >
-                      {cat}
-                   </Button>
-                ))}
-             </div>
-             <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+              <div className="w-full md:w-1/3">
+                 <label className="text-[10px] font-black uppercase tracking-widest text-emerald-700/70 block mb-3 pl-2">Filtrer par catégorie</label>
+                 <div className="relative">
+                    <select 
+                       value={activeCategory} 
+                       onChange={(e) => setActiveCategory(e.target.value)}
+                       className="w-full appearance-none bg-emerald-50 border border-emerald-200 rounded-2xl h-14 px-6 text-foreground text-lg font-bold outline-none focus:ring-2 focus:ring-gold/50 cursor-pointer transition-all hover:bg-emerald-100"
+                    >
+                       {categories.map(cat => (
+                          <option key={cat} value={cat} className="bg-white text-foreground">{cat}</option>
+                       ))}
+                    </select>
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-gold">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                 </div>
+              </div>
+             <div className="text-[10px] font-black uppercase tracking-widest text-emerald-700/70 flex items-center gap-2">
                 <Info size={14} className="text-gold" /> Partenariat Direct: PerfumersWorld, TGSC, Grasse Lab
              </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
              {filteredProducts.map(product => (
-                <div key={product.id} className="glass-card rounded-[32px] overflow-hidden group border border-white/5 hover:border-gold/30 transition-all flex flex-col shadow-xl bg-white/40" onClick={() => setSelectedProduct(product)}>
+                <div key={product.id} className="glass-card rounded-[32px] overflow-hidden group border border-emerald-100 hover:border-gold/30 transition-all flex flex-col shadow-xl bg-white/40" onClick={() => setSelectedProduct(product)}>
                     <div className="aspect-square relative overflow-hidden">
-                       <img src={encodeURI(product.image)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={product.name} />
-                       <div className="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-[8px] font-black text-gold uppercase tracking-widest border border-gold/20">
+                       <img 
+                         src={encodeURI(product.image)} 
+                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 bg-white" 
+                         alt={product.name} 
+                         onError={(e) => { (e.target as HTMLImageElement).src = "https://picsum.photos/seed/store/800/600"; }}
+                       />
+                       <div className="absolute top-4 right-4 bg-white/60 backdrop-blur px-3 py-1 rounded-full text-[8px] font-black text-gold uppercase tracking-widest border border-gold/20">
                           {product.source}
                        </div>
                     </div>
                    <div className="p-6 flex-1 flex flex-col">
-                      <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-1">{product.category}</p>
+                      <p className="text-[9px] font-black uppercase tracking-widest text-emerald-700/70 mb-1">{product.category}</p>
                       <h3 className="text-lg font-bold text-foreground mb-4 line-clamp-1">{product.name}</h3>
                       <div className="mt-auto flex items-end justify-between border-t border-black/5 pt-4">
                          <div>
-                            <span className="text-[8px] font-black uppercase text-muted-foreground block">Prix Nexus</span>
+                            <span className="text-[8px] font-black uppercase text-emerald-700/70 block">Prix Nexus</span>
                             <div className="text-xl font-black text-primary italic leading-none">{product.displayPrice.toFixed(2)} €</div>
                          </div>
                          <Button 
-                            className="w-10 h-10 rounded-full bg-gold/10 text-gold p-0 border border-gold/20 hover:bg-gold hover:text-white"
+                            className="w-10 h-10 rounded-full bg-gold/10 text-gold p-0 border border-gold/20 hover:bg-gold hover:text-foreground"
                             onClick={(e) => {
                               e.stopPropagation();
                               toast.success(`${product.name} ajouté au panier B2B !`);
@@ -179,11 +195,11 @@ const Store = () => {
 
           <div className="text-center mb-24 bg-gradient-to-b from-primary/10 to-transparent p-16 rounded-[48px] border border-primary/10">
               <h2 className="text-4xl font-display font-black text-foreground mb-4 italic">Sourcing Industriel <span className="text-gold">Sur Mesure</span></h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium mb-10">
+              <p className="text-emerald-700/70 text-lg max-w-2xl mx-auto font-medium mb-10">
                  Vous cherchez un volume massif ou une molécule rare absente du catalogue ? Nos Key Account Managers négocient pour vous.
               </p>
               <Button 
-                className="h-16 px-12 bg-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-2xl hover:scale-105 transition-transform"
+                className="h-16 px-12 bg-primary text-foreground font-black uppercase tracking-[0.2em] rounded-2xl shadow-2xl hover:scale-105 transition-transform"
                 onClick={() => toast.info("Un Expert Nexus va vous recontacter par message privé.")}
                >
                   <MessageSquare size={20} className="mr-3" /> Parler à un Expert Nexus
@@ -193,8 +209,8 @@ const Store = () => {
 
         {/* Modal Détails */}
         {selectedProduct && (
-           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl" onClick={() => setSelectedProduct(null)}>
-              <div className="glass-card max-w-4xl w-full flex flex-col md:flex-row overflow-hidden rounded-[40px] border border-white/10 shadow-3xl" onClick={e => e.stopPropagation()}>
+           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-white/95 backdrop-blur-xl" onClick={() => setSelectedProduct(null)}>
+              <div className="glass-card max-w-4xl w-full flex flex-col md:flex-row overflow-hidden rounded-[40px] border border-emerald-200 shadow-3xl" onClick={e => e.stopPropagation()}>
                   <div className="w-full md:w-1/2 p-2">
                      <img 
                         src={selectedProduct.image} 
@@ -207,13 +223,13 @@ const Store = () => {
                  <div className="w-full md:w-1/2 p-10 flex flex-col">
                     <div className="mb-8">
                        <span className="inline-block px-3 py-1 bg-gold/20 text-gold rounded-full text-[10px] font-black uppercase tracking-widest mb-4">Produit Origine {selectedProduct.source}</span>
-                       <h2 className="text-4xl font-display font-black text-white italic mb-2">{selectedProduct.name}</h2>
-                       <p className="text-gold text-3xl font-black">{selectedProduct.displayPrice.toFixed(2)} € <span className="text-xs text-muted-foreground font-medium">HT</span></p>
+                       <h2 className="text-4xl font-display font-black text-foreground italic mb-2">{selectedProduct.name}</h2>
+                       <p className="text-gold text-3xl font-black">{selectedProduct.displayPrice.toFixed(2)} € <span className="text-xs text-emerald-700/70 font-medium">HT</span></p>
                     </div>
                     
                     <div className="space-y-6 mb-10">
-                       <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground border-b border-white/10 pb-2">Description Technique</h4>
-                       <p className="text-white/70 leading-relaxed text-sm">{selectedProduct.desc}</p>
+                       <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700/70 border-b border-emerald-200 pb-2">Description Technique</h4>
+                       <p className="text-foreground/70 leading-relaxed text-sm">{selectedProduct.desc}</p>
                        <div className="flex items-center gap-3">
                           <ShieldCheck className="text-emerald-500" size={20} />
                           <span className="text-xs font-bold text-emerald-500 uppercase tracking-widest">Certifié Pur (Nexus Lab Check)</span>
@@ -227,7 +243,7 @@ const Store = () => {
                         >
                            Ajouter au Panier B2B
                         </Button>
-                       <Button variant="outline" className="h-14 border-white/10 text-white rounded-2xl" onClick={() => setSelectedProduct(null)}>Retour au Catalogue</Button>
+                       <Button variant="outline" className="h-14 border-emerald-200 text-foreground rounded-2xl" onClick={() => setSelectedProduct(null)}>Retour au Catalogue</Button>
                     </div>
                  </div>
               </div>

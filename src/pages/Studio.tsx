@@ -67,14 +67,14 @@ const Studio = () => {
          let results;
          if (searchTerm.trim().length < 2) {
             results = await sql`
-               SELECT name, 'tgsc' as id, 'The Good Scents Co' as company, 'Material' as category 
+               SELECT name, 'tgsc' as id, 'Nexus Data Lake (PerfumeNuke, TGSC)' as company, 'Material' as category 
                FROM tgsc_materials 
                LIMIT 5000
             `;
          } else {
             const query = `%${searchTerm.toLowerCase()}%`;
             results = await sql`
-               SELECT name, 'tgsc' as id, 'The Good Scents Co' as company, 'Material' as category 
+               SELECT name, 'tgsc' as id, 'Nexus Data Lake (PerfumeNuke, TGSC)' as company, 'Material' as category 
                FROM tgsc_materials 
                WHERE LOWER(name) LIKE ${query}
                LIMIT 1000
@@ -179,23 +179,23 @@ const Studio = () => {
                <h3 className="text-xl font-display font-black text-emerald-900 uppercase tracking-tighter mb-8 italic border-b border-emerald-50 pb-4">FORMULA DETAILS</h3>
                <div className="overflow-x-auto">
                   <table className="w-full text-center border-collapse">
-                     <thead className="bg-emerald-900 text-white">
+                     <thead className="bg-emerald-900 text-foreground">
                         <tr>
-                           <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black">TOP NOTE %</th>
-                           <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black">HEART NOTE %</th>
-                           <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black">BASE NOTE %</th>
+                           <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black hidden md:table-cell">TOP NOTE %</th>
+                           <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black hidden md:table-cell">HEART NOTE %</th>
+                           <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black hidden md:table-cell">BASE NOTE %</th>
                            <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black">CONCENTRATION %</th>
-                           <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black">CONCENTRATE WEIGHT (G)</th>
+                           <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black hidden md:table-cell">CONCENTRATE WEIGHT (G)</th>
                            <th className="px-4 py-4 border border-emerald-800 uppercase text-[10px] font-black">FINISHED PRODUCT WEIGHT (G)</th>
                         </tr>
                      </thead>
                      <tbody className="bg-emerald-50">
                         <tr>
-                           <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900">{aiReport.top}</td>
-                           <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900">{aiReport.heart}</td>
-                           <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900">{aiReport.base}</td>
+                           <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900 hidden md:table-cell">{aiReport.top}</td>
+                           <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900 hidden md:table-cell">{aiReport.heart}</td>
+                           <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900 hidden md:table-cell">{aiReport.base}</td>
                            <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900">{concentrationPercent.toFixed(4)}</td>
-                           <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900">{concentrateWeight}</td>
+                           <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900 hidden md:table-cell">{concentrateWeight}</td>
                            <td className="px-4 py-6 border border-emerald-100 font-bold text-lg italic text-emerald-900">{totalWeight}</td>
                         </tr>
                      </tbody>
@@ -207,7 +207,7 @@ const Studio = () => {
             <section className="bg-white rounded-[40px] border border-emerald-100 shadow-2xl overflow-hidden">
                <div className="bg-emerald-50 p-6 flex justify-between items-center border-b border-emerald-100">
                   <h3 className="text-xl font-display font-black text-emerald-900 uppercase tracking-tighter italic">FORMULA MANIFEST</h3>
-                  <Button onClick={handleAddLine} className="bg-emerald-950 hover:bg-black h-11 px-8 rounded-full font-black uppercase text-[9px] tracking-widest shadow-xl">
+                  <Button onClick={handleAddLine} className="bg-emerald-950 hover:bg-white h-11 px-8 rounded-full font-black uppercase text-[9px] tracking-widest shadow-xl">
                     <Plus size={14} className="mr-2" /> AJOUTER UN INGRÉDIENT
                   </Button>
                </div>
@@ -219,12 +219,12 @@ const Studio = () => {
                            <th className="px-4 py-4 border-r border-emerald-50 w-12">#</th>
                            <th className="px-6 py-4 border-r border-emerald-50 text-left">MATERIAL</th>
                            <th className="px-4 py-4 border-r border-emerald-50">WEIGHT (GRAMS)</th>
-                           <th className="px-4 py-4 border-r border-emerald-50">PARTS PER THOUSAND</th>
-                           <th className="px-4 py-4 border-r border-emerald-50">% IN CONCENTRATE</th>
-                           <th className="px-4 py-4 border-r border-emerald-50">AVG % USED IN CONC.</th>
-                           <th className="px-4 py-4 border-r border-emerald-50">MAX % ADVISED IN CONC.</th>
-                           <th className="px-4 py-4 border-r border-emerald-50 bg-emerald-50/50 text-emerald-700">% IN FINISHED PRODUCT</th>
-                           <th className="px-4 py-4 border-r border-emerald-50 text-red-700">MAX % IN FINISHED (IFRA)</th>
+                           <th className="px-4 py-4 border-r border-emerald-50 hidden md:table-cell">PARTS PER THOUSAND</th>
+                           <th className="px-4 py-4 border-r border-emerald-50 hidden lg:table-cell">% IN CONCENTRATE</th>
+                           <th className="px-4 py-4 border-r border-emerald-50 hidden lg:table-cell">AVG % USED IN CONC.</th>
+                           <th className="px-4 py-4 border-r border-emerald-50 hidden lg:table-cell">MAX % ADVISED IN CONC.</th>
+                           <th className="px-4 py-4 border-r border-emerald-50 bg-emerald-50/50 text-emerald-700 hidden sm:table-cell">% IN FINISHED PRODUCT</th>
+                           <th className="px-4 py-4 border-r border-emerald-50 text-red-700 hidden sm:table-cell">MAX % IN FINISHED (IFRA)</th>
                            <th className="px-4 py-4">ACTION</th>
                         </tr>
                      </thead>
@@ -259,7 +259,7 @@ const Studio = () => {
                                           </div>
                                           <div className="overflow-y-auto scrollbar-hide text-left space-y-1">
                                              {filteredMaterials.map((m: any, i:number) => (
-                                                <button key={i} className="w-full px-5 py-3 hover:bg-emerald-600 hover:text-white rounded-xl text-xs transition-all flex justify-between" onClick={() => { updateLine(line.id, { material: m }); setShowSearch(null); setSearchTerm(""); }}>
+                                                <button key={i} className="w-full px-5 py-3 hover:bg-emerald-600 hover:text-foreground rounded-xl text-xs transition-all flex justify-between" onClick={() => { updateLine(line.id, { material: m }); setShowSearch(null); setSearchTerm(""); }}>
                                                    <span>{m.name}</span>
                                                    <span className="opacity-40">{m.category}</span>
                                                 </button>
@@ -276,12 +276,12 @@ const Studio = () => {
                                        className="w-24 h-12 mx-auto bg-emerald-50 border-emerald-100 text-center font-black text-emerald-900 rounded-xl"
                                     />
                                  </td>
-                                 <td className="px-4 py-5 border-r border-emerald-50 italic">{ppt}</td>
-                                 <td className="px-4 py-5 border-r border-emerald-50 italic">{pcInConc}</td>
-                                 <td className="px-4 py-5 border-r border-emerald-50 text-emerald-600/50">{line.avgUsage}</td>
-                                 <td className="px-4 py-5 border-r border-emerald-50 text-emerald-600/50">{line.maxAdvised}</td>
-                                 <td className={`px-4 py-5 border-r border-emerald-50 text-emerald-600 italic ${isOverLimit ? 'text-red-600 font-black' : ''}`}>{pcInFinished}</td>
-                                 <td className="px-4 py-5 border-r border-emerald-50 text-emerald-900/50">{line.ifraLimit}</td>
+                                 <td className="px-4 py-5 border-r border-emerald-50 italic hidden md:table-cell">{ppt}</td>
+                                 <td className="px-4 py-5 border-r border-emerald-50 italic hidden lg:table-cell">{pcInConc}</td>
+                                 <td className="px-4 py-5 border-r border-emerald-50 text-emerald-600/50 hidden lg:table-cell">{line.avgUsage}</td>
+                                 <td className="px-4 py-5 border-r border-emerald-50 text-emerald-600/50 hidden lg:table-cell">{line.maxAdvised}</td>
+                                 <td className={`px-4 py-5 border-r border-emerald-50 text-emerald-600 italic ${isOverLimit ? 'text-red-600 font-black' : ''} hidden sm:table-cell`}>{pcInFinished}</td>
+                                 <td className="px-4 py-5 border-r border-emerald-50 text-emerald-900/50 hidden sm:table-cell">{line.ifraLimit}</td>
                                  <td className="px-4 py-5">
                                     <Button variant="ghost" size="icon" className="text-emerald-200 hover:text-red-500 hover:bg-red-50" onClick={() => handleRemoveLine(line.id)}>
                                        <Trash2 size={18} />
@@ -308,12 +308,12 @@ const Studio = () => {
                                  className="w-24 h-12 mx-auto bg-white border-emerald-100 text-center font-black text-emerald-900 rounded-xl shadow-inner"
                               />
                            </td>
-                           <td className="px-4 py-6 border-r border-emerald-50 italic">0</td>
-                           <td className="px-4 py-6 border-r border-emerald-50 italic">0</td>
-                           <td className="px-4 py-6 border-r border-emerald-50">-</td>
-                           <td className="px-4 py-6 border-r border-emerald-50">-</td>
-                           <td className="px-4 py-6 border-r border-emerald-50 italic">{(totalWeight > 0 ? (dilutantWeight / totalWeight * 100).toFixed(4) : 0)}</td>
-                           <td className="px-4 py-6 border-r border-emerald-50">-</td>
+                           <td className="px-4 py-6 border-r border-emerald-50 italic hidden md:table-cell">0</td>
+                           <td className="px-4 py-6 border-r border-emerald-50 italic hidden lg:table-cell">0</td>
+                           <td className="px-4 py-6 border-r border-emerald-50 hidden lg:table-cell">-</td>
+                           <td className="px-4 py-6 border-r border-emerald-50 hidden lg:table-cell">-</td>
+                           <td className="px-4 py-6 border-r border-emerald-50 italic hidden sm:table-cell">{(totalWeight > 0 ? (dilutantWeight / totalWeight * 100).toFixed(4) : 0)}</td>
+                           <td className="px-4 py-6 border-r border-emerald-50 hidden sm:table-cell">-</td>
                            <td className="px-4 py-6"></td>
                         </tr>
                      </tbody>
@@ -330,12 +330,12 @@ const Studio = () => {
                         <tr className="text-[9px] font-black uppercase text-slate-600">
                            <th className="px-6 py-4 border border-emerald-50 text-left">MATERIAL</th>
                            <th className="px-4 py-4 border border-emerald-50">WEIGHT (G)</th>
-                           <th className="px-4 py-4 border border-emerald-50">PPT</th>
-                           <th className="px-4 py-4 border border-emerald-50">% IN CONC.</th>
-                           <th className="px-4 py-4 border border-emerald-50">AVG % USED</th>
-                           <th className="px-4 py-4 border border-emerald-50">MAX % ADVISED</th>
-                           <th className="px-4 py-4 border border-emerald-50 text-emerald-600">% IN FINISHED</th>
-                           <th className="px-4 py-4 border border-emerald-50 text-red-600">IFRA MAX %</th>
+                           <th className="px-4 py-4 border border-emerald-50 hidden md:table-cell">PPT</th>
+                           <th className="px-4 py-4 border border-emerald-50 hidden lg:table-cell">% IN CONC.</th>
+                           <th className="px-4 py-4 border border-emerald-50 hidden lg:table-cell">AVG % USED</th>
+                           <th className="px-4 py-4 border border-emerald-50 hidden lg:table-cell">MAX % ADVISED</th>
+                           <th className="px-4 py-4 border border-emerald-50 text-emerald-600 hidden sm:table-cell">% IN FINISHED</th>
+                           <th className="px-4 py-4 border border-emerald-50 text-red-600 hidden sm:table-cell">IFRA MAX %</th>
                         </tr>
                      </thead>
                      <tbody className="bg-emerald-50/10">
@@ -348,24 +348,24 @@ const Studio = () => {
                               <tr key={i} className="text-sm font-bold border-b border-emerald-50">
                                  <td className="px-6 py-4 text-left font-black uppercase text-emerald-950">{line.material.name}</td>
                                  <td className="px-4 py-4">{line.weight}</td>
-                                 <td className="px-4 py-4 italic">{ppt}</td>
-                                 <td className="px-4 py-4 italic">{pcInConc}</td>
-                                 <td className="px-4 py-4 opacity-40">{line.avgUsage}</td>
-                                 <td className="px-4 py-4 opacity-40">{line.maxAdvised}</td>
-                                 <td className="px-4 py-4 text-emerald-600 italic">{pcInFinished}</td>
-                                 <td className="px-4 py-4 text-red-600/50">{line.ifraLimit}</td>
+                                 <td className="px-4 py-4 italic hidden md:table-cell">{ppt}</td>
+                                 <td className="px-4 py-4 italic hidden lg:table-cell">{pcInConc}</td>
+                                 <td className="px-4 py-4 opacity-40 hidden lg:table-cell">{line.avgUsage}</td>
+                                 <td className="px-4 py-4 opacity-40 hidden lg:table-cell">{line.maxAdvised}</td>
+                                 <td className="px-4 py-4 text-emerald-600 italic hidden sm:table-cell">{pcInFinished}</td>
+                                 <td className="px-4 py-4 text-red-600/50 hidden sm:table-cell">{line.ifraLimit}</td>
                               </tr>
                            );
                         })}
-                        <tr className="font-black bg-emerald-950 text-white">
+                        <tr className="font-black bg-emerald-950 text-foreground">
                            <td className="px-6 py-6 text-left">{dilutant}</td>
                            <td className="px-4 py-6">{dilutantWeight}</td>
-                           <td className="px-4 py-6">0</td>
-                           <td className="px-4 py-6">0</td>
-                           <td className="px-4 py-6">-</td>
-                           <td className="px-4 py-6">-</td>
-                           <td className="px-4 py-6 italic">{(totalWeight > 0 ? (dilutantWeight / totalWeight * 100).toFixed(4) : 0)}</td>
-                           <td className="px-4 py-6">-</td>
+                           <td className="px-4 py-6 hidden md:table-cell">0</td>
+                           <td className="px-4 py-6 hidden lg:table-cell">0</td>
+                           <td className="px-4 py-6 hidden lg:table-cell">-</td>
+                           <td className="px-4 py-6 hidden lg:table-cell">-</td>
+                           <td className="px-4 py-6 italic hidden sm:table-cell">{(totalWeight > 0 ? (dilutantWeight / totalWeight * 100).toFixed(4) : 0)}</td>
+                           <td className="px-4 py-6 hidden sm:table-cell">-</td>
                         </tr>
                      </tbody>
                   </table>
@@ -373,30 +373,30 @@ const Studio = () => {
             </section>
 
             {/* 4. SAFETY & HAZARDS SECTION */}
-            <section className="bg-emerald-950 rounded-[40px] p-10 shadow-3xl relative overflow-hidden text-white border border-emerald-800">
+            <section className="bg-emerald-950 rounded-[40px] p-10 shadow-3xl relative overflow-hidden text-foreground border border-emerald-800">
                      <div className="relative z-10">
                         <h4 className="font-display font-black text-emerald-400 uppercase tracking-tighter mb-10 flex items-center gap-3 italic text-xl">
                            <ShieldAlert size={26} className="text-yellow-400" /> SIGNALEMENT DES DANGERS & SÉCURITÉ
                         </h4>
                         <div className="space-y-6">
-                           <div className="flex items-start gap-4 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-md">
+                           <div className="flex items-start gap-4 bg-emerald-50 p-6 rounded-2xl border border-emerald-200 backdrop-blur-md">
                               <AlertTriangle className="text-yellow-400 shrink-0" size={24} />
                               <div>
-                                 <p className="text-xs font-black uppercase text-white mb-2">Statut Réglementaire IFRA v51</p>
-                                 <p className="text-sm text-white/70 leading-relaxed italic">"{aiReport.recommendation}"</p>
+                                 <p className="text-xs font-black uppercase text-foreground mb-2">Statut Réglementaire IFRA v51</p>
+                                 <p className="text-sm text-foreground/70 leading-relaxed italic">"{aiReport.recommendation}"</p>
                               </div>
                            </div>
                            
                            <div className="grid grid-cols-3 gap-6">
-                              <div className="bg-emerald-900/50 p-6 rounded-2xl text-center border border-white/5">
+                              <div className="bg-emerald-900/50 p-6 rounded-2xl text-center border border-emerald-100">
                                  <span className="text-[10px] font-black text-emerald-500 uppercase block mb-2">Biodégradabilité</span>
-                                 <span className="text-xl font-black text-white italic">84 %</span>
+                                 <span className="text-xl font-black text-foreground italic">84 %</span>
                               </div>
-                              <div className="bg-emerald-900/50 p-6 rounded-2xl text-center border border-white/5">
+                              <div className="bg-emerald-900/50 p-6 rounded-2xl text-center border border-emerald-100">
                                  <span className="text-[10px] font-black text-emerald-500 uppercase block mb-2">Renouvelabilité</span>
-                                 <span className="text-xl font-black text-white italic">62 %</span>
+                                 <span className="text-xl font-black text-foreground italic">62 %</span>
                               </div>
-                              <div className="bg-emerald-900/50 p-6 rounded-2xl text-center border border-white/5">
+                              <div className="bg-emerald-900/50 p-6 rounded-2xl text-center border border-emerald-100">
                                  <span className="text-[10px] font-black text-emerald-500 uppercase block mb-2">Impact Carbone</span>
                                  <span className="text-xl font-black text-emerald-200 italic">FAIBLE</span>
                               </div>
@@ -407,29 +407,29 @@ const Studio = () => {
             </section>
 
             {/* 5. TECHNICAL RECAP SUMMARY */}
-            <section className="bg-emerald-900 rounded-[40px] p-12 text-white shadow-2xl border border-emerald-800 relative overflow-hidden">
+            <section className="bg-emerald-900 rounded-[40px] p-12 text-foreground shadow-2xl border border-emerald-800 relative overflow-hidden">
                <div className="relative z-10 grid md:grid-cols-4 gap-8">
                   <div className="md:col-span-2">
                      <h4 className="text-2xl font-display font-black uppercase tracking-tighter mb-4 italic">RÉCAPITULATIF TECHNIQUE NEXUS</h4>
                      <p className="text-emerald-300 text-sm font-medium leading-relaxed opacity-80">
-                        Cette formule "<span className="text-white font-bold">{recipeName}</span>" a été validée par le moteur de simulation AromaVerse. 
-                        Elle présente une structure olfactive équilibrée avec une concentration de <span className="text-white font-bold">{concentrationPercent.toFixed(2)}%</span>. 
+                        Cette formule "<span className="text-foreground font-bold">{recipeName}</span>" a été validée par le moteur de simulation NEXUS. 
+                        Elle présente une structure olfactive équilibrée avec une concentration de <span className="text-foreground font-bold">{concentrationPercent.toFixed(2)}%</span>. 
                         Toutes les limites IFRA ont été vérifiées par rapport aux standards v51.
                      </p>
                   </div>
-                  <div className="bg-white/5 p-6 rounded-3xl border border-white/10 flex flex-col justify-center">
+                  <div className="bg-emerald-50 p-6 rounded-3xl border border-emerald-200 flex flex-col justify-center">
                      <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">STATUT CERTIFICATION</span>
                      <div className="flex items-center gap-3">
                         <CheckCircle2 className="text-emerald-400" size={24} />
                         <span className="text-xl font-bold uppercase tracking-tight italic">CERTIFIÉ CONFORME</span>
                      </div>
                   </div>
-                  <div className="bg-white/5 p-6 rounded-3xl border border-white/10 flex flex-col justify-center">
+                  <div className="bg-emerald-50 p-6 rounded-3xl border border-emerald-200 flex flex-col justify-center">
                      <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">POIDS TOTAL FINI</span>
                      <span className="text-3xl font-black italic">{totalWeight} GRAMS</span>
                   </div>
                </div>
-               <Activity className="absolute -left-10 -bottom-10 text-white/5 w-48 h-48" />
+               <Activity className="absolute -left-10 -bottom-10 text-foreground/5 w-48 h-48" />
             </section>
 
           </div>

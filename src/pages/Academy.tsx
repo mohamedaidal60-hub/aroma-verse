@@ -84,8 +84,33 @@ const Academy = () => {
     }
   };
 
+  const [completedIds, setCompletedIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("academy_completed");
+    if (saved) {
+      setCompletedIds(JSON.parse(saved));
+    }
+  }, []);
+
+  const tracks = [
+    { id: 1, level: 0, title: "Initiation & Socle Commun", progress: Math.min(100, Math.round((completedIds.filter(id => id <= 4).length / 4) * 100)), color: "green-500", icon: <CheckCircle2 size={24}/> },
+    { id: 2, level: 1, title: "Matières Premières & Accords", progress: Math.min(100, Math.round((completedIds.filter(id => id > 4 && id <= 8).length / 4) * 100)), color: "blue-500", icon: <PlayCircle size={24}/> },
+    { id: 3, level: 2, title: "Architecture du Parfum", progress: 0, color: "primary", icon: <PlayCircle size={24}/> },
+    { id: 4, level: 3, title: "Expertise Master & Chimie", progress: 0, color: "orange-500", locked: true, icon: <Lock size={24}/> },
+  ];
+
+  const totalProgress = Math.round((completedIds.length / 16) * 100); // Assuming 16 total lessons
+
+  const [academyProgress, setAcademyProgress] = useState(0);
+
+  // Helper to get total academy progress
+  useEffect(() => {
+    setAcademyProgress(Math.round((completedIds.length / 16) * 100));
+  }, [completedIds]);
+
   return (
-    <div className={`min-h-screen bg-background flex flex-col font-body ${dir === "rtl" ? "text-right" : "text-left"}`}>
+    <div className={`min-h-screen bg-[#f1f5f9] flex flex-col font-body ${dir === "rtl" ? "text-right" : "text-left"}`}>
       <Navbar />
       
       <main className="flex-1 pt-24 pb-16">
@@ -108,11 +133,11 @@ const Academy = () => {
             
             <div className="w-full lg:w-96 glass-card p-8 rounded-[40px] border border-primary/20 bg-primary/5 shadow-xl">
               <div className="flex justify-between items-center mb-4">
-                <span className="text-xs font-black uppercase tracking-widest text-primary">{t("academy.progress")}</span>
-                <span className="text-2xl font-black text-foreground italic">45%</span>
+                <span className="text-xs font-black uppercase tracking-widest text-primary">Progression Totale</span>
+                <span className="text-2xl font-black text-foreground italic">{totalProgress}%</span>
               </div>
-              <Progress value={45} className="h-2 bg-primary/10" indicatorClassName="bg-gold" />
-              <p className="text-[10px] text-foreground/40 mt-4 font-bold uppercase tracking-widest">Niveau : Intermédiaire Alpha</p>
+              <Progress value={totalProgress} className="h-2 bg-primary/10" indicatorClassName="bg-gold" />
+              <p className="text-[10px] text-foreground/40 mt-4 font-bold uppercase tracking-widest">Niveau : {totalProgress === 100 ? "Certifié Maître" : totalProgress > 0 ? "Apprenti Nexus" : "Novice"}</p>
             </div>
           </div>
 
@@ -120,7 +145,7 @@ const Academy = () => {
           <div className="bg-gradient-to-r from-primary/20 via-primary/5 to-transparent border-2 border-primary/20 rounded-[48px] p-10 md:p-16 mb-20 relative overflow-hidden group shadow-xl">
             <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
               <div className="flex-1 text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary text-white rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary text-foreground rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
                   <Zap size={14} fill="currentColor" /> {t("hero.pass.offer")}
                 </div>
                 <h2 className="text-3xl md:text-5xl font-display font-black text-foreground mb-4 tracking-tighter leading-tight">
@@ -130,29 +155,24 @@ const Academy = () => {
                   {t("features.bottom.desc")}
                 </p>
               </div>
-              <Button onClick={() => handleEnroll(999)} className="h-16 px-12 bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-lg text-sm transition-transform active:scale-95">
+              <Button onClick={() => handleEnroll(999)} className="h-16 px-12 bg-primary hover:bg-primary/90 text-foreground font-black uppercase tracking-[0.2em] rounded-2xl shadow-lg text-sm transition-transform active:scale-95">
                 {enrolledCourses.includes(999) ? "INSCRIT ✓" : t("academy.enroll")}
               </Button>
             </div>
             <div className="absolute top-0 right-0 w-96 h-full bg-primary/5 blur-[100px] rounded-full -mr-32 group-hover:scale-110 transition-transform"></div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12">
             
             {/* Left: Tracks */}
             <div className="lg:col-span-2 space-y-12">
               <div className="flex items-center gap-4 mb-8">
                  <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20"><BookOpen size={24}/></div>
-                 <h2 className="text-3xl font-display font-black uppercase tracking-tighter text-foreground uppercase">{t("academy.tracks")}</h2>
+                 <h2 className="text-3xl font-display font-black uppercase tracking-tighter text-foreground uppercase">Parcours de Formation</h2>
               </div>
 
               <div className="grid gap-6">
-                {[
-                  { id: 1, level: 0, title: "Initiation & Socle Commun", progress: 100, color: "green-500", icon: <CheckCircle2 size={24}/> },
-                  { id: 2, level: 1, title: "Matières Premières & Accords", progress: 40, color: "blue-500", icon: <PlayCircle size={24}/> },
-                  { id: 3, level: 2, title: "Architecture du Parfum", progress: 15, color: "primary", icon: <PlayCircle size={24}/> },
-                  { id: 4, level: 3, title: "Expertise Master & Chimie", progress: 0, color: "orange-500", locked: true, icon: <Lock size={24}/> },
-                ].map((track) => (
+                {tracks.map((track) => (
                   <div key={track.id} className={`glass-card rounded-[32px] p-8 border-2 transition-all group relative overflow-hidden ${track.locked ? 'bg-white/20 border-primary/5 opacity-80' : 'bg-white/40 border-primary/5 hover:border-primary/30 hover:translate-x-2'}`}>
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
                       <div className="flex items-center gap-6">
@@ -167,7 +187,7 @@ const Academy = () => {
                       <Button 
                         disabled={track.locked}
                         onClick={() => track.progress === 100 ? handleGetBadge(track) : handleEnroll(track.id)}
-                        className={`h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest ${track.progress === 100 ? 'bg-gold text-white shadow-lg shadow-gold/20' : enrolledCourses.includes(track.id) ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-primary hover:bg-primary/90 text-white'}`}
+                        className={`h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest ${track.progress === 100 ? 'bg-gold text-foreground shadow-lg shadow-gold/20' : enrolledCourses.includes(track.id) ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-primary hover:bg-primary/90 text-foreground'}`}
                       >
                         {track.progress === 100 ? "OBTENIR LE BADGE" : enrolledCourses.includes(track.id) ? "CONTINUER" : t("academy.enroll")}
                       </Button>
@@ -209,7 +229,7 @@ const Academy = () => {
                           value={chemQuery}
                           onChange={e => setChemQuery(e.target.value)}
                         />
-                        <Button type="submit" disabled={chemLoading} className="absolute right-2 top-2 h-12 w-12 bg-primary hover:bg-primary/80 text-white rounded-xl shadow-lg">
+                        <Button type="submit" disabled={chemLoading} className="absolute right-2 top-2 h-12 w-12 bg-primary hover:bg-primary/80 text-foreground rounded-xl shadow-lg">
                           {chemLoading ? "..." : <Search size={20} />}
                         </Button>
                       </form>
@@ -257,7 +277,7 @@ const Academy = () => {
                         <h4 className="font-bold text-lg mb-6 leading-tight text-foreground group-hover:text-primary transition-colors">{ws.title}</h4>
                         <div className="flex justify-between items-center">
                           <span className="text-[10px] font-black text-foreground/40 uppercase flex items-center gap-2"><Users size={14}/> {ws.members} Inscrits</span>
-                          <Button size="sm" onClick={() => toast.success("Place réservée !")} className="h-9 px-6 bg-primary text-white hover:bg-primary/80 rounded-xl text-[10px] font-black">RESERVER</Button>
+                          <Button size="sm" onClick={() => toast.success("Place réservée !")} className="h-9 px-6 bg-primary text-foreground hover:bg-primary/80 rounded-xl text-[10px] font-black">RESERVER</Button>
                         </div>
                       </div>
                     ))}
@@ -276,7 +296,7 @@ const Academy = () => {
                       {name: "Sara J.", score: "9.2/10", rank: 3}
                     ].map(user => (
                       <div key={user.rank} className="flex items-center gap-5 p-4 rounded-2xl hover:bg-white/40 transition-all cursor-pointer border border-transparent hover:border-primary/10 group">
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm shadow-md transform transition-transform group-hover:scale-110 ${user.rank === 1 ? 'bg-primary text-white' : 'bg-primary/10 text-primary'}`}>
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm shadow-md transform transition-transform group-hover:scale-110 ${user.rank === 1 ? 'bg-primary text-foreground' : 'bg-primary/10 text-primary'}`}>
                           {user.rank}
                         </div>
                         <div className="flex-1">
@@ -299,7 +319,7 @@ const Academy = () => {
 
         {/* Modal Certificat */}
         {showCertificate && certifiedCourse && (
-          <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto" onClick={() => setShowCertificate(false)}>
+          <div className="fixed inset-0 z-[100] bg-white/90 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto" onClick={() => setShowCertificate(false)}>
              <div className="max-w-4xl w-full bg-white rounded-none p-1 shadow-2xl" onClick={e => e.stopPropagation()}>
                 {/* Printable Content */}
                 <div id="print-certificate" className="relative border-[16px] border-[#1a3a3a] p-16 text-center text-[#1a3a3a] bg-[#fdfcf9] font-serif overflow-hidden">
@@ -311,7 +331,7 @@ const Academy = () => {
                    <div className="relative z-10">
                       <img src="/logo-official.png" className="w-24 mx-auto mb-10" />
                       
-                      <p className="text-[10px] font-black uppercase tracking-[0.5em] mb-4 text-[#c5a059]">Certification Officielle AromaVerse</p>
+                      <p className="text-[10px] font-black uppercase tracking-[0.5em] mb-4 text-[#c5a059]">Certification Officielle NEXUS</p>
                       <h2 className="text-5xl font-bold mb-2 tracking-tight">CERTIFICAT DE RÉUSSITE</h2>
                       <div className="w-48 h-1 bg-[#c5a059] mx-auto mb-12"></div>
                       
@@ -337,7 +357,7 @@ const Academy = () => {
                          </div>
                          <div className="text-right">
                             <p className="text-[10px] font-black uppercase tracking-widest mb-2">Signature du Recteur :</p>
-                            <div className="font-handwriting text-3xl mb-1 italic opacity-80" style={{ fontFamily: 'Dancing Script, cursive' }}>Aroma Master - Nexus</div>
+                            <div className="font-handwriting text-3xl mb-1 italic opacity-80" style={{ fontFamily: 'Dancing Script, cursive' }}>Expert Master - NEXUS</div>
                             <div className="w-48 h-[1px] bg-[#1a3a3a] ml-auto"></div>
                          </div>
                       </div>
@@ -350,7 +370,7 @@ const Academy = () => {
 
                 {/* Control Buttons (Not printed) */}
                 <div className="p-6 bg-gray-50 flex gap-4 no-print">
-                   <Button className="flex-1 h-14 bg-emerald-950 text-white font-black uppercase tracking-widest rounded-xl shadow-xl" onClick={() => window.print()}>
+                   <Button className="flex-1 h-14 bg-emerald-950 text-foreground font-black uppercase tracking-widest rounded-xl shadow-xl" onClick={() => window.print()}>
                       <Download size={20} className="mr-2" /> Imprimer / Télécharger PDF
                    </Button>
                    <Button variant="outline" className="flex-1 h-14 border-gray-200 text-gray-500 rounded-xl" onClick={() => setShowCertificate(false)}>

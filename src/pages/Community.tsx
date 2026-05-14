@@ -14,12 +14,21 @@ export default function Community() {
   const isAdmin = profile?.role === "admin";
   const [continent, setContinent] = useState("Loading...");
   const [activeChannel, setActiveChannel] = useState<string | null>(null);
-  const [posts, setPosts] = useState([
+  const [newPostText, setNewPostText] = useState("");
+  const initialPosts = [
     { id: 1, author: "Jean D.", avatar: 30, text: "Je cherche un fournisseur fiable pour l'absolue de rose de mai.", likes: 45, comments: [], followed: false, hasLiked: false },
     { id: 2, author: "Sarah M.", avatar: 35, text: "Mon dernier prototype Oud & Vanille vient de passer les tests de macération ! Résultat bluffant.", likes: 120, comments: [], followed: true, hasLiked: true },
     { id: 3, author: "AromaCorp", avatar: 25, text: "Attention à la nouvelle régulation IFRA concernant les muscs polycycliques. Mettez à jour vos formules.", likes: 89, comments: [], followed: false, hasLiked: false },
-  ]);
+  ];
+  const [posts, setPosts] = useState(() => {
+    const saved = localStorage.getItem("community_posts");
+    return saved ? JSON.parse(saved) : initialPosts;
+  });
   const [commentInputs, setCommentInputs] = useState<Record<number, string>>({});
+
+  useEffect(() => {
+    localStorage.setItem("community_posts", JSON.stringify(posts));
+  }, [posts]);
 
   useEffect(() => {
     fetch("https://ipapi.co/json/")
@@ -67,7 +76,7 @@ export default function Community() {
   };
 
   return (
-    <div className={`min-h-screen bg-background flex flex-col font-body ${dir === "rtl" ? "text-right" : "text-left"}`}>
+    <div className={`min-h-screen bg-[#f1f5f9] flex flex-col font-body ${dir === "rtl" ? "text-right" : "text-left"}`}>
       <Navbar />
       <main className="flex-1 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-7xl">
@@ -80,9 +89,9 @@ export default function Community() {
                   <span className="text-[10px] font-bold text-gold uppercase tracking-[0.2em]">Nexus Social Hub</span>
                 </div>
                 <h1 className="text-4xl md:text-7xl font-display font-black mb-6 tracking-tighter">
-                    {t("community.title.1")} <span className="text-gold">{t("community.title.2")}</span>
+                    {t("titre.communauté.1")} <span className="text-gold">{t("titre.communauté.2")}</span>
                 </h1>
-                <p className={`text-xl text-muted-foreground max-w-2xl mx-auto ${dir === "rtl" ? "font-arabic" : ""}`}>
+                <p className={`text-xl text-emerald-700/70 max-w-2xl mx-auto ${dir === "rtl" ? "font-arabic" : ""}`}>
                     {t("community.desc")}
                 </p>
             </div>
@@ -106,12 +115,12 @@ export default function Community() {
 
                 {/* Algérie Hub */}
                 <div onClick={() => setActiveChannel("Algerie")} className="glass-card p-10 rounded-[48px] border border-primary/20 hover:border-primary transition-all cursor-pointer group bg-forest-deep relative overflow-hidden shadow-2xl">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl"></div>
-                   <div className="w-16 h-16 bg-white/10 rounded-[24px] flex items-center justify-center text-white mb-8 group-hover:scale-110 group-hover:-rotate-3 transition-transform shadow-lg">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 blur-3xl"></div>
+                   <div className="w-16 h-16 bg-emerald-100 rounded-[24px] flex items-center justify-center text-foreground mb-8 group-hover:scale-110 group-hover:-rotate-3 transition-transform shadow-lg">
                     <MapPin size={32} />
                   </div>
-                  <h2 className="text-2xl font-display font-black mb-3 text-white uppercase tracking-tighter">Algérie Hub</h2>
-                  <p className="text-white/40 text-xs mb-8 leading-relaxed font-bold">Production locale, sourcing Sud et logistique (12K+ membres).</p>
+                  <h2 className="text-2xl font-display font-black mb-3 text-foreground uppercase tracking-tighter">Algérie Hub</h2>
+                  <p className="text-foreground/40 text-xs mb-8 leading-relaxed font-bold">Production locale, sourcing Sud et logistique (12K+ membres).</p>
                   <div className="flex items-center justify-between">
                     <div className="flex -space-x-4">
                       {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i + 30}`} className="w-10 h-10 rounded-xl border-4 border-primary" alt="avatar" />)}
@@ -143,7 +152,7 @@ export default function Community() {
                     <BookOpen size={32} />
                   </div>
                   <h2 className="text-2xl font-display font-black mb-3 text-gold uppercase tracking-tighter">Scent Archive</h2>
-                  <p className="text-muted-foreground text-xs mb-8 leading-relaxed font-bold">L'encyclopédie participative du patrimoine olfactif mondial et historique.</p>
+                  <p className="text-emerald-700/70 text-xs mb-8 leading-relaxed font-bold">L'encyclopédie participative du patrimoine olfactif mondial et historique.</p>
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-black text-gold flex items-center gap-2 uppercase tracking-widest">Explorer l'Histoire <Plus size={14}/></span>
                   </div>
@@ -156,7 +165,7 @@ export default function Community() {
                     <FlaskConical size={32} />
                   </div>
                   <h2 className="text-2xl font-display font-black mb-3 text-blue-500 uppercase tracking-tighter">Open Research</h2>
-                  <p className="text-muted-foreground text-xs mb-8 leading-relaxed font-bold">Documentation collaborative. Publiez vos succès et échecs de distillation.</p>
+                  <p className="text-emerald-700/70 text-xs mb-8 leading-relaxed font-bold">Documentation collaborative. Publiez vos succès et échecs de distillation.</p>
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-black text-blue-500 flex items-center gap-2 uppercase tracking-widest">Contribuer <Plus size={14}/></span>
                   </div>
@@ -165,7 +174,7 @@ export default function Community() {
             </>
           ) : (
             <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-               <button onClick={() => setActiveChannel(null)} className="mb-12 flex items-center gap-2 text-muted-foreground hover:text-gold transition-colors font-black uppercase text-[10px] tracking-widest">
+               <button onClick={() => setActiveChannel(null)} className="mb-12 flex items-center gap-2 text-emerald-700/70 hover:text-gold transition-colors font-black uppercase text-[10px] tracking-widest">
                    <ArrowLeft size={16}/> {t("common.back")}
                </button>
                
@@ -173,31 +182,46 @@ export default function Community() {
                    <div className="lg:col-span-8 flex flex-col gap-10">
                        
                        {/* Quick Post */}
-                       <div className="glass-card p-8 rounded-[32px] flex flex-col gap-6 border border-white/10 bg-black/40">
+                       <div className="glass-card p-8 rounded-[32px] flex flex-col gap-6 border border-emerald-200 bg-white/40">
                           <div className="flex gap-4">
                              <div className="w-14 h-14 bg-gold/10 rounded-2xl flex items-center justify-center text-gold border border-gold/20"><Users size={24}/></div>
                              <div className="flex-1">
-                                <h3 className="font-bold text-lg text-white">Postez dans {activeChannel}</h3>
-                                <p className="text-xs text-muted-foreground">Partagez vos formules ou posez une question.</p>
+                                <h3 className="font-bold text-lg text-foreground">Postez dans {activeChannel}</h3>
+                                <p className="text-xs text-emerald-700/70">Partagez vos formules ou posez une question.</p>
                              </div>
                           </div>
                           <div className="relative group">
-                            <Input placeholder="Quoi de neuf dans votre Lab ?" className="h-16 bg-black/60 border-white/5 rounded-2xl pl-6 pr-20 text-white placeholder:text-muted-foreground/30 focus-visible:ring-gold" />
-                            <Button className="absolute right-2 top-2 h-12 w-12 bg-gold hover:bg-gold/80 text-black rounded-xl shadow-gold"><Send size={18}/></Button>
+                            <Input 
+                               value={newPostText}
+                               onChange={(e) => setNewPostText(e.target.value)}
+                               placeholder="Quoi de neuf dans votre Lab ?" 
+                               className="h-16 bg-white/60 border-emerald-100 rounded-2xl pl-6 pr-20 text-foreground placeholder:text-emerald-700/70/30 focus-visible:ring-gold" 
+                             />
+                             <Button 
+                               onClick={() => {
+                                 if (!newPostText.trim()) return;
+                                 setPosts([{ id: Date.now(), author: profile?.full_name || "Moi", avatar: 10, text: newPostText, likes: 0, comments: [], followed: false, hasLiked: false }, ...posts]);
+                                 setNewPostText("");
+                                 toast.success("Message publié dans " + activeChannel);
+                               }}
+                               className="absolute right-2 top-2 h-12 w-12 bg-gold hover:bg-gold/80 text-black rounded-xl shadow-gold"
+                             >
+                                <Send size={18}/>
+                             </Button>
                           </div>
                        </div>
 
                        {/* Feed */}
                        <div className="space-y-10">
                           {posts.map(post => (
-                              <div key={post.id} className="glass-card p-10 rounded-[48px] border border-white/10 flex flex-col bg-black/20 hover:bg-black/30 transition-all group">
+                              <div key={post.id} className="glass-card p-10 rounded-[48px] border border-emerald-200 flex flex-col bg-white/20 hover:bg-white/30 transition-all group">
                                   <div className="flex items-center justify-between mb-8">
                                       <div className="flex items-center gap-5">
                                           <div className="w-16 h-16 rounded-[24px] overflow-hidden border-2 border-gold/20">
                                             <img src={`https://i.pravatar.cc/100?img=${post.avatar}`} className="w-full h-full object-cover" alt={post.author} />
                                           </div>
                                           <div>
-                                              <h4 className="font-black text-xl text-white tracking-tight">{post.author}</h4>
+                                              <h4 className="font-black text-xl text-foreground tracking-tight">{post.author}</h4>
                                               <span className="text-[10px] text-gold font-black uppercase tracking-widest bg-gold/5 px-2 py-0.5 rounded border border-gold/10">Membre Certifié</span>
                                           </div>
                                       </div>
@@ -205,25 +229,25 @@ export default function Community() {
                                         variant="outline" 
                                         size="sm" 
                                         onClick={() => handleFollow(post.id)}
-                                        className={`rounded-2xl px-6 h-12 border-white/10 hover:border-gold/50 gap-2 transition-all ${post.followed ? 'bg-gold/10 text-gold border-gold/30' : 'text-muted-foreground hover:bg-gold hover:text-black'}`}
+                                        className={`rounded-2xl px-6 h-12 border-emerald-200 hover:border-gold/50 gap-2 transition-all ${post.followed ? 'bg-gold/10 text-gold border-gold/30' : 'text-emerald-700/70 hover:bg-gold hover:text-black'}`}
                                       >
                                           {post.followed ? <UserCheck size={18} /> : <UserPlus size={18} />}
                                           <span className="text-[10px] font-black uppercase tracking-widest">{post.followed ? t("community.following") : t("community.follow")}</span>
                                       </Button>
                                   </div>
 
-                                  <div className="p-8 bg-white/5 rounded-[32px] border border-white/5 mb-8">
-                                    <p className="text-xl text-white/90 leading-relaxed font-medium">{post.text}</p>
+                                  <div className="p-8 bg-emerald-50 rounded-[32px] border border-emerald-100 mb-8">
+                                    <p className="text-xl text-foreground/90 leading-relaxed font-medium">{post.text}</p>
                                   </div>
                                   
                                   <div className="flex items-center gap-10 mb-8 px-4">
                                       <button 
                                         onClick={() => handleLike(post.id)}
-                                        className={`flex items-center gap-3 transition-colors font-black text-xs uppercase tracking-widest ${post.hasLiked ? 'text-gold scale-110' : 'text-muted-foreground hover:text-white'}`}
+                                        className={`flex items-center gap-3 transition-colors font-black text-xs uppercase tracking-widest ${post.hasLiked ? 'text-gold scale-110' : 'text-emerald-700/70 hover:text-foreground'}`}
                                       >
                                           <Heart size={24} className={post.hasLiked ? 'fill-gold' : ''} /> {post.likes}
                                       </button>
-                                      <button className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors font-black text-xs uppercase tracking-widest">
+                                      <button className="flex items-center gap-3 text-emerald-700/70 hover:text-foreground transition-colors font-black text-xs uppercase tracking-widest">
                                           <MessageSquare size={24}/> {post.comments.length}
                                       </button>
                                   </div>
@@ -231,22 +255,22 @@ export default function Community() {
                                   {/* Comments Section */}
                                   <div className="space-y-4 px-4">
                                       {post.comments.map((c: any, ci) => (
-                                          <div key={ci} className="bg-white/5 p-4 rounded-2xl border border-white/5 text-sm">
+                                          <div key={ci} className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 text-sm">
                                               <span className="font-black text-gold text-[10px] uppercase block mb-1">{c.author}</span>
-                                              <p className="text-white/80">{c.text}</p>
+                                              <p className="text-foreground/80">{c.text}</p>
                                           </div>
                                       ))}
                                       {post.comments.length === 0 && (
-                                          <p className="text-xs text-muted-foreground/50 italic">{t("community.no_comments")}</p>
+                                          <p className="text-xs text-emerald-700/70/50 italic">{t("community.no_comments")}</p>
                                       )}
                                       <div className="flex gap-3 mt-6">
                                           <Input 
                                             placeholder={t("community.comment.placeholder")} 
                                             value={commentInputs[post.id] || ""}
                                             onChange={(e) => setCommentInputs(prev => ({ ...prev, [post.id]: e.target.value }))}
-                                            className="h-12 bg-black/40 border-white/5 rounded-xl text-xs" 
+                                            className="h-12 bg-white/40 border-emerald-100 rounded-xl text-xs" 
                                           />
-                                          <Button size="icon" onClick={() => handleAddComment(post.id)} className="h-12 w-12 bg-white/5 hover:bg-gold hover:text-black rounded-xl border border-white/10 transition-all"><Send size={16}/></Button>
+                                          <Button size="icon" onClick={() => handleAddComment(post.id)} className="h-12 w-12 bg-emerald-50 hover:bg-gold hover:text-black rounded-xl border border-emerald-200 transition-all"><Send size={16}/></Button>
                                       </div>
                                   </div>
                               </div>
@@ -261,7 +285,7 @@ export default function Community() {
                            <h3 className="font-display font-black text-3xl mb-4 flex items-center gap-4 uppercase tracking-tighter">
                                <Trophy className="text-gold" size={32} /> LEADERBOARD
                            </h3>
-                           <p className="text-xs text-muted-foreground mb-12 leading-relaxed font-bold uppercase tracking-widest opacity-60">Le top 10 mensuel accède au Lab VIP.</p>
+                           <p className="text-xs text-emerald-700/70 mb-12 leading-relaxed font-bold uppercase tracking-widest opacity-60">Le top 10 mensuel accède au Lab VIP.</p>
                            
                            <div className="space-y-5">
                                {[
@@ -271,13 +295,13 @@ export default function Community() {
                                  { name: "Jean D.", pts: 850, img: 30 },
                                  { name: "Nez_Pro", pts: 640, img: 28 },
                                ].map((creator, i) => (
-                                   <div key={i} className="flex items-center justify-between p-5 bg-black/40 rounded-[28px] border border-white/5 hover:border-gold/30 transition-all hover:bg-black/60 group/item">
+                                   <div key={i} className="flex items-center justify-between p-5 bg-white/40 rounded-[28px] border border-emerald-100 hover:border-gold/30 transition-all hover:bg-white/60 group/item">
                                        <div className="flex items-center gap-5">
                                            <div className="relative">
-                                              <img src={`https://i.pravatar.cc/100?img=${creator.img}`} className="w-14 h-14 rounded-2xl object-cover grayscale group-hover/item:grayscale-0 transition-all border border-white/10" alt={creator.name}/>
+                                              <img src={`https://i.pravatar.cc/100?img=${creator.img}`} className="w-14 h-14 rounded-2xl object-cover grayscale group-hover/item:grayscale-0 transition-all border border-emerald-200" alt={creator.name}/>
                                               <div className="absolute -top-2 -left-2 w-6 h-6 bg-gold text-black rounded-full flex items-center justify-center text-[10px] font-black">#{i+1}</div>
                                            </div>
-                                           <span className="font-black text-white text-sm uppercase tracking-tight">{creator.name}</span>
+                                           <span className="font-black text-foreground text-sm uppercase tracking-tight">{creator.name}</span>
                                        </div>
                                        <span className="text-[10px] font-black text-gold uppercase tracking-tighter px-3 py-1 bg-gold/10 rounded-full">{creator.pts} PTS</span>
                                    </div>

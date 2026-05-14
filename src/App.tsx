@@ -32,7 +32,7 @@ const Cosmetiques = React.lazy(() => import("./pages/Cosmetiques"));
 
 // Simple Loader Fallback
 const PageLoader = () => (
-  <div className="min-h-screen bg-background flex flex-col items-center justify-center">
+  <div className="min-h-screen bg-[#f1f5f9] flex flex-col items-center justify-center">
     <div className="w-16 h-16 border-4 border-gold/30 border-t-gold rounded-full animate-spin"></div>
     <p className="mt-4 text-gold uppercase tracking-widest font-bold text-xs animate-pulse">Chargement Nexus...</p>
   </div>

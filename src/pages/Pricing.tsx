@@ -56,7 +56,7 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-body overflow-x-hidden">
+    <div className="min-h-screen bg-[#f1f5f9] flex flex-col font-body overflow-x-hidden">
       <Navbar />
       
       <main className="flex-1 pt-32 pb-24">
@@ -83,7 +83,7 @@ const Pricing = () => {
               >
                 {/* Background Decor */}
                 {plan.highlight && (
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-[100px] -mr-32 -mt-32"></div>
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-50 blur-[100px] -mr-32 -mt-32"></div>
                 )}
                 
                 {plan.highlight && (
@@ -92,21 +92,21 @@ const Pricing = () => {
                   </div>
                 )}
                 
-                <h3 className={`text-3xl font-display font-black mb-1 uppercase tracking-tighter ${plan.highlight ? 'text-white' : 'text-primary'}`}>{plan.name}</h3>
-                <p className={`text-xs font-bold uppercase tracking-widest mb-10 ${plan.highlight ? 'text-white/40' : 'text-primary/40'}`}>{plan.description}</p>
+                <h3 className={`text-3xl font-display font-black mb-1 uppercase tracking-tighter ${plan.highlight ? 'text-foreground' : 'text-primary'}`}>{plan.name}</h3>
+                <p className={`text-xs font-bold uppercase tracking-widest mb-10 ${plan.highlight ? 'text-foreground/40' : 'text-primary/40'}`}>{plan.description}</p>
                 
                 <div className="flex items-baseline gap-2 mb-12">
-                  <span className={`text-7xl font-black tracking-tighter ${plan.highlight ? 'text-white' : 'text-primary'}`}>{plan.price}€</span>
-                  <span className={`font-black uppercase text-[10px] tracking-widest ${plan.highlight ? 'text-white/60' : 'text-primary/60'}`}>{plan.duration}</span>
+                  <span className={`text-7xl font-black tracking-tighter ${plan.highlight ? 'text-foreground' : 'text-primary'}`}>{plan.price}€</span>
+                  <span className={`font-black uppercase text-[10px] tracking-widest ${plan.highlight ? 'text-foreground/60' : 'text-primary/60'}`}>{plan.duration}</span>
                 </div>
 
                 <div className="space-y-6 mb-16 flex-1">
                    {plan.features.map((feature, j) => (
                      <div key={j} className="flex gap-5 items-center">
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${plan.highlight ? 'bg-white/10 text-gold' : 'bg-primary/10 text-primary'}`}>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${plan.highlight ? 'bg-emerald-100 text-gold' : 'bg-primary/10 text-primary'}`}>
                            <Check size={14} className="font-bold" />
                         </div>
-                        <span className={`text-sm font-bold ${plan.highlight ? 'text-white/80' : 'text-primary'}`}>{feature}</span>
+                        <span className={`text-sm font-bold ${plan.highlight ? 'text-foreground/80' : 'text-primary'}`}>{feature}</span>
                      </div>
                    ))}
                 </div>
@@ -114,7 +114,7 @@ const Pricing = () => {
                 <Button 
                    onClick={handleStartTrial}
                    disabled={loading || i === 1}
-                   className={`h-20 px-10 rounded-[32px] font-black text-xs uppercase tracking-[0.3em] transition-all relative overflow-hidden group shadow-2xl ${plan.highlight ? 'bg-white text-primary hover:bg-gold hover:text-black' : 'bg-primary text-white hover:bg-gold hover:text-black'}`}
+                   className={`h-20 px-10 rounded-[32px] font-black text-xs uppercase tracking-[0.3em] transition-all relative overflow-hidden group shadow-2xl ${plan.highlight ? 'bg-white text-primary hover:bg-gold hover:text-black' : 'bg-primary text-foreground hover:bg-gold hover:text-black'}`}
                 >
                   <span className="relative z-10">{plan.highlight && !loading ? "ACTIVER MON PASS" : plan.cta}</span>
                   {plan.highlight && (
