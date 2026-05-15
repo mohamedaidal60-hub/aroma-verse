@@ -52,7 +52,8 @@ const Store = () => {
     "Aromas chemicals",
     "equipment (laboratoire)",
     "sourcing Materieres solid (plants aromatiques et médicinales)",
-    "parfum Fini"
+    "parfum Fini",
+    "Cosmétiques"
   ];
 
   // Animating stats

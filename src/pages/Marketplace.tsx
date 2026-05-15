@@ -39,7 +39,8 @@ export default function Marketplace() {
     "Huile absolut", 
     "Hydrolat",
     "Aromas chemicals", 
-    "equipment (laboratoire)"
+    "equipment (laboratoire)",
+    "Cosmétiques"
   ];
   const [activeFilter, setActiveFilter] = useState("Huile essentielle");
 
