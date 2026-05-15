@@ -2,32 +2,13 @@ body {
     font-size: 16px;
   	font-family: 'Work Sans', sans-serif;
 	
-    color: #e2e8f0;
-    background-color: #062112;
+    color: #000000;
+    background-color: #6f8c7d;
 	
     height: 100vh;
     margin: 0;
 	
 	-webkit-font-smoothing: antialiased;
-    zoom: 0.75;
-}
-
-@media (max-width: 1024px) {
-    body {
-        zoom: 0.55;
-    }
-}
-
-@media (max-width: 768px) {
-    body {
-        zoom: 0.40;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        zoom: 0.30;
-    }
 }
 
 a:link {
@@ -55,12 +36,11 @@ a:active {
 }
 
 button {
-    background-color: #b88e2d;
-    border: 1px solid #e2e8f0;
+    background-color: #4CAF50;
+    border: 2px solid #000000;
     border-radius: 4px; 
-    box-shadow: none;
-    color: #062112;
-    font-weight: bold;
+    box-shadow: inset 2px 2px 1px #81ce84, inset -2px -2px 1px #357e37;
+    color: #000000;
     padding: 2px 6px;
     text-align: center;
     text-decoration: none;
@@ -71,12 +51,11 @@ button {
 }
 
 ::-webkit-file-upload-button {
-    background-color: #b88e2d;
-    border: 1px solid #e2e8f0;
+    background-color: #4CAF50;
+    border: 2px solid #000000;
     border-radius: 4px; 
-    box-shadow: none;
-    color: #062112;
-    font-weight: bold;
+    box-shadow: inset 2px 2px 1px #81ce84, inset -2px -2px 1px #357e37;
+    color: #000000;
     padding: 2px 6px;
     text-align: center;
     text-decoration: none;
@@ -94,10 +73,10 @@ button[disabled] {
 }
 
 textarea {
-    background-color: #0a2e19;
-    border: 1px solid #b88e2d;
+    background-color: #add3ad;
+    border: 2px solid #000000;
     border-radius: 4px; 
-    color: #e2e8f0;
+    color: #000000;
     padding: 2px 6px;
     font-size: 16px;
     font-family: 'Work Sans', sans-serif;
@@ -107,10 +86,10 @@ textarea {
 }
 
 input {
-    background-color: #0a2e19;
-    border: 1px solid #b88e2d;
+    background-color: #add3ad;
+    border: 2px solid #000000;
     border-radius: 4px; 
-    color: #e2e8f0;
+    color: #000000;
     padding: 2px 6px;
     font-size: 16px;
     font-family: 'Work Sans', sans-serif;
@@ -129,10 +108,10 @@ input[type="file"] {
 }
 
 select {
-    background-color: #0a2e19;
-    border: 1px solid #b88e2d;
+    background-color: #add3ad;
+    border: 2px solid #000000;
     border-radius: 4px; 
-    color: #e2e8f0;
+    color: #000000;
     padding: 2px 6px;
     font-size: 16px;
     font-family: 'Work Sans', sans-serif;
@@ -141,13 +120,13 @@ select {
 }
 
 table, td, th {
-    border: 1px solid #b88e2d;
+    border: 3px solid black;
     border-collapse: collapse;
-    background-color: #0a2e19;
+    background-color: #7ea893;
 }
 
 .tablebottom {
-    background-color: #114224;
+    background-color: #638976;
 }
 
 .tablecontent {
@@ -173,7 +152,7 @@ table, td, th {
 }
 
 .formulatable tr:nth-child(odd) td {
-    background-color: #114224;
+    background-color: #638976;
 }
 
 .formulatablesmall {
@@ -268,8 +247,8 @@ table, td, th {
 }
 
 .bar {
-	background-color: #b88e2d;
-	height: 1px;
+	background-color: #000000;
+	height: 16px;
     width: 100%;
     margin-bottom: 32px;
 }
